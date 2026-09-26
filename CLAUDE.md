@@ -54,7 +54,11 @@ If an implementation conflicts with these, change the implementation, not the co
 - Reference numbers: store `HMAC(REF_HMAC_KEY, normalized)` for matching + last 4 for display.
 - Gemini receives only the letter image + fixed prompt. The explanation call receives the validated facts JSON with
   identifiers removed, not the image. ElevenLabs receives only the sanitized explanation (no names, addresses, reference
-  numbers, internal IDs). Use a paid-tier Gemini key (free-tier data may be used for product improvement).
+  numbers, internal IDs).
+- Gemini tier: the hackathon uses the **free tier**, whose inputs may be used by Google for product improvement.
+  So only synthetic letters may be sent to Gemini: never a real letter (including a judge's). Real user data
+  requires a paid-tier key. Free-tier rate limits are low, so test against `demo/fixtures/` and keep the cached-reading
+  fallback working.
 - Case context sent to any AI: none. Case comparison is deterministic code.
 - Letter images auto-expire (`delete_after`, default 30 days) and are deletable by the user.
 
