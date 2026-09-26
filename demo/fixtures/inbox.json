@@ -1,0 +1,68 @@
+{
+  "cases": [
+    {
+      "id": "00000000-0000-4000-8000-0000000000cc",
+      "agencyId": "CRA",
+      "processId": "CRA_OBJECTION",
+      "stageId": "OBJECTION_WINDOW_OPEN",
+      "title": "CRA: 2023 reassessment",
+      "program": "Income tax",
+      "period": "2023",
+      "referenceLast4": "2210",
+      "status": "ACTION_REQUIRED",
+      "nextDeadline": "2026-10-08",
+      "letterCount": 1,
+      "createdAt": "2026-09-27T09:00:00.000Z",
+      "updatedAt": "2026-09-27T09:00:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000000ca",
+      "agencyId": "CRA",
+      "processId": "CRA_REVIEW",
+      "stageId": "DOCUMENTS_REQUESTED",
+      "title": "CRA: Canada Child Benefit review",
+      "program": "Canada Child Benefit",
+      "period": "2025",
+      "referenceLast4": "4471",
+      "status": "ACTION_REQUIRED",
+      "nextDeadline": "2026-10-14",
+      "letterCount": 1,
+      "createdAt": "2026-09-27T14:00:00.000Z",
+      "updatedAt": "2026-09-27T14:00:00.000Z"
+    }
+  ],
+  "letters": [
+    {
+      "id": "00000000-0000-4000-8000-0000000000e1",
+      "caseId": null,
+      "title": "CRA letter (hard to read)",
+      "status": "LOW_CONFIDENCE",
+      "verdict": "PARTIALLY_VERIFIED",
+      "createdAt": "2026-09-27T14:05:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000000b1",
+      "caseId": null,
+      "title": "\"CRA\" payment demand",
+      "status": "SUCCESS",
+      "verdict": "CONTRADICTIONS_FOUND",
+      "createdAt": "2026-09-27T14:02:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000000a1",
+      "caseId": "00000000-0000-4000-8000-0000000000ca",
+      "title": "CRA Child Benefit: documents requested",
+      "status": "SUCCESS",
+      "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+      "createdAt": "2026-09-27T14:00:00.000Z"
+    },
+    {
+      "id": "00000000-0000-4000-8000-0000000000c1",
+      "caseId": "00000000-0000-4000-8000-0000000000cc",
+      "title": "CRA notice of reassessment (2023)",
+      "status": "SUCCESS",
+      "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+      "createdAt": "2026-09-27T09:00:00.000Z"
+    }
+  ]
+}

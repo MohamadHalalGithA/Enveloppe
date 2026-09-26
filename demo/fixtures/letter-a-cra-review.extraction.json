@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1",
+  "isGovernmentCorrespondence": "yes",
+  "languages": ["en"],
+  "quality": { "legibility": "good", "issues": [] },
+  "agency": { "value": "CRA", "claimedName": "Canada Revenue Agency", "sourceText": "Canada Revenue Agency", "box": [40, 60, 80, 450], "page": 1, "confidence": "high", "needsConfirmation": false },
+  "documentType": { "value": "CRA_REVIEW_DOCUMENT_REQUEST", "rawTitle": "Canada child benefit – We need more information", "sourceText": "Canada child benefit – We need more information", "box": [240, 60, 275, 700], "page": 1, "confidence": "high", "needsConfirmation": false },
+  "issueDate": { "value": "2026-09-14", "sourceText": "September 14, 2026", "box": [120, 650, 145, 940], "page": 1, "confidence": "high", "needsConfirmation": false },
+  "printedDeadlines": [
+    { "value": "2026-10-14", "kind": "respond_by", "relativeDays": null, "sourceText": "Please send the documents by October 14, 2026.", "box": [490, 60, 515, 700], "page": 1, "confidence": "high", "needsConfirmation": false }
+  ],
+  "identifiers": [
+    { "value": "2026-CCB-5831-4471", "kind": "reference_number", "sourceText": "Reference number: 2026-CCB-5831-4471", "box": [160, 600, 185, 940], "page": 1, "confidence": "high", "needsConfirmation": false }
+  ],
+  "taxYear": { "value": 2025, "sourceText": "Benefit year: 2025", "box": [290, 60, 315, 500], "page": 1, "confidence": "high", "needsConfirmation": false },
+  "program": { "value": "Canada Child Benefit", "sourceText": "Canada child benefit", "box": [240, 60, 275, 400], "page": 1, "confidence": "high", "needsConfirmation": false },
+  "phones": [
+    { "value": "1-800-387-1193", "context": "If you have questions, call us", "sourceText": "1-800-387-1193", "box": [640, 60, 665, 420], "page": 1, "confidence": "high", "needsConfirmation": false }
+  ],
+  "urls": [
+    { "value": "canada.ca/cra-submit-documents", "context": "Send your documents online", "sourceText": "canada.ca/cra-submit-documents", "box": [560, 60, 585, 620], "page": 1, "confidence": "high", "needsConfirmation": false }
+  ],
+  "emails": [],
+  "qrCodes": [],
+  "paymentRequests": [],
+  "requiredActions": [
+    { "value": "Send documents proving residency", "actionType": "submit_documents", "sourceText": "Please send the documents by October 14, 2026.", "box": [490, 60, 515, 700], "page": 1, "confidence": "high", "needsConfirmation": false }
+  ],
+  "requestedDocuments": [
+    { "value": "Lease or rental agreement", "sourceText": "a copy of your lease or rental agreement", "box": [390, 80, 410, 800], "page": 1, "confidence": "high", "needsConfirmation": false },
+    { "value": "Letter from school or daycare", "sourceText": "a letter from your child's school or daycare", "box": [420, 80, 440, 800], "page": 1, "confidence": "high", "needsConfirmation": false }
+  ],
+  "formNumbers": [],
+  "riskSignals": [],
+  "embeddedInstructions": [],
+  "uncertainFields": []
+}

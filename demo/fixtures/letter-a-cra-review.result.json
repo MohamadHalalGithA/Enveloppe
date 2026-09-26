@@ -1,0 +1,148 @@
+{
+  "id": "00000000-0000-4000-8000-0000000000a1",
+  "status": "SUCCESS",
+  "createdAt": "2026-09-27T14:00:00.000Z",
+  "cached": true,
+  "image": null,
+  "whatIsThis": {
+    "agencyLabel": "Canada Revenue Agency (CRA)",
+    "docTypeLabel": "Request for documents: Canada Child Benefit review",
+    "explanation": {
+      "en": "The CRA is reviewing your Canada Child Benefit and wants proof that you and your children live in Canada, for example a lease or a letter from a school or daycare. Send the documents through CRA's official Submit Documents service by October 14, 2026."
+    }
+  },
+  "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+  "items": [
+    {
+      "id": "a-agency",
+      "claimType": "agency",
+      "letterValue": "Canada Revenue Agency",
+      "status": "VERIFIED_MATCH",
+      "strength": "SOFT",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "CRA is an agency we track. Anyone can print an agency name, so this alone proves little.",
+      "sourceId": "src-cra-contact",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/contact-information.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": { "boxes": [[40, 60, 80, 450]], "page": 1, "quote": "Canada Revenue Agency", "lowConfidence": false }
+    },
+    {
+      "id": "a-phone",
+      "claimType": "phone",
+      "letterValue": "1-800-387-1193",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "Matches CRA's published child and family benefits phone line.",
+      "sourceId": "src-cra-contact",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/contact-information.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": { "boxes": [[640, 60, 665, 420]], "page": 1, "quote": "1-800-387-1193", "lowConfidence": false }
+    },
+    {
+      "id": "a-url",
+      "claimType": "url",
+      "letterValue": "canada.ca/cra-submit-documents",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "DOMAIN_ANALYSIS",
+      "reason": "canada.ca is an official Government of Canada domain.",
+      "sourceId": "src-gc-domains",
+      "sourceUrl": "https://www.canada.ca/en/government/system/digital-government.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": { "boxes": [[560, 60, 585, 620]], "page": 1, "quote": "canada.ca/cra-submit-documents", "lowConfidence": false }
+    },
+    {
+      "id": "a-reference",
+      "claimType": "reference",
+      "letterValue": "…4471",
+      "status": "UNVERIFIED",
+      "strength": "NONE",
+      "evidenceType": "CASE_FILE",
+      "reason": "This is a new reference number. There's no earlier case to compare it with yet.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": { "boxes": [[160, 600, 185, 940]], "page": 1, "quote": "Reference number: 2026-CCB-5831-4471", "lowConfidence": false }
+    }
+  ],
+  "officialContact": {
+    "registryId": "tel-cra-benefits",
+    "display": "1-800-387-1193",
+    "label": "CRA child and family benefits enquiries",
+    "verifiedOn": "2026-09-26"
+  },
+  "deadline": {
+    "asOf": "2026-09-27",
+    "printed": { "date": "2026-10-14", "sourceText": "Please send the documents by October 14, 2026.", "box": [490, 60, 515, 700] },
+    "computed": null,
+    "effective": "2026-10-14",
+    "mismatch": false,
+    "daysRemaining": 17,
+    "clockStartedOn": "2026-09-14",
+    "status": "OK",
+    "note": "CRA set this deadline in the letter. It isn't a legal (statutory) deadline, but missing it can pause or change your benefit."
+  },
+  "process": {
+    "processId": "CRA_REVIEW",
+    "title": "CRA review",
+    "currentStageId": "DOCUMENTS_REQUESTED",
+    "stages": [
+      { "id": "REVIEW_STARTED", "label": "CRA started a review", "state": "done" },
+      { "id": "DOCUMENTS_REQUESTED", "label": "Documents requested", "state": "current" },
+      { "id": "DOCUMENTS_SUBMITTED", "label": "You send documents", "state": "todo" },
+      { "id": "UNDER_REVIEW", "label": "CRA reviews them", "state": "todo", "expectNext": "A letter with the result, or a request for more information. CRA doesn't guarantee a timeline." },
+      { "id": "OUTCOME", "label": "Outcome received", "state": "todo" }
+    ],
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview.html"
+  },
+  "responsePack": {
+    "summary": "Send proof that you and your children live in Canada by October 14, 2026.",
+    "action": { "type": "submit_documents", "label": "Send the requested documents" },
+    "deadline": {
+      "asOf": "2026-09-27",
+      "printed": { "date": "2026-10-14", "sourceText": "Please send the documents by October 14, 2026.", "box": [490, 60, 515, 700] },
+      "computed": null,
+      "effective": "2026-10-14",
+      "mismatch": false,
+      "daysRemaining": 17,
+      "clockStartedOn": "2026-09-14",
+      "status": "OK",
+      "note": "CRA set this deadline in the letter. It isn't a legal (statutory) deadline, but missing it can pause or change your benefit."
+    },
+    "requestedDocuments": [
+      { "label": "Lease, rental agreement, or property tax bill showing your address", "sourceText": "a copy of your lease or rental agreement", "checked": false },
+      { "label": "Letter from your child's school or daycare", "sourceText": "a letter from your child's school or daycare", "checked": false }
+    ],
+    "officialChannel": {
+      "registryId": "chan-cra-submit-docs",
+      "name": "CRA Submit documents online",
+      "url": "https://www.canada.ca/en/revenue-agency/services/e-services/submit-documents-online.html",
+      "kind": "portal",
+      "verifiedOn": "2026-09-26"
+    },
+    "officialContact": {
+      "registryId": "tel-cra-benefits",
+      "display": "1-800-387-1193",
+      "label": "CRA child and family benefits enquiries",
+      "verifiedOn": "2026-09-26"
+    },
+    "form": null,
+    "steps": [
+      "Gather the documents in the checklist.",
+      "Open CRA's Submit documents online service (link above). Don't use links sent by email or text.",
+      "Enter the reference number printed on your letter when asked.",
+      "Upload the documents and submit.",
+      "Save the confirmation number here so Enveloppe can track your case."
+    ],
+    "caution": null,
+    "completion": { "status": "OPEN", "proof": null }
+  },
+  "caseMatch": { "decision": "NEW", "candidates": [], "conflicts": [], "linkedCaseId": null },
+  "needsConfirmation": [],
+  "degraded": []
+}

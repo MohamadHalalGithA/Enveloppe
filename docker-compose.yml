@@ -1,0 +1,19 @@
+# Local development database. Bound to localhost only; never expose Postgres publicly.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: enveloppe
+      POSTGRES_PASSWORD: enveloppe
+      POSTGRES_DB: enveloppe
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U enveloppe"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  pgdata:

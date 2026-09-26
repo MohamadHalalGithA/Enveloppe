@@ -1,0 +1,87 @@
+{
+  "id": "00000000-0000-4000-8000-0000000000e1",
+  "status": "LOW_CONFIDENCE",
+  "createdAt": "2026-09-27T14:05:00.000Z",
+  "cached": true,
+  "image": null,
+  "whatIsThis": {
+    "agencyLabel": "Canada Revenue Agency (CRA)",
+    "docTypeLabel": "Probably a request for documents (the photo is hard to read)",
+    "explanation": {
+      "en": "This looks like a CRA request for documents, but glare covers part of the photo. Please check the date and reference number against your paper letter, or retake the photo flat and in good light."
+    }
+  },
+  "verdict": "PARTIALLY_VERIFIED",
+  "items": [
+    {
+      "id": "e-phone",
+      "claimType": "phone",
+      "letterValue": "1-800-387-1193",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "Matches CRA's published child and family benefits phone line.",
+      "sourceId": "src-cra-contact",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/contact-information.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": { "boxes": [[650, 90, 680, 450]], "page": 1, "quote": "1-800-387-1193", "lowConfidence": false }
+    },
+    {
+      "id": "e-reference",
+      "claimType": "reference",
+      "letterValue": "…44?1",
+      "status": "NEEDS_USER_CONFIRMATION",
+      "strength": "NONE",
+      "evidenceType": "CASE_FILE",
+      "reason": "Part of the reference number is hidden by glare. Please type it from your letter so we can compare it with your cases.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": { "boxes": [[170, 580, 200, 950]], "page": 1, "quote": "Reference number: 2026-CCB-58?1-44?1", "lowConfidence": true }
+    },
+    {
+      "id": "e-agency",
+      "claimType": "agency",
+      "letterValue": "Canada Revenue Agency",
+      "status": "VERIFIED_MATCH",
+      "strength": "SOFT",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "CRA is an agency we track. Anyone can print an agency name, so this alone proves little.",
+      "sourceId": "src-cra-contact",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/contact-information.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": { "boxes": [[50, 80, 90, 470]], "page": 1, "quote": "Canada Revenue Agency", "lowConfidence": false }
+    }
+  ],
+  "officialContact": {
+    "registryId": "tel-cra-benefits",
+    "display": "1-800-387-1193",
+    "label": "CRA child and family benefits enquiries",
+    "verifiedOn": "2026-09-26"
+  },
+  "deadline": {
+    "asOf": "2026-09-27",
+    "printed": null,
+    "computed": null,
+    "effective": null,
+    "mismatch": false,
+    "daysRemaining": null,
+    "clockStartedOn": null,
+    "status": "UNKNOWN",
+    "note": "We couldn't read the date clearly. Confirm the date printed on your letter to calculate the deadline."
+  },
+  "process": null,
+  "responsePack": null,
+  "caseMatch": { "decision": "ASK", "candidates": [
+    { "caseId": "00000000-0000-4000-8000-0000000000ca", "title": "CRA: Canada Child Benefit review", "score": 50, "reasons": ["Same agency", "Same program (Canada Child Benefit)"] }
+  ], "conflicts": [], "linkedCaseId": null },
+  "needsConfirmation": [
+    { "path": "issueDate", "label": "Date printed on the letter", "value": null },
+    { "path": "printedDeadlines[0]", "label": "Deadline printed on the letter", "value": "October 1?, 2026" },
+    { "path": "identifiers[0]", "label": "Reference number", "value": "2026-CCB-58?1-44?1" }
+  ],
+  "degraded": ["EXPLANATION"]
+}
