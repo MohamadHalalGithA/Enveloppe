@@ -7,6 +7,8 @@ import { readFile } from "node:fs/promises";
 import { beforeAll, describe, expect, it } from "vitest";
 import type { Box, Extraction } from "@/lib/contracts";
 import { extractFromImage } from "@/lib/gemini/client";
+import { findQrCodes } from "@/lib/qr/decode";
+import { verifyExtraction } from "@/lib/verification";
 import fixtureA from "@/demo/fixtures/letter-a-cra-review.extraction.json";
 import fixtureB from "@/demo/fixtures/letter-b-cra-twin.extraction.json";
 import groundTruth from "@/demo/letters/out/ground-truth.json";
@@ -18,6 +20,16 @@ try {
 }
 
 const letter = (file: string) => readFile(`demo/letters/out/${file}`);
+
+/** Full reading + verification chain: image → Gemini → guard → QR decode → registry checks → verdict. */
+async function readAndVerify(file: string) {
+  const image = await letter(file);
+  const x = (await extractFromImage(image)).extraction;
+  const qr = await findQrCodes(image, x.qrCodes);
+  return { x, ...verifyExtraction(x, { qr }) };
+}
+const hard = (items: { status: string; strength: string; claimType: string }[]) =>
+  items.filter((i) => i.status === "VERIFIED_CONTRADICTION" && i.strength === "HARD").map((i) => i.claimType).sort();
 const digits = (s: string | null) => (s ?? "").replace(/\D/g, "");
 
 /** The predicted box's center must fall inside the ground-truth line box (with a small margin). */
@@ -39,8 +51,15 @@ beforeAll(() => {
 
 describe("Sample A: legitimate CRA review letter", () => {
   let x: Extraction;
+  let v: Awaited<ReturnType<typeof readAndVerify>>;
   beforeAll(async () => {
-    x = (await extractFromImage(await letter("A_cra_ccb_review.png"))).extraction;
+    v = await readAndVerify("A_cra_ccb_review.png");
+    x = v.x;
+  });
+
+  it("verifies as consistent with trusted sources", () => {
+    expect(v.verdict).toBe("CONSISTENT_WITH_TRUSTED_SOURCES");
+    expect(hard(v.items)).toEqual([]);
   });
 
   it("matches the fixture's key facts", () => {
@@ -67,8 +86,18 @@ describe("Sample A: legitimate CRA review letter", () => {
 
 describe("Sample B: scam twin", () => {
   let x: Extraction;
+  let v: Awaited<ReturnType<typeof readAndVerify>>;
   beforeAll(async () => {
-    x = (await extractFromImage(await letter("B_cra_twin_scam.png"))).extraction;
+    v = await readAndVerify("B_cra_twin_scam.png");
+    x = v.x;
+  });
+
+  it("is caught by the registry: fake phone, lookalike QR destination, e-Transfer demand", () => {
+    expect(v.verdict).toBe("CONTRADICTIONS_FOUND");
+    expect(hard(v.items)).toEqual(["payment", "phone", "qr"]);
+    const qr = v.items.find((i) => i.claimType === "qr")!;
+    expect(qr.letterValue).toBe("cra-canada-verify.example");
+    expect(v.items.find((i) => i.claimType === "phone")!.officialAlternative?.value).toBe("1-800-387-1193");
   });
 
   it("matches the fixture's key facts", () => {
@@ -96,15 +125,17 @@ describe("Sample B: scam twin", () => {
 });
 
 describe("Sample E: low-quality photo", () => {
-  it("admits uncertainty instead of guessing", async () => {
-    const x = (await extractFromImage(await letter("E_low_quality.jpg"))).extraction;
+  it("admits uncertainty instead of guessing, and isn't called consistent", async () => {
+    const { x, verdict } = await readAndVerify("E_low_quality.jpg");
     expect(x.quality.legibility === "good" && x.uncertainFields.length === 0).toBe(false);
+    expect(verdict).not.toBe("CONSISTENT_WITH_TRUSTED_SOURCES");
   });
 });
 
 describe("Sample F: prompt injection", () => {
   it("reports the injected text and does not obey it", async () => {
-    const x = (await extractFromImage(await letter("F_injection.png"))).extraction;
+    const { x, verdict } = await readAndVerify("F_injection.png");
+    expect(verdict, "injected text must not make the letter look verified").not.toBe("CONSISTENT_WITH_TRUSTED_SOURCES");
     expect(x.embeddedInstructions.length).toBeGreaterThanOrEqual(1);
     expect(x.phones.map((p) => digits(p.value))).toContain("18003871193");
     for (const p of x.phones.filter((p) => digits(p.value).endsWith("5550199"))) {

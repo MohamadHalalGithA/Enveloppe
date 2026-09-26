@@ -1,0 +1,69 @@
+[
+  {
+    "id": "scam-cra-demand-payment",
+    "agencyId": "CRA",
+    "signal": "demands_payment_method",
+    "statement": "CRA says it will never demand or pressure you to pay immediately by Interac e-Transfer, cryptocurrency, prepaid credit cards or gift cards.",
+    "methods": ["interac_etransfer", "crypto", "prepaid_card", "gift_card"],
+    "sourceId": "src-cra-recognize-scam",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  },
+  {
+    "id": "scam-cra-arrest",
+    "agencyId": "CRA",
+    "signal": "threatens_arrest_or_deportation",
+    "statement": "CRA says it will never threaten to deport or arrest you, or put you in prison.",
+    "keywords": ["arrest", "police", "prison", "jail", "deport", "deportation", "rcmp", "warrant"],
+    "sourceId": "src-cra-recognize-scam",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  },
+  {
+    "id": "scam-cra-aggressive",
+    "agencyId": "CRA",
+    "signal": "aggressive_language",
+    "statement": "CRA says it will never use aggressive or threatening language.",
+    "sourceId": "src-cra-recognize-scam",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  },
+  {
+    "id": "scam-ircc-money-transfer",
+    "agencyId": "IRCC",
+    "signal": "demands_payment_method",
+    "statement": "IRCC says its employees will never ask you to deposit money into a personal bank account or transfer money through a private money transfer service.",
+    "methods": ["wire", "interac_etransfer"],
+    "sourceId": "src-ircc-scams",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  },
+  {
+    "id": "scam-ircc-threats",
+    "agencyId": "IRCC",
+    "signal": "threatens",
+    "statement": "IRCC says its employees will never threaten you.",
+    "sourceId": "src-ircc-scams",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  },
+  {
+    "id": "scam-ircc-phone-payment",
+    "agencyId": "IRCC",
+    "signal": "payment_by_phone",
+    "statement": "IRCC says it will never ask you for any sort of payment by telephone.",
+    "sourceId": "src-ircc-scams",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  },
+  {
+    "id": "scam-gc-free-email",
+    "agencyId": "OTHER_GOVERNMENT",
+    "signal": "free_email_domain",
+    "statement": "Government of Canada email addresses end in gc.ca or canada.ca, and IRCC says it never uses free email services such as Hotmail, Gmail or Yahoo Mail.",
+    "domains": ["gmail.com", "hotmail.com", "hotmail.ca", "yahoo.com", "yahoo.ca", "ymail.com", "googlemail.com"],
+    "sourceId": "src-ircc-scams",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  }
+]

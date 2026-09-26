@@ -1,0 +1,42 @@
+[
+  {
+    "id": "agency-cra",
+    "code": "CRA",
+    "name": "Canada Revenue Agency",
+    "shortName": "CRA",
+    "homepage": "https://www.canada.ca/en/revenue-agency.html",
+    "defaultContactId": "tel-cra-individual",
+    "sourceId": "src-cra-home",
+    "verifiedOn": "2026-09-26"
+  },
+  {
+    "id": "agency-ircc",
+    "code": "IRCC",
+    "name": "Immigration, Refugees and Citizenship Canada",
+    "shortName": "IRCC",
+    "homepage": "https://www.canada.ca/en/immigration-refugees-citizenship.html",
+    "defaultContactId": "tel-ircc-client-support",
+    "sourceId": "src-ircc-home",
+    "verifiedOn": "2026-09-26"
+  },
+  {
+    "id": "agency-serviceontario",
+    "code": "SERVICEONTARIO",
+    "name": "ServiceOntario",
+    "shortName": "ServiceOntario",
+    "homepage": "https://www.ontario.ca/page/serviceontario",
+    "defaultContactId": "tel-serviceontario",
+    "sourceId": "src-serviceontario-locations",
+    "verifiedOn": "2026-09-26"
+  },
+  {
+    "id": "agency-ottawa",
+    "code": "CITY_OF_OTTAWA",
+    "name": "City of Ottawa",
+    "shortName": "City of Ottawa",
+    "homepage": "https://ottawa.ca/en",
+    "defaultContactId": "tel-ottawa-main",
+    "sourceId": "src-ottawa-311",
+    "verifiedOn": "2026-09-26"
+  }
+]

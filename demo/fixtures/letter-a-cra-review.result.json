@@ -49,8 +49,8 @@
       "strength": "STRONG",
       "evidenceType": "DOMAIN_ANALYSIS",
       "reason": "canada.ca is an official Government of Canada domain.",
-      "sourceId": "src-gc-domains",
-      "sourceUrl": "https://www.canada.ca/en/government/system/digital-government.html",
+      "sourceId": "src-ircc-scams",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/protect-fraud/internet-email-telephone.html",
       "verifiedOn": "2026-09-26",
       "officialAlternative": null,
       "highlight": { "boxes": [[560, 60, 585, 620]], "page": 1, "quote": "canada.ca/cra-submit-documents", "lowConfidence": false }

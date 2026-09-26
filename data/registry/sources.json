@@ -1,0 +1,122 @@
+[
+  {
+    "id": "src-cra-home",
+    "title": "Canada Revenue Agency (CRA)",
+    "url": "https://www.canada.ca/en/revenue-agency.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-02-10"
+  },
+  {
+    "id": "src-cra-contact",
+    "title": "Contact the Canada Revenue Agency",
+    "url": "https://www.canada.ca/en/revenue-agency/corporate/contact-information.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-09-23"
+  },
+  {
+    "id": "src-cra-recognize-scam",
+    "title": "Recognize a scam (CRA)",
+    "url": "https://www.canada.ca/en/revenue-agency/corporate/scams-fraud/recognize-scam.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-08-06"
+  },
+  {
+    "id": "src-cra-make-payment",
+    "title": "Make a payment to the CRA (individuals)",
+    "url": "https://www.canada.ca/en/revenue-agency/services/payments/payments-cra/individual-payments/make-payment.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-09-14"
+  },
+  {
+    "id": "src-cra-submit-docs",
+    "title": "Submit documents online (CRA)",
+    "url": "https://www.canada.ca/en/revenue-agency/services/e-services/submit-documents-online.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-09-18"
+  },
+  {
+    "id": "src-cra-t400a",
+    "title": "T400A Notice of Objection – Income Tax Act",
+    "url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/t400a.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-04-02"
+  },
+  {
+    "id": "src-ircc-home",
+    "title": "Immigration, Refugees and Citizenship Canada",
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship.html",
+    "publisher": "Immigration, Refugees and Citizenship Canada",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-08-12"
+  },
+  {
+    "id": "src-ircc-contact",
+    "title": "Contact IRCC",
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/contact-ircc.html",
+    "publisher": "Immigration, Refugees and Citizenship Canada",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-06-01"
+  },
+  {
+    "id": "src-ircc-scams",
+    "title": "Immigration scams: internet, email and telephone",
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/protect-fraud/internet-email-telephone.html",
+    "publisher": "Immigration, Refugees and Citizenship Canada",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-09-01"
+  },
+  {
+    "id": "src-ircc-biometrics-where",
+    "title": "Biometrics: where to give your fingerprints and photo",
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/biometrics/where-to-give.html",
+    "publisher": "Immigration, Refugees and Citizenship Canada",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-08-24"
+  },
+  {
+    "id": "src-serviceontario-locations",
+    "title": "ServiceOntario: locations and contact",
+    "url": "https://www.ontario.ca/locations/serviceontario/",
+    "publisher": "Government of Ontario",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (raw page HTML)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": null
+  },
+  {
+    "id": "src-ottawa-311",
+    "title": "City of Ottawa: services by phone, e-mail and in person",
+    "url": "https://ottawa.ca/en/3-1-1/services-phone-e-mail-and-person",
+    "publisher": "City of Ottawa",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (search index only; the page blocks automated fetching and needs a human check)",
+    "checkMethod": "SEARCH_INDEX",
+    "pageModified": null
+  }
+]

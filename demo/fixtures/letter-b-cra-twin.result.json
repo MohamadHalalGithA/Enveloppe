@@ -49,10 +49,10 @@
       "strength": "HARD",
       "evidenceType": "DOMAIN_ANALYSIS",
       "reason": "The QR code leads outside official government domains to a site whose name imitates \"cra\" and \"canada\".",
-      "sourceId": "src-gc-domains",
-      "sourceUrl": "https://www.canada.ca/en/government/system/digital-government.html",
+      "sourceId": "src-ircc-scams",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/protect-fraud/internet-email-telephone.html",
       "verifiedOn": "2026-09-26",
-      "officialAlternative": { "label": "Official CRA website", "value": "canada.ca/revenue-agency", "registryId": "dom-canada-ca" },
+      "officialAlternative": { "label": "Official CRA website", "value": "canada.ca/en/revenue-agency.html", "registryId": "agency-cra" },
       "highlight": { "boxes": [[700, 700, 860, 900]], "page": 1, "quote": "Scan to verify your identity", "lowConfidence": false }
     },
     {
@@ -62,9 +62,9 @@
       "status": "VERIFIED_CONTRADICTION",
       "strength": "HARD",
       "evidenceType": "TRUST_REGISTRY",
-      "reason": "CRA says it will never demand payment by Interac e-Transfer.",
-      "sourceId": "src-cra-scams",
-      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/scams-fraud.html",
+      "reason": "CRA says it will never demand or pressure you to pay immediately by Interac e-Transfer, cryptocurrency, prepaid credit cards or gift cards.",
+      "sourceId": "src-cra-recognize-scam",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/scams-fraud/recognize-scam.html",
       "verifiedOn": "2026-09-26",
       "officialAlternative": null,
       "highlight": { "boxes": [[400, 60, 450, 940]], "page": 1, "quote": "must be repaid within 48 hours by Interac e-Transfer to avoid legal action", "lowConfidence": false }
@@ -91,8 +91,8 @@
       "strength": "SOFT",
       "evidenceType": "TRUST_REGISTRY",
       "reason": "Extreme urgency and threats are common in impersonation scams.",
-      "sourceId": "src-cra-scams",
-      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/scams-fraud.html",
+      "sourceId": "src-cra-recognize-scam",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/scams-fraud/recognize-scam.html",
       "verifiedOn": "2026-09-26",
       "officialAlternative": null,
       "highlight": { "boxes": [[200, 60, 240, 500], [400, 60, 450, 940]], "page": 1, "quote": "FINAL NOTICE", "lowConfidence": false }

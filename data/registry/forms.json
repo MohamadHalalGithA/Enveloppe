@@ -1,0 +1,13 @@
+[
+  {
+    "id": "form-cra-t400a",
+    "agencyId": "CRA",
+    "code": "T400A",
+    "name": "Notice of Objection – Income Tax Act",
+    "url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/t400a.html",
+    "usedFor": ["CRA_NOTICE_OF_ASSESSMENT", "CRA_NOTICE_OF_REASSESSMENT"],
+    "sourceId": "src-cra-t400a",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  }
+]

@@ -1,0 +1,11 @@
+[
+  { "id": "pay-cra-online-banking", "agencyId": "CRA", "method": "online_banking", "verdict": "ACCEPTED", "sourceId": "src-cra-make-payment", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE" },
+  { "id": "pay-cra-my-payment", "agencyId": "CRA", "method": "debit_my_payment", "verdict": "ACCEPTED", "sourceId": "src-cra-make-payment", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE" },
+  { "id": "pay-cra-pad", "agencyId": "CRA", "method": "pre_authorized_debit", "verdict": "ACCEPTED", "sourceId": "src-cra-make-payment", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE" },
+  { "id": "pay-cra-cheque", "agencyId": "CRA", "method": "cheque", "verdict": "ACCEPTED", "sourceId": "src-cra-make-payment", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE" },
+  { "id": "pay-cra-wire", "agencyId": "CRA", "method": "wire", "verdict": "ACCEPTED", "sourceId": "src-cra-make-payment", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE", "notes": "Wire transfer through a bank or credit union." },
+  { "id": "pay-cra-in-person", "agencyId": "CRA", "method": "in_person", "verdict": "ACCEPTED", "sourceId": "src-cra-make-payment", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE", "notes": "At a bank or credit union counter, or at Canada Post with a customized QR code." },
+  { "id": "pay-cra-credit-card", "agencyId": "CRA", "method": "credit_card_third_party", "verdict": "ACCEPTED_VIA_THIRD_PARTY", "sourceId": "src-cra-make-payment", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE", "notes": "Only through PaySimply or Plastiq; fees apply." },
+  { "id": "pay-cra-etransfer", "agencyId": "CRA", "method": "interac_etransfer", "verdict": "ACCEPTED_VIA_THIRD_PARTY", "sourceId": "src-cra-make-payment", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE", "notes": "Only through PaySimply; fees apply." },
+  { "id": "pay-cra-crypto", "agencyId": "CRA", "method": "crypto", "verdict": "NEVER_USED", "sourceId": "src-cra-recognize-scam", "verifiedOn": "2026-09-26", "evidenceType": "OFFICIAL_PAGE", "notes": "CRA will not provide or accept payments by cryptocurrencies." }
+]

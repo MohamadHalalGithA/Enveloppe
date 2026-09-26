@@ -37,6 +37,9 @@ npm run test:live                                      # live contract tests (re
 | `lib/contracts/` | Shared Zod schemas + types (Extraction, VerificationItem, CaseMatch, DeadlineResult, ProcessView, ResponsePack, LetterResult, …). Change = team review |
 | `demo/fixtures/` | Synthetic letters A (real CRA review), B (scam twin), C (reassessment deadline), E (low confidence) |
 | `lib/mock/fixtures.ts` | Mock data source for the UI until the pipeline is wired |
+| `lib/gemini/` | Letter reading: Gemini client, prompt, schema, Contract Guard |
+| `data/registry/` + `lib/registry/` | Trust Registry: official phones, domains, payment and scam rules, forms, channels, each citing a checked source |
+| `lib/verification/`, `lib/url/`, `lib/qr/` | Deterministic claim verification, URL analysis, server-side QR decoding |
 | `lib/db/` | Drizzle schema + lazy client |
 | `components/`, `app/app/` | Civic Inbox and Analysis Result screens |
 | `tests/` | Vitest |

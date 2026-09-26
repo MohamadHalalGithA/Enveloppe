@@ -1,0 +1,26 @@
+[
+  {
+    "id": "chan-cra-submit-docs",
+    "agencyId": "CRA",
+    "name": "CRA Submit documents online",
+    "url": "https://www.canada.ca/en/revenue-agency/services/e-services/submit-documents-online.html",
+    "forDocTypes": ["CRA_REVIEW_DOCUMENT_REQUEST"],
+    "kind": "portal",
+    "sourceId": "src-cra-submit-docs",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE",
+    "notes": "Sign in to your CRA account; enter the case or reference number from the letter if CRA asked for the documents."
+  },
+  {
+    "id": "chan-ircc-biometrics",
+    "agencyId": "IRCC",
+    "name": "Find a biometrics collection point and book an appointment",
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/biometrics/where-to-give.html",
+    "forDocTypes": ["IRCC_BIOMETRICS_INSTRUCTION"],
+    "kind": "in_person",
+    "sourceId": "src-ircc-biometrics-where",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE",
+    "notes": "Bring the biometric instruction letter and a valid passport."
+  }
+]

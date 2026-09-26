@@ -1,0 +1,73 @@
+[
+  {
+    "id": "dom-canada-ca",
+    "agencyId": "OTHER_GOVERNMENT",
+    "domain": "canada.ca",
+    "matchSubdomains": true,
+    "role": "GOVERNMENT",
+    "ownerLabel": "Government of Canada",
+    "sourceId": "src-ircc-scams",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE",
+    "notes": "IRCC's scam page states Government of Canada email accounts end in gc.ca or canada.ca. CRA and IRCC pages are served from canada.ca."
+  },
+  {
+    "id": "dom-gc-ca",
+    "agencyId": "OTHER_GOVERNMENT",
+    "domain": "gc.ca",
+    "matchSubdomains": true,
+    "role": "GOVERNMENT",
+    "ownerLabel": "Government of Canada",
+    "sourceId": "src-ircc-scams",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE",
+    "notes": "Covers cra-arc.gc.ca, which CRA's own payment page links to."
+  },
+  {
+    "id": "dom-ontario-ca",
+    "agencyId": "SERVICEONTARIO",
+    "domain": "ontario.ca",
+    "matchSubdomains": true,
+    "role": "GOVERNMENT",
+    "ownerLabel": "Government of Ontario",
+    "sourceId": "src-serviceontario-locations",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "TEAM_CURATED_ALLOWLIST",
+    "notes": "ServiceOntario's contact and booking pages are served from ontario.ca and services.ontario.ca."
+  },
+  {
+    "id": "dom-ottawa-ca",
+    "agencyId": "CITY_OF_OTTAWA",
+    "domain": "ottawa.ca",
+    "matchSubdomains": true,
+    "role": "GOVERNMENT",
+    "ownerLabel": "City of Ottawa",
+    "sourceId": "src-ottawa-311",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "TEAM_CURATED_ALLOWLIST"
+  },
+  {
+    "id": "dom-paysimply-ca",
+    "agencyId": "CRA",
+    "domain": "paysimply.ca",
+    "matchSubdomains": true,
+    "role": "AUTHORIZED_THIRD_PARTY",
+    "ownerLabel": "PaySimply",
+    "purpose": "a third-party payment service that CRA lists for paying by credit card or Interac e-Transfer (the provider charges fees)",
+    "sourceId": "src-cra-make-payment",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  },
+  {
+    "id": "dom-plastiq-com",
+    "agencyId": "CRA",
+    "domain": "plastiq.com",
+    "matchSubdomains": true,
+    "role": "AUTHORIZED_THIRD_PARTY",
+    "ownerLabel": "Plastiq",
+    "purpose": "a third-party payment service that CRA lists for paying by credit card (the provider charges fees)",
+    "sourceId": "src-cra-make-payment",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE"
+  }
+]

@@ -87,3 +87,10 @@ boundary · `@google/genai` · ElevenLabs REST · `@auth0/nextjs-auth0` · `jsqr
   `demo/letters/out/`; `npm run extract -- <image>` reads one letter live; `npm run test:live` runs the live contract
   tests (real API calls, costs a few cents). The response schema is derived from `ExtractionZ`; Gemini rejects
   schemas above a constraint-complexity limit with a bare 400, so keep numeric bounds out of it (see schema.ts).
+- Trust Registry: `data/registry/*.json`, loaded and integrity-checked by `lib/registry/load.ts` (unique ids, sources
+  exist, sources on official domains, no duplicate numbers/domains). To add an entry: open the official page, copy the
+  value exactly, cite a `sources.json` entry with today's `verifiedOn`, the page's own `pageModified`, and an honest
+  `checkMethod`. Never add a value you haven't seen on the source page. canada.ca blocks curl from dev machines; use a
+  browser or WebFetch. `src-ottawa-311` is SEARCH_INDEX-only and still needs a human to open the page.
+- Verification: `lib/verification` (engine + verdict), `lib/url/analyze.ts` (pure, never fetches), `lib/qr/decode.ts`
+  (server-side jsQR, never opens links), `lib/phone.ts`. Case-file items (reference/period) are added in the case module.
