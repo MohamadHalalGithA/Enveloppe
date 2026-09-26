@@ -55,10 +55,9 @@ If an implementation conflicts with these, change the implementation, not the co
 - Gemini receives only the letter image + fixed prompt. The explanation call receives the validated facts JSON with
   identifiers removed, not the image. ElevenLabs receives only the sanitized explanation (no names, addresses, reference
   numbers, internal IDs).
-- Gemini tier: the hackathon uses the **free tier**, whose inputs may be used by Google for product improvement.
-  So only synthetic letters may be sent to Gemini: never a real letter (including a judge's). Real user data
-  requires a paid-tier key. Free-tier rate limits are low, so test against `demo/fixtures/` and keep the cached-reading
-  fallback working.
+- Gemini tier: the key is on a **paid** plan (paid-tier inputs aren't used for product improvement). Still, during the
+  hackathon only synthetic letters are sent to Gemini: never a real letter (including a judge's). Credit is prepaid
+  and limited, so test against `demo/fixtures/` first and keep the cached-reading fallback working.
 - Case context sent to any AI: none. Case comparison is deterministic code.
 - Letter images auto-expire (`delete_after`, default 30 days) and are deletable by the user.
 
@@ -84,3 +83,7 @@ boundary · `@google/genai` · ElevenLabs REST · `@auth0/nextjs-auth0` · `jsqr
 - Contracts: `lib/contracts/` (Zod + types). Fixtures: `demo/fixtures/` (parsed through contracts in tests).
 - UI reads mock data via `lib/mock/fixtures.ts` until the pipeline and DB are wired. Swap that file, not the components.
 - Commands: `npm run dev` · `npm run check` (typecheck, lint, test, build) · `npm run db:up` · `npm run db:push`.
+- Gemini: `lib/gemini/` (client → extract → guard). `npm run demo:letters` renders synthetic letters to
+  `demo/letters/out/`; `npm run extract -- <image>` reads one letter live; `npm run test:live` runs the live contract
+  tests (real API calls, costs a few cents). The response schema is derived from `ExtractionZ`; Gemini rejects
+  schemas above a constraint-complexity limit with a bare 400, so keep numeric bounds out of it (see schema.ts).

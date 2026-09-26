@@ -22,6 +22,14 @@ npm run db:push                 # apply lib/db/schema.ts
 
 Checks: `npm run check` runs typecheck, lint, tests and build.
 
+Gemini (needs `GEMINI_API_KEY` in `.env.local`; synthetic letters only):
+
+```bash
+npm run demo:letters                                   # render samples A–F to demo/letters/out/
+npm run extract -- demo/letters/out/A_cra_ccb_review.png   # read one letter live, print the Extraction
+npm run test:live                                      # live contract tests (real API calls)
+```
+
 ## Layout
 
 | Path | What |
