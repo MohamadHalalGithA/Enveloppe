@@ -103,6 +103,9 @@ boundary · `@google/genai` · ElevenLabs REST · `@auth0/nextjs-auth0` · `jsqr
 - Database: `lib/db/client.ts` → `DATABASE_URL=pglite:./.data/enveloppe` (dev, in-process Postgres, no Docker) or
   `postgres://…` (prod). Migrations: edit `lib/db/schema.ts`, then `npx drizzle-kit generate`; applied on first connect.
   All data access goes through `lib/db/repo.ts`, whose functions take the user id first and scope every query.
+  Never open one PGlite folder twice: two instances corrupt it beyond repair. `client.ts` keeps one per process on
+  globalThis (hot reloads) and a `<folder>.lock` with the owner's pid (other processes: stop `npm run dev` before
+  `demo:reset`). A hard kill of the single owner is safe (Postgres recovers).
 - Auth: `proxy.ts` (Next 16 middleware) mounts `/auth/*`, redirects anonymous `/app/*` to login, 401s anonymous `/api/*`.
   Handlers still call `requireUser()` (`lib/auth/requireUser.ts`). Scope is `openid profile` (no email, no refresh tokens).
 - Pipeline + API: `lib/pipeline/analyze.ts` (stored image → injected reader → QR → verification → case → saved result;
