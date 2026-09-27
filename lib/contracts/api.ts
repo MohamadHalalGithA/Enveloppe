@@ -111,6 +111,19 @@ export const SubmissionProofZ = z
   .strict();
 export type SubmissionProof = z.infer<typeof SubmissionProofZ>;
 
+/** GET /api/letters/:id: status always, the full result once analyzed. */
+export const LetterEnvelopeZ = z.object({
+  id: z.uuid(),
+  status: LetterStatusZ,
+  result: LetterResultZ.nullable(),
+  error: z.object({ code: z.string(), message: z.string() }).nullable(),
+});
+export type LetterEnvelope = z.infer<typeof LetterEnvelopeZ>;
+
+/** POST /api/letters response. */
+export const UploadResultZ = z.object({ letterId: z.uuid(), status: LetterStatusZ, existing: z.boolean() });
+export type UploadResult = z.infer<typeof UploadResultZ>;
+
 export const ApiErrorZ = z.object({
   error: z.object({ code: z.string(), message: z.string() }),
 });

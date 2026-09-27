@@ -8,18 +8,18 @@
  *
  * Usage: npm run demo:build [-- --refresh]
  */
-import { createHash } from "node:crypto";
 import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import { ExtractionZ, type Extraction } from "@/lib/contracts";
 import { resolveUser } from "@/lib/auth/resolve";
 import { loadLetterResult } from "@/lib/cases/result";
-import { decideCase, fileAnalyzedLetter, getInbox } from "@/lib/cases/service";
+import { decideCase, getInbox } from "@/lib/cases/service";
 import { openPglite } from "@/lib/db/client";
-import { createLetter } from "@/lib/db/repo";
+import { createLetter, storeLetterImage } from "@/lib/db/repo";
 import { extractFromImage } from "@/lib/gemini/client";
-import { findQrCodes } from "@/lib/qr/decode";
+import { analyzeLetter } from "@/lib/pipeline/analyze";
+import { sanitizeUpload } from "@/lib/upload/sanitize";
 
 try {
   process.loadEnvFile(".env.local");
@@ -78,12 +78,18 @@ async function main() {
     await copyFile(path.join(LETTERS, step.file), path.join(PUBLIC, step.file));
 
     const { extraction, modelId, cachedAt } = await reading(step.id, image);
-    const qr = await findQrCodes(image, extraction.qrCodes);
-    const { id: letterId } = await createLetter(db, user.id, createHash("sha256").update(image).digest("hex"));
-    const filed = await fileAnalyzedLetter(db, user.id, letterId, { extraction, qr, modelId }, { today: TODAY, refKey });
+    // Same path as POST /api/letters + /analyze: sanitize, store, then the pipeline with the saved reading.
+    const clean = await sanitizeUpload(image);
+    const { id: letterId } = await createLetter(db, user.id, clean.sha256);
+    await storeLetterImage(db, user.id, letterId, clean, new Date(Date.now() + 86_400_000));
+    const analyzed = await analyzeLetter(db, user.id, letterId, {
+      extract: async () => ({ extraction, modelId: modelId ?? "cached-reading" }),
+      today: () => TODAY,
+      refKey,
+    });
     if (step.decide) await decideCase(db, user.id, letterId, { decision: step.decide });
 
-    console.log(`  ${step.id}: ${filed.draft.verdict} · ${filed.draft.caseMatch.decision} · deadline ${filed.draft.deadline.effective ?? "—"}`);
+    console.log(`  ${step.id}: ${analyzed.verdict} · ${analyzed.caseMatch.decision} · deadline ${analyzed.deadline.effective ?? "—"}`);
     built.push({ id: step.id, letterId, image: { url: `/demo-letters/${step.file}`, width: meta.width!, height: meta.height! }, model: modelId, cachedAt });
   }
 

@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq, inArray, max, min } from "drizzle-orm";
+import { and, asc, count, desc, eq, inArray, isNull, lt, max, min, or } from "drizzle-orm";
 import {
   CaseZ,
   type Case,
@@ -10,7 +10,7 @@ import {
 } from "@/lib/contracts";
 import type { CaseCandidate } from "@/lib/cases/threading";
 import { normalizePhone } from "@/lib/phone";
-import { caseEvents, cases, letters, tasks, users, verificationItems } from "./schema";
+import { caseEvents, cases, letterImages, letters, tasks, users, verificationItems } from "./schema";
 import type { Db } from "./types";
 
 /**
@@ -126,6 +126,89 @@ export async function listLetters(db: Db, userId: string, opts: { caseId?: strin
   return rows.map(toSummary);
 }
 
+/** Stores the sanitized image; it expires (and is purged) after the retention period. */
+export async function storeLetterImage(
+  db: Db,
+  userId: string,
+  letterId: string,
+  img: { bytes: Buffer; mime: string; width: number; height: number },
+  deleteAfter: Date,
+): Promise<void> {
+  // Re-uploading the same photo restores an expired image and restarts its retention period.
+  await db
+    .insert(letterImages)
+    .values({ letterId, userId, bytes: img.bytes, mime: img.mime, width: img.width, height: img.height, deleteAfter })
+    .onConflictDoUpdate({
+      target: letterImages.letterId,
+      set: { bytes: img.bytes, mime: img.mime, width: img.width, height: img.height, deleteAfter },
+      setWhere: eq(letterImages.userId, userId),
+    });
+}
+
+/** Image bytes for the owner, or "expired" once past retention, or null if missing / not theirs. */
+export async function getLetterImage(
+  db: Db,
+  userId: string,
+  letterId: string,
+  now: Date,
+): Promise<{ bytes: Buffer; mime: string; width: number; height: number } | "expired" | null> {
+  const [row] = await db
+    .select()
+    .from(letterImages)
+    .where(and(eq(letterImages.letterId, letterId), eq(letterImages.userId, userId)));
+  if (!row) return null;
+  if (row.deleteAfter <= now) return "expired";
+  return { bytes: Buffer.from(row.bytes), mime: row.mime, width: row.width, height: row.height };
+}
+
+export async function getLetterImageInfo(db: Db, userId: string, letterId: string, now: Date) {
+  const [row] = await db
+    .select({ width: letterImages.width, height: letterImages.height, deleteAfter: letterImages.deleteAfter })
+    .from(letterImages)
+    .where(and(eq(letterImages.letterId, letterId), eq(letterImages.userId, userId)));
+  return row && row.deleteAfter > now ? { width: row.width, height: row.height } : null;
+}
+
+/** Retention: remove images past their delete_after (maintenance; not scoped to one user by design). */
+export async function purgeExpiredImages(db: Db, now: Date): Promise<number> {
+  const gone = await db.delete(letterImages).where(lt(letterImages.deleteAfter, now)).returning({ id: letterImages.letterId });
+  return gone.length;
+}
+
+/**
+ * Claims a letter for analysis. Succeeds from UPLOADED / FAILED / SERVICE_UNAVAILABLE, or from a PROCESSING
+ * claim older than `staleBefore` (a crashed run). Returns false if another analysis holds it.
+ */
+export async function claimForAnalysis(db: Db, userId: string, letterId: string, now: Date, staleBefore: Date): Promise<boolean> {
+  const claimed = await db
+    .update(letters)
+    .set({ status: "PROCESSING", analysisStartedAt: now, errorCode: null })
+    .where(
+      and(
+        eq(letters.id, letterId),
+        eq(letters.userId, userId),
+        or(
+          inArray(letters.status, ["UPLOADED", "FAILED", "SERVICE_UNAVAILABLE"]),
+          and(eq(letters.status, "PROCESSING"), or(isNull(letters.analysisStartedAt), lt(letters.analysisStartedAt, staleBefore))),
+        ),
+      ),
+    )
+    .returning({ id: letters.id });
+  return claimed.length > 0;
+}
+
+export async function markLetterFailed(db: Db, userId: string, letterId: string, status: "FAILED" | "SERVICE_UNAVAILABLE", errorCode: string) {
+  await updateLetter(db, userId, letterId, { status, errorCode });
+}
+
+export async function deleteLetter(db: Db, userId: string, letterId: string): Promise<boolean> {
+  const gone = await db
+    .delete(letters)
+    .where(and(eq(letters.id, letterId), eq(letters.userId, userId)))
+    .returning({ id: letters.id });
+  return gone.length > 0;
+}
+
 // ---------- cases ----------
 
 export async function getCaseRow(db: Db, userId: string, caseId: string): Promise<CaseRow | null> {
@@ -149,7 +232,9 @@ export async function updateCase(db: Db, userId: string, caseId: string, set: { 
     .where(and(eq(cases.id, caseId), eq(cases.userId, userId)));
 }
 
+/** Deletes the case and the letters filed in it (images, ledger items and tasks cascade). */
 export async function deleteCase(db: Db, userId: string, caseId: string): Promise<boolean> {
+  await db.delete(letters).where(and(eq(letters.caseId, caseId), eq(letters.userId, userId)));
   const deleted = await db.delete(cases).where(and(eq(cases.id, caseId), eq(cases.userId, userId))).returning({ id: cases.id });
   return deleted.length > 0;
 }

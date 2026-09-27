@@ -1,7 +1,7 @@
 {
-  "id": "a96690ff-9b0b-4bbc-9e56-f4ebbb21b2b4",
+  "id": "a495e213-eedd-47e2-822e-7fbb0414a0a6",
   "status": "SUCCESS",
-  "createdAt": "2026-09-27T00:23:40.881Z",
+  "createdAt": "2026-09-27T00:38:02.307Z",
   "cached": true,
   "image": {
     "url": "/demo-letters/D_ircc_biometrics.png",
@@ -18,7 +18,7 @@
   "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
   "items": [
     {
-      "id": "5745fa1d-37f1-4b12-9e08-9013a17183eb",
+      "id": "4334ca09-e938-437f-b799-9d9e0f365065",
       "claimType": "phone",
       "letterValue": "1-888-242-2100",
       "status": "VERIFIED_MATCH",
@@ -44,7 +44,7 @@
       }
     },
     {
-      "id": "af904e8b-3ffc-4654-b791-27f5eaf16001",
+      "id": "30f449f8-7d33-430d-b9b2-0fceee687d76",
       "claimType": "url",
       "letterValue": "ircc.canada.ca",
       "status": "VERIFIED_MATCH",
@@ -70,7 +70,7 @@
       }
     },
     {
-      "id": "a1d2f154-14c7-4a26-a39f-1e534a84b7b6",
+      "id": "05df09eb-77df-4638-982b-466fb2b39557",
       "claimType": "agency",
       "letterValue": "Immigration, Refugees and Citizenship Canada",
       "status": "VERIFIED_MATCH",
@@ -96,7 +96,7 @@
       }
     },
     {
-      "id": "ec2bc49d-f58a-45b7-b245-55ce4b6323b0",
+      "id": "2d52acb9-1b9e-40c9-b5de-c7c2edd752ad",
       "claimType": "reference",
       "letterValue": "…3456",
       "status": "UNVERIFIED",
@@ -270,10 +270,10 @@
     "decision": "NEW",
     "candidates": [],
     "conflicts": [],
-    "linkedCaseId": "a6755f77-c04f-4e96-a976-ef965c59c200"
+    "linkedCaseId": "0aea0f20-6b04-43e9-8137-d5c2debd8abb"
   },
   "filedIn": {
-    "caseId": "a6755f77-c04f-4e96-a976-ef965c59c200",
+    "caseId": "0aea0f20-6b04-43e9-8137-d5c2debd8abb",
     "title": "IRCC: biometrics request",
     "role": "primary"
   },

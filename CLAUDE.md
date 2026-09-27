@@ -102,3 +102,11 @@ boundary · `@google/genai` · ElevenLabs REST · `@auth0/nextjs-auth0` · `jsqr
   All data access goes through `lib/db/repo.ts`, whose functions take the user id first and scope every query.
 - Auth: `proxy.ts` (Next 16 middleware) mounts `/auth/*`, redirects anonymous `/app/*` to login, 401s anonymous `/api/*`.
   Handlers still call `requireUser()` (`lib/auth/requireUser.ts`). Scope is `openid profile` (no email, no refresh tokens).
+- Pipeline + API: `lib/pipeline/analyze.ts` (stored image → injected reader → QR → verification → case → saved result;
+  `confirmLetterFields` re-runs without the model). `lib/api/handlers.ts` holds every route's logic with injected
+  deps (`lib/api/deps.ts` = production wiring); `app/api/**/route.ts` files are one-liners. Order in each private
+  handler: user → same-origin check (mutations) → rate limit → id/body validation → user-scoped operation.
+  Uploads: ≤ 8 MB, checked from Content-Length first (the proxy silently truncates bodies over 10 MB), then
+  `lib/upload/sanitize.ts`. Images expire after 30 days. Logs go through `lib/log.ts` (ids and status only).
+- Demo: `npm run demo:build` runs the same pipeline on the synthetic letters with saved readings → `/demo` (public,
+  static JSON, synthetic only). Never put real data or a live model call behind `/demo`.

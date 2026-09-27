@@ -1,7 +1,7 @@
 {
-  "id": "59a854d5-14f7-4a9a-bd7a-a19aabbfbd78",
+  "id": "45b9470f-3ce9-4e86-9cb9-1138957add6d",
   "status": "LOW_CONFIDENCE",
-  "createdAt": "2026-09-27T00:23:36.051Z",
+  "createdAt": "2026-09-27T00:38:01.702Z",
   "cached": true,
   "image": {
     "url": "/demo-letters/E_low_quality.jpg",
@@ -18,7 +18,7 @@
   "verdict": "PARTIALLY_VERIFIED",
   "items": [
     {
-      "id": "f3d57aa6-2caf-443c-9c97-4c226df049cb",
+      "id": "40da5ad2-11bc-4d34-82fa-1dd6723616cb",
       "claimType": "reference",
       "letterValue": "…4471",
       "status": "NEEDS_USER_CONFIRMATION",
@@ -44,7 +44,7 @@
       }
     },
     {
-      "id": "8efe3757-9160-4ef4-b9a3-91c668765809",
+      "id": "ad332030-33f5-453c-aabb-2d66f1e773cb",
       "claimType": "phone",
       "letterValue": "1-800-387-1193",
       "status": "VERIFIED_MATCH",
@@ -70,7 +70,7 @@
       }
     },
     {
-      "id": "b8f11d86-8bfe-4a38-93fb-0fe9d9a186f2",
+      "id": "105ab097-9ca5-4c24-b894-0a51df583136",
       "claimType": "url",
       "letterValue": "canada.ca/cra-submit-documents",
       "status": "VERIFIED_MATCH",
@@ -96,7 +96,7 @@
       }
     },
     {
-      "id": "e20ba07a-dd77-4cab-ace2-058ef547d5d6",
+      "id": "f5be053a-7f22-4847-8a5b-220dad892608",
       "claimType": "agency",
       "letterValue": "Canada Revenue Agency",
       "status": "VERIFIED_MATCH",
@@ -234,7 +234,7 @@
     "decision": "ASK",
     "candidates": [
       {
-        "caseId": "b466b778-0ff2-462f-82d3-5b7251b2eeac",
+        "caseId": "6177e998-c92c-47d2-9211-5a322d60c47b",
         "title": "CRA: Canada child benefit review",
         "score": 85,
         "reasons": [

@@ -30,6 +30,20 @@ npm run extract -- demo/letters/out/A_cra_ccb_review.png   # read one letter liv
 npm run test:live                                      # live contract tests (real API calls)
 ```
 
+## API (all require sign-in; mutations also require our Origin)
+
+| Route | What |
+|---|---|
+| `POST /api/letters` | Upload a photo (multipart field `file`, ≤ 8 MB). Sanitized, stored privately, de-duplicated |
+| `POST /api/letters/:id/analyze` | Gemini reading → QR → verification → case → deadline → Response Pack. Idempotent |
+| `GET /api/letters/:id` | Status + full result once analyzed |
+| `GET /api/letters/:id/image` | The sanitized photo (owner only, `no-store`) |
+| `POST /api/letters/:id/confirm` | Correct unclear fields; re-runs the checks without the model |
+| `POST /api/letters/:id/case` | Answer "same case?": `link` / `new` / `keep_separate` |
+| `POST /api/letters/:id/unlink` · `DELETE /api/letters/:id` | Undo a link · delete a letter |
+| `GET /api/inbox` · `GET`/`DELETE /api/cases/:id` | Civic Inbox · case detail · delete a case |
+| `POST /api/tasks/:id/complete` | Save proof of submission; the case moves to waiting |
+
 ## Layout
 
 | Path | What |

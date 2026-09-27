@@ -91,6 +91,8 @@ export const letters = pgTable(
     modelId: text("model_id"),
     errorCode: text("error_code"),
     createdAt: createdAt(),
+    /** Set when an analysis claims the letter; lets a stuck PROCESSING state be retried after a timeout. */
+    analysisStartedAt: timestamp("analysis_started_at", { withTimezone: true }),
     analyzedAt: timestamp("analyzed_at", { withTimezone: true }),
   },
   (t) => [

@@ -9,6 +9,7 @@ import {
   type DeadlineResult,
   type Extraction,
   type Inbox,
+  type LetterResult,
   type ResponsePack,
 } from "@/lib/contracts";
 import {
@@ -52,6 +53,13 @@ export interface FileLetterInput {
   extraction: Extraction;
   qr: QrFinding[];
   modelId?: string | null;
+  /** Pipeline stages that failed without blocking the result (e.g. QR decoding). */
+  degraded?: LetterResult["degraded"];
+  /**
+   * Use this reference digest instead of reading one from the extraction. Needed when re-running on a
+   * stored (masked) extraction: a masked number must never be digested.
+   */
+  reference?: { digest: RefDigest | null; uncertain: boolean };
 }
 
 export interface FileLetterOptions {
@@ -68,7 +76,9 @@ export interface FiledLetter {
   draft: CaseFileDraft;
 }
 
-type Summary = Pick<CaseFileDraft, "whatIsThis" | "needsConfirmation" | "placement" | "newCaseTitle">;
+type Summary = Pick<CaseFileDraft, "whatIsThis" | "needsConfirmation" | "placement" | "newCaseTitle"> & {
+  degraded?: LetterResult["degraded"];
+};
 
 export async function fileAnalyzedLetter(
   db: Db,
@@ -78,9 +88,18 @@ export async function fileAnalyzedLetter(
   opts: FileLetterOptions,
 ): Promise<FiledLetter> {
   const registry = opts.registry ?? getRegistry();
-  const picked = pickReference(input.extraction);
-  const letterRef = picked && !picked.uncertain ? digestReference(picked.field.value!, opts.refKey) : null;
+  let letterRef: RefDigest | null;
+  let refUncertain: boolean;
+  if (input.reference) {
+    letterRef = input.reference.digest;
+    refUncertain = input.reference.uncertain;
+  } else {
+    const picked = pickReference(input.extraction);
+    letterRef = picked && !picked.uncertain ? digestReference(picked.field.value!, opts.refKey) : null;
+    refUncertain = !!picked?.uncertain;
+  }
   const x = redactExtractionForStorage(input.extraction);
+  const degraded = input.degraded ?? [];
 
   return db.transaction(async (tx) => {
     const letter = await getLetterRow(tx, userId, letterId);
@@ -95,19 +114,19 @@ export async function fileAnalyzedLetter(
       today: opts.today,
       candidates,
       letterRef,
-      refUncertain: !!picked?.uncertain,
+      refUncertain,
       answers: opts.answers,
     });
 
     await updateLetter(tx, userId, letterId, {
-      status: draft.status,
+      status: degraded.length && draft.status === "SUCCESS" ? "PARTIAL_SUCCESS" : draft.status,
       verdict: draft.verdict,
       docType: x.documentType.value,
       issueDate: usable(x.issueDate),
       title: draft.whatIsThis.docTypeLabel,
       referenceHmac: letterRef?.hmac ?? null,
       referenceLast4: letterRef?.last4 ?? null,
-      referenceUncertain: !!picked?.uncertain,
+      referenceUncertain: refUncertain,
       extraction: x,
       qrFindings: input.qr,
       caseMatch: draft.caseMatch,
@@ -118,6 +137,7 @@ export async function fileAnalyzedLetter(
         needsConfirmation: draft.needsConfirmation,
         placement: draft.placement,
         newCaseTitle: draft.newCaseTitle,
+        degraded,
       } satisfies Summary,
       modelId: input.modelId ?? null,
       errorCode: null,

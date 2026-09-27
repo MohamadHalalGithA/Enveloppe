@@ -12,7 +12,9 @@ import { processView } from "@/lib/processes/engine";
 import { getRegistry, type Registry } from "@/lib/registry/load";
 import type { CaseFileDraft } from "./assemble";
 
-type Summary = Pick<CaseFileDraft, "whatIsThis" | "needsConfirmation" | "placement" | "newCaseTitle">;
+type Summary = Pick<CaseFileDraft, "whatIsThis" | "needsConfirmation" | "placement" | "newCaseTitle"> & {
+  degraded?: LetterResult["degraded"];
+};
 
 /**
  * The analysis result for one of the user's letters, assembled from stored rows (no model calls).
@@ -76,6 +78,6 @@ export async function loadLetterResult(
     caseMatch: row.caseMatch as CaseMatch,
     filedIn: filedCase ? { caseId: filedCase.id, title: filedCase.title, role: row.caseRole ?? "primary" } : null,
     needsConfirmation: summary.needsConfirmation,
-    degraded: [],
+    degraded: summary.degraded ?? [],
   });
 }
