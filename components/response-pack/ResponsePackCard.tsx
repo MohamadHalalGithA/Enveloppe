@@ -1,15 +1,17 @@
+import { SubmitProofForm } from "@/components/actions/SubmitProofForm";
 import type { ResponsePack } from "@/lib/contracts";
 import { formatCivilDate } from "@/lib/ui/format";
 
-export function ResponsePackCard({ pack }: { pack: ResponsePack | null }) {
+export function ResponsePackCard({ pack, mode = "demo" }: { pack: ResponsePack | null; mode?: "app" | "demo" }) {
   if (!pack) {
     return (
       <section className="rounded-xl border border-slate-300 p-4">
         <h2 className="text-xl font-bold">What should I do next?</h2>
-        <p className="mt-2 text-slate-700">Confirm the highlighted details first. Then we can build your next steps.</p>
+        <p className="mt-2 text-slate-700">We can&apos;t suggest steps for this sender. Contact the agency using an official channel.</p>
       </section>
     );
   }
+  const { completion } = pack;
   return (
     <section aria-labelledby="pack-heading" className="rounded-xl border border-slate-300 p-4">
       <h2 id="pack-heading" className="text-xl font-bold">
@@ -63,14 +65,24 @@ export function ResponsePackCard({ pack }: { pack: ResponsePack | null }) {
         )}
       </div>
 
-      <button
-        type="button"
-        disabled
-        className="mt-4 rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white disabled:opacity-60"
-        title="Coming soon: save your confirmation number"
-      >
-        I&apos;ve submitted it
-      </button>
+      <div className="mt-4">
+        {completion.status === "DONE" && completion.proof ? (
+          <p className="rounded-lg bg-emerald-50 p-3 text-emerald-950">
+            <strong>Submitted</strong> {new Date(completion.proof.submittedAt).toLocaleDateString("en-CA", { dateStyle: "long" })}
+            {completion.proof.confirmationNumber && <> · confirmation {completion.proof.confirmationNumber}</>}
+          </p>
+        ) : mode === "app" && completion.taskId ? (
+          <SubmitProofForm taskId={completion.taskId} />
+        ) : mode === "app" ? (
+          pack.action && pack.action.type !== "call" ? (
+            <p className="text-slate-700">Track this letter as a case (below) to record when you&apos;ve done this.</p>
+          ) : null
+        ) : (
+          <button type="button" disabled className="rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white disabled:opacity-60">
+            I&apos;ve submitted it
+          </button>
+        )}
+      </div>
     </section>
   );
 }

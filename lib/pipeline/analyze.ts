@@ -43,6 +43,11 @@ const STALE_CLAIM_MS = 2 * 60 * 1000;
 
 const ANALYZED = new Set(["SUCCESS", "PARTIAL_SUCCESS", "NEEDS_CONFIRMATION", "LOW_CONFIDENCE", "VERIFICATION_INCOMPLETE"]);
 
+/** Statuses that have a full stored result. */
+export function isAnalyzed(status: string): boolean {
+  return ANALYZED.has(status);
+}
+
 export function imageUrl(letterId: string) {
   return `/api/letters/${letterId}/image`;
 }

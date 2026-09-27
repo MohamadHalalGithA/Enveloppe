@@ -46,6 +46,8 @@ export const LetterResultZ = z.object({
   caseMatch: CaseMatchZ,
   /** The case this letter is filed in, once linked or created (null while unfiled). */
   filedIn: z.object({ caseId: z.uuid(), title: z.string(), role: z.enum(["primary", "suspected_imitation"]) }).nullable().default(null),
+  /** The user's answer to "same case?" (null = not answered yet). */
+  caseDecision: z.enum(["LINKED", "NEW_CASE", "KEPT_SEPARATE"]).nullable().default(null),
   needsConfirmation: z.array(
     z.object({ path: z.string(), label: z.string(), value: z.string().nullable() }),
   ),

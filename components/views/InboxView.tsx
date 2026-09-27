@@ -10,8 +10,8 @@ const CASE_STATUS_LABEL: Record<CaseStatus, string> = {
   CLOSED: "Closed",
 };
 
-/** The Civic Inbox (shared by /app and /demo). `basePath` decides where letter links go. */
-export function InboxView({ inbox, basePath }: { inbox: Inbox; basePath: "/app" | "/demo" }) {
+/** The Civic Inbox (shared by /app and /demo). `basePath` decides where links go; only /app has case pages. */
+export function InboxView({ inbox, basePath, headerAction }: { inbox: Inbox; basePath: "/app" | "/demo"; headerAction?: React.ReactNode }) {
   const { cases, letters } = inbox;
   const caseLetter = (caseId: string) => letters.find((l) => l.caseId === caseId);
 
@@ -19,9 +19,7 @@ export function InboxView({ inbox, basePath }: { inbox: Inbox; basePath: "/app" 
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-3xl font-bold">Civic Inbox</h1>
-        <button type="button" disabled className="rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white disabled:opacity-60">
-          Add letter
-        </button>
+        {headerAction}
       </div>
 
       <section aria-labelledby="cases-heading">
@@ -40,7 +38,11 @@ export function InboxView({ inbox, basePath }: { inbox: Inbox; basePath: "/app" 
                     {c.agencyId} · {CASE_STATUS_LABEL[c.status]}
                   </p>
                   <h3 className="text-lg font-bold">
-                    {letter ? (
+                    {basePath === "/app" ? (
+                      <Link href={`/app/cases/${c.id}`} className="underline">
+                        {c.title}
+                      </Link>
+                    ) : letter ? (
                       <Link href={`${basePath}/letters/${letter.id}`} className="underline">
                         {c.title}
                       </Link>
@@ -64,6 +66,7 @@ export function InboxView({ inbox, basePath }: { inbox: Inbox; basePath: "/app" 
         <h2 id="letters-heading" className="mb-3 text-xl font-bold">
           Recent letters
         </h2>
+        {letters.length === 0 && <p className="text-slate-600">No letters yet.</p>}
         <ul className="flex flex-col gap-2">
           {letters.map((l) => {
             const v = VERDICT_COPY[l.verdict];

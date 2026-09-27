@@ -53,6 +53,7 @@ export async function loadLetterResult(
       ...pack,
       completion: {
         status: "DONE",
+        taskId: task.id,
         proof: {
           confirmationNumber: task.proofConfirmation,
           submittedAt: task.proofSubmittedAt.toISOString(),
@@ -60,6 +61,9 @@ export async function loadLetterResult(
         },
       },
     };
+  } else if (pack) {
+    // An open task can be completed from the letter; a superseded one can't.
+    pack = { ...pack, completion: { status: "OPEN", taskId: task?.status === "OPEN" ? task.id : null, proof: null } };
   }
 
   return LetterResultZ.parse({
@@ -77,6 +81,7 @@ export async function loadLetterResult(
     responsePack: pack,
     caseMatch: row.caseMatch as CaseMatch,
     filedIn: filedCase ? { caseId: filedCase.id, title: filedCase.title, role: row.caseRole ?? "primary" } : null,
+    caseDecision: row.caseDecision,
     needsConfirmation: summary.needsConfirmation,
     degraded: summary.degraded ?? [],
   });

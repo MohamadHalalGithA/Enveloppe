@@ -1,7 +1,7 @@
 {
-  "id": "d145e1e6-dd46-43e2-b109-0d284929fa49",
+  "id": "489a72e4-d63a-4907-9c5f-e5c7f0a0c77b",
   "status": "SUCCESS",
-  "createdAt": "2026-09-27T00:37:59.469Z",
+  "createdAt": "2026-09-27T00:56:13.241Z",
   "cached": true,
   "image": {
     "url": "/demo-letters/C_cra_reassessment.png",
@@ -18,7 +18,7 @@
   "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
   "items": [
     {
-      "id": "e0a38d1b-4718-4d66-89b9-37435dd06f57",
+      "id": "7f5aa1be-89fe-45e4-99ba-cc6ce6d6459c",
       "claimType": "phone",
       "letterValue": "1-800-959-8281",
       "status": "VERIFIED_MATCH",
@@ -44,7 +44,7 @@
       }
     },
     {
-      "id": "1fdab41a-7594-46eb-91e8-677fbc04f642",
+      "id": "5e3cc9b3-1018-4768-8a26-ecd44a11d419",
       "claimType": "url",
       "letterValue": "canada.ca/my-cra-account",
       "status": "VERIFIED_MATCH",
@@ -70,7 +70,7 @@
       }
     },
     {
-      "id": "d1a35895-0435-4fb7-a54e-d2474b8c109a",
+      "id": "e4b497d1-a67e-4917-9350-0de8f291c038",
       "claimType": "agency",
       "letterValue": "Canada Revenue Agency",
       "status": "VERIFIED_MATCH",
@@ -96,7 +96,7 @@
       }
     },
     {
-      "id": "0374be0c-93f3-4467-adf1-8ab30a48d180",
+      "id": "fa0bc086-51ad-4552-a1c4-92ea001e8cc2",
       "claimType": "reference",
       "letterValue": "…2210",
       "status": "UNVERIFIED",
@@ -241,6 +241,7 @@
     "caution": null,
     "completion": {
       "status": "OPEN",
+      "taskId": "00ae40a5-de4d-4419-82cf-b293c1e1fb77",
       "proof": null
     }
   },
@@ -248,13 +249,14 @@
     "decision": "NEW",
     "candidates": [],
     "conflicts": [],
-    "linkedCaseId": "6fbd4b17-5a58-4ad9-bccc-efae47d5dbe4"
+    "linkedCaseId": "68918025-3a80-4e0d-ac4a-f84981f6915d"
   },
   "filedIn": {
-    "caseId": "6fbd4b17-5a58-4ad9-bccc-efae47d5dbe4",
+    "caseId": "68918025-3a80-4e0d-ac4a-f84981f6915d",
     "title": "CRA: 2023 reassessment",
     "role": "primary"
   },
+  "caseDecision": "NEW_CASE",
   "needsConfirmation": [],
   "degraded": []
 }

@@ -1,3 +1,5 @@
+import { DeleteButton } from "@/components/actions/ActionButtons";
+import { ConfirmFieldsForm } from "@/components/actions/ConfirmFieldsForm";
 import { AnalysisWorkspace } from "@/components/AnalysisWorkspace";
 import { CaseMatchPrompt } from "@/components/CaseMatchPrompt";
 import { DeadlineCard } from "@/components/deadline/DeadlineCard";
@@ -8,9 +10,18 @@ import { ResponsePackCard } from "@/components/response-pack/ResponsePackCard";
 import { VerdictBanner } from "@/components/VerdictBanner";
 import type { LetterResult } from "@/lib/contracts";
 
-/** The Analysis Result screen for one letter (shared by /app and /demo). */
-export function LetterView({ letter }: { letter: LetterResult }) {
+const DEGRADED_COPY: Record<LetterResult["degraded"][number], string> = {
+  EXPLANATION: "The full explanation wasn't available, so this is a simplified one.",
+  QR: "We couldn't check the QR code on this letter. Don't scan it; use the official website instead.",
+  RDAP: "Domain registration details were unavailable.",
+  REDIRECTS: "We couldn't follow a shortened link.",
+  VOICE: "Voice isn't available right now.",
+};
+
+/** The Analysis Result screen for one letter. `app` = interactive for the signed-in owner; `demo` = read-only. */
+export function LetterView({ letter, mode = "demo" }: { letter: LetterResult; mode?: "app" | "demo" }) {
   const explanation = letter.whatIsThis.explanation.en ?? Object.values(letter.whatIsThis.explanation)[0];
+  const lowConfidence = letter.status === "LOW_CONFIDENCE";
 
   return (
     <article className="flex flex-col gap-6">
@@ -21,18 +32,29 @@ export function LetterView({ letter }: { letter: LetterResult }) {
         </p>
         <h1 className="text-3xl font-bold">{letter.whatIsThis.docTypeLabel}</h1>
         <VerdictBanner verdict={letter.verdict} />
+        {lowConfidence && (
+          <p role="note" className="rounded-md bg-amber-100 p-2 text-amber-950">
+            The photo was hard to read in places. Check the highlighted details, or retake the photo flat and in good light.
+          </p>
+        )}
+        {letter.degraded.map((d) => (
+          <p key={d} role="note" className="rounded-md bg-slate-100 p-2 text-slate-800">
+            {DEGRADED_COPY[d]}
+          </p>
+        ))}
       </header>
 
-      <NeedsConfirmationPanel fields={letter.needsConfirmation} />
+      {mode === "app" ? (
+        <ConfirmFieldsForm letterId={letter.id} fields={letter.needsConfirmation} />
+      ) : (
+        <NeedsConfirmationPanel fields={letter.needsConfirmation} />
+      )}
 
       <section aria-labelledby="what-heading">
         <h2 id="what-heading" className="text-xl font-bold">
           What is this?
         </h2>
         <p className="mt-1 text-lg">{explanation}</p>
-        {letter.degraded.includes("EXPLANATION") && (
-          <p className="text-sm text-slate-600">Simplified explanation: the full explanation wasn&apos;t available.</p>
-        )}
         <button type="button" disabled className="mt-2 rounded-lg border border-slate-400 px-3 py-1.5 disabled:opacity-60">
           Listen in my language (coming soon)
         </button>
@@ -47,9 +69,19 @@ export function LetterView({ letter }: { letter: LetterResult }) {
         <ProcessStepper process={letter.process} />
       </div>
 
-      <ResponsePackCard pack={letter.responsePack} />
+      <ResponsePackCard pack={letter.responsePack} mode={mode} />
 
-      <CaseMatchPrompt match={letter.caseMatch} filedIn={letter.filedIn} />
+      <CaseMatchPrompt letter={letter} mode={mode} />
+
+      {mode === "app" && (
+        <footer className="border-t border-slate-200 pt-4">
+          <DeleteButton
+            url={`/api/letters/${letter.id}`}
+            label="Delete this letter"
+            confirmText="Delete this letter, its photo and its analysis? This can't be undone."
+          />
+        </footer>
+      )}
     </article>
   );
 }

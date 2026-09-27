@@ -55,7 +55,7 @@ export function buildResponsePack(input: PackInput): ResponsePack | null {
       : null;
   const formEntry = docType ? reg.forms.find((f) => f.agencyId === agency.code && f.usedFor.includes(docType)) : undefined;
   const form = formEntry ? { registryId: formEntry.id, code: formEntry.code, url: formEntry.url } : null;
-  const completion = { status: "OPEN" as const, proof: null };
+  const completion = { status: "OPEN" as const, taskId: null, proof: null };
 
   if (verdict === "CONTRADICTIONS_FOUND") {
     const fraud = contactById(reg, "tel-cra-fraud");

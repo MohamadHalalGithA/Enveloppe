@@ -110,3 +110,8 @@ boundary · `@google/genai` · ElevenLabs REST · `@auth0/nextjs-auth0` · `jsqr
   `lib/upload/sanitize.ts`. Images expire after 30 days. Logs go through `lib/log.ts` (ids and status only).
 - Demo: `npm run demo:build` runs the same pipeline on the synthetic letters with saved readings → `/demo` (public,
   static JSON, synthetic only). Never put real data or a live model call behind `/demo`.
+- UI: `/app` pages are server components that load data via `pageUser()` + the user-scoped services (no API round
+  trip); interactive pieces are client components in `components/actions/` + `components/upload/` calling `/api/*`
+  through `lib/ui/api-client.ts`, then `router.refresh()`. Shared views (`components/views/*`) take
+  `mode: "app" | "demo"` (demo = read-only). Tests: `tests/unit/pages.test.tsx` renders the real pages on PGlite;
+  `tests/unit/ui-components.test.tsx` drives the client components in jsdom.

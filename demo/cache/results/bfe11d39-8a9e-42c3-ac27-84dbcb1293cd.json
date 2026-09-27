@@ -1,7 +1,7 @@
 {
-  "id": "a495e213-eedd-47e2-822e-7fbb0414a0a6",
+  "id": "bfe11d39-8a9e-42c3-ac27-84dbcb1293cd",
   "status": "SUCCESS",
-  "createdAt": "2026-09-27T00:38:02.307Z",
+  "createdAt": "2026-09-27T00:56:15.776Z",
   "cached": true,
   "image": {
     "url": "/demo-letters/D_ircc_biometrics.png",
@@ -18,7 +18,7 @@
   "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
   "items": [
     {
-      "id": "4334ca09-e938-437f-b799-9d9e0f365065",
+      "id": "b45319e4-1959-49ff-a04f-b85a93e29588",
       "claimType": "phone",
       "letterValue": "1-888-242-2100",
       "status": "VERIFIED_MATCH",
@@ -44,7 +44,7 @@
       }
     },
     {
-      "id": "30f449f8-7d33-430d-b9b2-0fceee687d76",
+      "id": "3a5eebe3-7fde-48cb-8aa5-934b1bc2c512",
       "claimType": "url",
       "letterValue": "ircc.canada.ca",
       "status": "VERIFIED_MATCH",
@@ -70,7 +70,7 @@
       }
     },
     {
-      "id": "05df09eb-77df-4638-982b-466fb2b39557",
+      "id": "ef6b7c09-319a-48cf-a854-39b3ba697956",
       "claimType": "agency",
       "letterValue": "Immigration, Refugees and Citizenship Canada",
       "status": "VERIFIED_MATCH",
@@ -96,7 +96,7 @@
       }
     },
     {
-      "id": "2d52acb9-1b9e-40c9-b5de-c7c2edd752ad",
+      "id": "cf3893d9-91d7-48ab-8fd3-40714d817981",
       "claimType": "reference",
       "letterValue": "…3456",
       "status": "UNVERIFIED",
@@ -263,6 +263,7 @@
     "caution": null,
     "completion": {
       "status": "OPEN",
+      "taskId": "35cff8e3-0f2d-4426-aabb-478adf70a120",
       "proof": null
     }
   },
@@ -270,13 +271,14 @@
     "decision": "NEW",
     "candidates": [],
     "conflicts": [],
-    "linkedCaseId": "0aea0f20-6b04-43e9-8137-d5c2debd8abb"
+    "linkedCaseId": "d4c2d290-3ad3-4bf2-b113-87878d9ae6f1"
   },
   "filedIn": {
-    "caseId": "0aea0f20-6b04-43e9-8137-d5c2debd8abb",
+    "caseId": "d4c2d290-3ad3-4bf2-b113-87878d9ae6f1",
     "title": "IRCC: biometrics request",
     "role": "primary"
   },
+  "caseDecision": "NEW_CASE",
   "needsConfirmation": [],
   "degraded": []
 }

@@ -37,6 +37,8 @@ export const ResponsePackZ = z.object({
   caution: z.string().nullable(),
   completion: z.object({
     status: z.enum(["OPEN", "DONE"]),
+    /** The tracked task for this action, once the letter is in a case (null before that). */
+    taskId: z.uuid().nullable().default(null),
     proof: z
       .object({
         confirmationNumber: z.string().max(64).nullable(),

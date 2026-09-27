@@ -20,7 +20,7 @@ import {
 import type { Db } from "@/lib/db/types";
 import { NotFoundError, PipelineError } from "@/lib/errors";
 import type { ExtractResult } from "@/lib/gemini/extract";
-import { analyzeLetter, confirmLetterFields, ConfirmFieldsZ, letterResultFor } from "@/lib/pipeline/analyze";
+import { analyzeLetter, confirmLetterFields, ConfirmFieldsZ, isAnalyzed, letterResultFor } from "@/lib/pipeline/analyze";
 import { MAX_UPLOAD_BYTES, sanitizeUpload } from "@/lib/upload/sanitize";
 import { assertSameOrigin, HttpError, json, parseId, readJson, withApi } from "./http";
 import type { RateLimiter } from "./rate-limit";
@@ -48,7 +48,6 @@ export interface ApiDeps {
   retentionDays: number;
 }
 
-const ANALYZED = new Set(["SUCCESS", "PARTIAL_SUCCESS", "NEEDS_CONFIRMATION", "LOW_CONFIDENCE", "VERIFICATION_INCOMPLETE"]);
 const MULTIPART_OVERHEAD = 64 * 1024;
 
 async function mutation(req: Request, deps: ApiDeps, bucket: "upload" | "analyze" | "mutate" = "mutate"): Promise<AppUser> {
@@ -108,7 +107,7 @@ export function getLetter(_req: Request, id: string, deps: ApiDeps) {
     const db = await deps.db();
     const row = await getLetterRow(db, user.id, parseId(id));
     if (!row) throw new NotFoundError("Letter");
-    const analyzed = ANALYZED.has(row.status);
+    const analyzed = isAnalyzed(row.status);
     const body: LetterEnvelope = {
       id: row.id,
       status: row.status as LetterEnvelope["status"],
@@ -119,7 +118,7 @@ export function getLetter(_req: Request, id: string, deps: ApiDeps) {
   });
 }
 
-function failureMessage(code: string): string {
+export function failureMessage(code: string): string {
   return code === "SERVICE_UNAVAILABLE"
     ? "The reading service was busy. Try analyzing again."
     : "We couldn't read this letter. Try a clearer, flatter photo.";

@@ -1,24 +1,50 @@
 {
-  "id": "99f3f660-9ef2-42ce-8041-3832d3535674",
-  "status": "SUCCESS",
-  "createdAt": "2026-09-27T00:38:00.514Z",
+  "id": "2825c76f-2a30-47cb-ae46-cc2038745741",
+  "status": "LOW_CONFIDENCE",
+  "createdAt": "2026-09-27T00:56:15.248Z",
   "cached": true,
   "image": {
-    "url": "/demo-letters/A_cra_ccb_review.png",
-    "width": 1275,
-    "height": 1650
+    "url": "/demo-letters/E_low_quality.jpg",
+    "width": 900,
+    "height": 1131
   },
   "whatIsThis": {
     "agencyLabel": "Canada Revenue Agency (CRA)",
     "docTypeLabel": "Request for documents: Canada child benefit",
     "explanation": {
-      "en": "This is a request for documents about the Canada child benefit, from the Canada Revenue Agency (CRA). Send the documents CRA asked for by October 14, 2026."
+      "en": "This is a request for documents about the Canada child benefit, from the Canada Revenue Agency (CRA). Send the documents CRA asked for."
     }
   },
-  "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+  "verdict": "PARTIALLY_VERIFIED",
   "items": [
     {
-      "id": "b73a292c-c89b-4178-a5f6-efd3cccbe9b7",
+      "id": "9569c55a-2aa5-4b8c-bc1f-3dbc9e279a16",
+      "claimType": "reference",
+      "letterValue": "…4471",
+      "status": "NEEDS_USER_CONFIRMATION",
+      "strength": "NONE",
+      "evidenceType": "CASE_FILE",
+      "reason": "Part of the reference number is unclear. Please type it from your letter so we can compare it with your cases.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            176,
+            617,
+            208,
+            917
+          ]
+        ],
+        "page": 1,
+        "quote": "Reference number: •••• •••-••••-4471",
+        "lowConfidence": true
+      }
+    },
+    {
+      "id": "f03c819f-e8d3-435a-b5ce-2c02416dd83e",
       "claimType": "phone",
       "letterValue": "1-800-387-1193",
       "status": "VERIFIED_MATCH",
@@ -32,10 +58,10 @@
       "highlight": {
         "boxes": [
           [
-            641,
-            60,
-            654,
-            204
+            609,
+            81,
+            635,
+            217
           ]
         ],
         "page": 1,
@@ -44,7 +70,7 @@
       }
     },
     {
-      "id": "d6ca1213-30f1-4803-a705-42dcaf70e59b",
+      "id": "1964bb32-60c4-4a4d-993e-8a79dc6677eb",
       "claimType": "url",
       "letterValue": "canada.ca/cra-submit-documents",
       "status": "VERIFIED_MATCH",
@@ -58,10 +84,10 @@
       "highlight": {
         "boxes": [
           [
+            536,
+            85,
             561,
-            60,
-            576,
-            338
+            348
           ]
         ],
         "page": 1,
@@ -70,7 +96,7 @@
       }
     },
     {
-      "id": "e9d9338d-9b75-47f5-8df6-adb6e17eb93e",
+      "id": "18101220-0380-41a0-88ee-a94c69af1acf",
       "claimType": "agency",
       "letterValue": "Canada Revenue Agency",
       "status": "VERIFIED_MATCH",
@@ -84,40 +110,14 @@
       "highlight": {
         "boxes": [
           [
-            42,
-            60,
-            67,
-            434
+            40,
+            121,
+            83,
+            472
           ]
         ],
         "page": 1,
         "quote": "Canada Revenue Agency",
-        "lowConfidence": false
-      }
-    },
-    {
-      "id": "aca65979-1c98-4a29-8707-4e58d7417b3d",
-      "claimType": "reference",
-      "letterValue": "…4471",
-      "status": "UNVERIFIED",
-      "strength": "NONE",
-      "evidenceType": "CASE_FILE",
-      "reason": "This is a new reference number. There's no earlier case to compare it with yet.",
-      "sourceId": null,
-      "sourceUrl": null,
-      "verifiedOn": null,
-      "officialAlternative": null,
-      "highlight": {
-        "boxes": [
-          [
-            161,
-            752,
-            172,
-            920
-          ]
-        ],
-        "page": 1,
-        "quote": "••••-•••-••••-4471",
         "lowConfidence": false
       }
     }
@@ -130,23 +130,14 @@
   },
   "deadline": {
     "asOf": "2026-09-27",
-    "printed": {
-      "date": "2026-10-14",
-      "sourceText": "October 14, 2026",
-      "box": [
-        491,
-        340,
-        506,
-        495
-      ]
-    },
+    "printed": null,
     "computed": null,
-    "effective": "2026-10-14",
+    "effective": null,
     "mismatch": false,
-    "daysRemaining": 17,
-    "clockStartedOn": "2026-09-14",
-    "status": "OK",
-    "note": "This deadline is printed in the letter. We didn't find a legal rule that sets a different date. CRA says that if you don't reply, your benefits may stop and you may have to repay amounts already paid. CRA can give you more time if you call before the deadline."
+    "daysRemaining": null,
+    "clockStartedOn": null,
+    "status": "UNKNOWN",
+    "note": "CRA says that if you don't reply, your benefits may stop and you may have to repay amounts already paid. CRA can give you more time if you call before the deadline."
   },
   "process": {
     "processId": "CRA_REVIEW",
@@ -184,39 +175,30 @@
     "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/validating-your-eligibility-benefits-credits.html"
   },
   "responsePack": {
-    "summary": "Send the documents CRA asked for by October 14, 2026.",
+    "summary": "Send the documents CRA asked for.",
     "action": {
       "type": "submit_documents",
       "label": "Send the requested documents"
     },
     "deadline": {
       "asOf": "2026-09-27",
-      "printed": {
-        "date": "2026-10-14",
-        "sourceText": "October 14, 2026",
-        "box": [
-          491,
-          340,
-          506,
-          495
-        ]
-      },
+      "printed": null,
       "computed": null,
-      "effective": "2026-10-14",
+      "effective": null,
       "mismatch": false,
-      "daysRemaining": 17,
-      "clockStartedOn": "2026-09-14",
-      "status": "OK",
-      "note": "This deadline is printed in the letter. We didn't find a legal rule that sets a different date. CRA says that if you don't reply, your benefits may stop and you may have to repay amounts already paid. CRA can give you more time if you call before the deadline."
+      "daysRemaining": null,
+      "clockStartedOn": null,
+      "status": "UNKNOWN",
+      "note": "CRA says that if you don't reply, your benefits may stop and you may have to repay amounts already paid. CRA can give you more time if you call before the deadline."
     },
     "requestedDocuments": [
       {
-        "label": "a copy of your lease or rental agreement",
+        "label": "copy of your lease or rental agreement",
         "sourceText": "a copy of your lease or rental agreement",
         "checked": false
       },
       {
-        "label": "a letter from your child's school or daycare",
+        "label": "letter from your child's school or daycare",
         "sourceText": "a letter from your child's school or daycare",
         "checked": false
       }
@@ -245,20 +227,46 @@
     "caution": null,
     "completion": {
       "status": "OPEN",
+      "taskId": null,
       "proof": null
     }
   },
   "caseMatch": {
-    "decision": "NEW",
-    "candidates": [],
+    "decision": "ASK",
+    "candidates": [
+      {
+        "caseId": "8fce7e8d-bda0-4a11-bc28-d13e5ab34115",
+        "title": "CRA: Canada child benefit review",
+        "score": 85,
+        "reasons": [
+          "Same agency",
+          "Same program (Canada child benefit)",
+          "Same kind of process",
+          "Same year (2025)"
+        ]
+      }
+    ],
     "conflicts": [],
-    "linkedCaseId": "6177e998-c92c-47d2-9211-5a322d60c47b"
+    "linkedCaseId": null
   },
-  "filedIn": {
-    "caseId": "6177e998-c92c-47d2-9211-5a322d60c47b",
-    "title": "CRA: Canada child benefit review",
-    "role": "primary"
-  },
-  "needsConfirmation": [],
+  "filedIn": null,
+  "caseDecision": null,
+  "needsConfirmation": [
+    {
+      "path": "issueDate",
+      "label": "Date printed on the letter",
+      "value": "September 14, 2026"
+    },
+    {
+      "path": "printedDeadlines[0]",
+      "label": "Deadline printed on the letter",
+      "value": "Please send the documents by October 14, 2026."
+    },
+    {
+      "path": "identifiers[0]",
+      "label": "Reference number",
+      "value": "Reference number: •••• •••-••••-4471"
+    }
+  ],
   "degraded": []
 }

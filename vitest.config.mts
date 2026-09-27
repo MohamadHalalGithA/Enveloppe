@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
     },
     test: {
       environment: "node",
-      include: live ? ["tests/live/**/*.test.ts"] : ["tests/unit/**/*.test.ts"],
+      include: live ? ["tests/live/**/*.test.ts"] : ["tests/unit/**/*.test.{ts,tsx}"],
       testTimeout: live ? 180_000 : 5_000,
       fileParallelism: !live,
     },
