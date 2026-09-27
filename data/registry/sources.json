@@ -118,5 +118,75 @@
     "verifiedBy": "Claude (search index only; the page blocks automated fetching and needs a human check)",
     "checkMethod": "SEARCH_INDEX",
     "pageModified": null
+  },
+  {
+    "id": "src-cra-p148",
+    "title": "Resolving your dispute: Objection rights under the Income Tax Act (P148)",
+    "url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/p148-resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2025-05-22"
+  },
+  {
+    "id": "src-cra-file-objection",
+    "title": "File an objection (CRA)",
+    "url": "https://www.canada.ca/en/revenue-agency/services/about-canada-revenue-agency-cra/complaints-disputes/file-objection-cppei-appeal-minister.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-08-19"
+  },
+  {
+    "id": "src-cra-important-dates",
+    "title": "Important dates for individuals (CRA)",
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/important-dates-individuals.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-09-17"
+  },
+  {
+    "id": "src-cra-validating-benefits",
+    "title": "Validating your eligibility for benefits and credits (CRA)",
+    "url": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/validating-your-eligibility-benefits-credits.html",
+    "publisher": "Canada Revenue Agency",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2020-11-11"
+  },
+  {
+    "id": "src-ircc-biometrics-how",
+    "title": "Biometrics: how to give your fingerprints and photo",
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/biometrics/how-to-give.html",
+    "publisher": "Immigration, Refugees and Citizenship Canada",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2026-03-30"
+  },
+  {
+    "id": "src-interpretation-act-26",
+    "title": "Interpretation Act, s. 26 (time limits and holidays)",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/i-21/page-2.html",
+    "publisher": "Justice Laws (Government of Canada)",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2024-11-27"
+  },
+  {
+    "id": "src-interpretation-act-35",
+    "title": "Interpretation Act, s. 35 (definition of holiday)",
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/i-21/page-3.html",
+    "publisher": "Justice Laws (Government of Canada)",
+    "verifiedOn": "2026-09-26",
+    "verifiedBy": "Claude (fetched the page)",
+    "checkMethod": "FETCHED_PAGE",
+    "pageModified": "2024-11-27"
   }
 ]

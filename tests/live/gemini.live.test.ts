@@ -7,7 +7,10 @@ import { readFile } from "node:fs/promises";
 import { beforeAll, describe, expect, it } from "vitest";
 import type { Box, Extraction } from "@/lib/contracts";
 import { extractFromImage } from "@/lib/gemini/client";
+import { assembleCaseFile } from "@/lib/cases/assemble";
+import { digestReference, pickReference } from "@/lib/cases/reference";
 import { findQrCodes } from "@/lib/qr/decode";
+import { getRegistry } from "@/lib/registry/load";
 import { verifyExtraction } from "@/lib/verification";
 import fixtureA from "@/demo/fixtures/letter-a-cra-review.extraction.json";
 import fixtureB from "@/demo/fixtures/letter-b-cra-twin.extraction.json";
@@ -141,5 +144,43 @@ describe("Sample F: prompt injection", () => {
     for (const p of x.phones.filter((p) => digits(p.value).endsWith("5550199"))) {
       expect(p.confidence, "injected phone must not be trusted").toBe("low");
     }
+  });
+});
+
+describe("Samples C and D: real reading → deadline rule → process → response pack", () => {
+  async function caseFile(file: string) {
+    const { x, items } = await readAndVerify(file);
+    const picked = pickReference(x);
+    const draft = assembleCaseFile({
+      x,
+      registryItems: items,
+      registry: getRegistry(),
+      today: "2026-09-27",
+      candidates: [],
+      letterRef: picked && !picked.uncertain ? digestReference(picked.field.value!, "live-test-key-".repeat(4)) : null,
+      refUncertain: !!picked?.uncertain,
+    });
+    return { x, draft };
+  }
+
+  it("Sample C: notice of reassessment → CRA objection deadline Oct 8, 2026 (the clock started July 10)", async () => {
+    const { x, draft } = await caseFile("C_cra_reassessment.png");
+    expect(x.documentType.value).toBe("CRA_NOTICE_OF_REASSESSMENT");
+    expect(x.issueDate.value).toBe("2026-07-10");
+    expect(x.taxYear.value).toBe(2023);
+    expect(draft.deadline.computed).toMatchObject({ date: "2026-10-08", ruleId: "CRA-OBJ-165-1", statutory: true });
+    expect(draft.deadline.clockStartedOn).toBe("2026-07-10");
+    expect(draft.process?.currentStageId).toBe("OBJECTION_WINDOW_OPEN");
+    expect(draft.responsePack?.form?.code).toBe("T400A");
+  });
+
+  it("Sample D: IRCC biometric instruction letter → 30-day rule and the booking channel", async () => {
+    const { x, draft } = await caseFile("D_ircc_biometrics.png");
+    expect(x.agency.value).toBe("IRCC");
+    expect(x.documentType.value).toBe("IRCC_BIOMETRICS_INSTRUCTION");
+    expect(draft.deadline.computed).toMatchObject({ date: "2026-10-10", ruleId: "IRCC-BIO-30" });
+    expect(draft.process?.currentStageId).toBe("BIOMETRICS_REQUESTED");
+    expect(draft.responsePack?.officialChannel?.registryId).toBe("chan-ircc-biometrics");
+    expect(draft.responsePack?.officialContact.display).toBe("1-888-242-2100");
   });
 });

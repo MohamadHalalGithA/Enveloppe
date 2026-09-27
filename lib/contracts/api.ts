@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CaseMatchZ, CaseZ } from "./cases";
+import { CivilDateZ } from "./common";
 import { DeadlineResultZ } from "./deadlines";
 import { ProcessViewZ } from "./process";
 import { OfficialContactZ, ResponsePackZ } from "./response-pack";
@@ -62,6 +63,50 @@ export type LetterSummary = z.infer<typeof LetterSummaryZ>;
 
 export const InboxZ = z.object({ cases: z.array(CaseZ), letters: z.array(LetterSummaryZ) });
 export type Inbox = z.infer<typeof InboxZ>;
+
+export const TaskZ = z.object({
+  id: z.uuid(),
+  caseId: z.uuid(),
+  letterId: z.uuid().nullable(),
+  title: z.string(),
+  actionType: z.string(),
+  dueDate: CivilDateZ.nullable(),
+  status: z.enum(["OPEN", "DONE"]),
+  checklist: z.array(z.object({ label: z.string(), checked: z.boolean() })),
+  proof: z
+    .object({ confirmationNumber: z.string().nullable(), notes: z.string().nullable(), submittedAt: z.iso.datetime() })
+    .nullable(),
+});
+export type Task = z.infer<typeof TaskZ>;
+
+export const CaseDetailZ = z.object({
+  case: CaseZ,
+  process: ProcessViewZ.nullable(),
+  letters: z.array(LetterSummaryZ.extend({ caseRole: z.enum(["primary", "suspected_imitation"]).nullable() })),
+  tasks: z.array(TaskZ),
+  events: z.array(
+    z.object({ type: z.string(), fromStage: z.string().nullable(), toStage: z.string().nullable(), createdAt: z.iso.datetime() }),
+  ),
+});
+export type CaseDetail = z.infer<typeof CaseDetailZ>;
+
+/** What the user answers to "Is this the same case?" */
+export const CaseDecisionZ = z.discriminatedUnion("decision", [
+  z.object({ decision: z.literal("link"), caseId: z.uuid() }),
+  z.object({ decision: z.literal("new") }),
+  z.object({ decision: z.literal("keep_separate") }),
+]);
+export type CaseDecision = z.infer<typeof CaseDecisionZ>;
+
+/** Proof the user saves after submitting on the official channel. Only these fields are accepted. */
+export const SubmissionProofZ = z
+  .object({
+    confirmationNumber: z.string().trim().max(64).nullable().default(null),
+    notes: z.string().trim().max(500).nullable().default(null),
+    submittedAt: z.iso.datetime().optional(),
+  })
+  .strict();
+export type SubmissionProof = z.infer<typeof SubmissionProofZ>;
 
 export const ApiErrorZ = z.object({
   error: z.object({ code: z.string(), message: z.string() }),

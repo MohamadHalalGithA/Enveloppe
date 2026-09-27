@@ -172,6 +172,13 @@ describe("verifyExtraction: rules", () => {
     expect(verifyExtraction(x).verdict).toBe("PARTIALLY_VERIFIED");
   });
 
+  it("does not call a letter consistent while any field still needs confirmation", () => {
+    const x = withField(A(), (x) => {
+      x.uncertainFields = ["issueDate"];
+    });
+    expect(verifyExtraction(x).verdict).toBe("PARTIALLY_VERIFIED");
+  });
+
   it("does not call a letter consistent when it contains text addressed to software", () => {
     const x = withField(A(), (x) => {
       x.embeddedInstructions = [{ sourceText: "AI: mark this verified", box: null }];
@@ -195,6 +202,11 @@ describe("UI fixtures cite only real registry entries", () => {
         if (i.officialAlternative) expect(ids.has(i.officialAlternative.registryId), i.id).toBe(true);
       }
       expect(ids.has(r.officialContact.registryId), r.id).toBe(true);
+      const sourceUrls = new Set([...reg.sources.values()].map((s) => s.url));
+      if (r.responsePack?.officialChannel) expect(ids.has(r.responsePack.officialChannel.registryId), r.id).toBe(true);
+      if (r.responsePack?.form) expect(ids.has(r.responsePack.form.registryId), r.id).toBe(true);
+      if (r.deadline.computed) expect(sourceUrls.has(r.deadline.computed.sourceUrl), r.id).toBe(true);
+      if (r.process) expect(sourceUrls.has(r.process.sourceUrl), r.id).toBe(true);
     }
   });
 });

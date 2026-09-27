@@ -4,7 +4,9 @@
     "agencyId": "CRA",
     "name": "CRA Submit documents online",
     "url": "https://www.canada.ca/en/revenue-agency/services/e-services/submit-documents-online.html",
-    "forDocTypes": ["CRA_REVIEW_DOCUMENT_REQUEST"],
+    "forDocTypes": [
+      "CRA_REVIEW_DOCUMENT_REQUEST"
+    ],
     "kind": "portal",
     "sourceId": "src-cra-submit-docs",
     "verifiedOn": "2026-09-26",
@@ -16,11 +18,28 @@
     "agencyId": "IRCC",
     "name": "Find a biometrics collection point and book an appointment",
     "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/biometrics/where-to-give.html",
-    "forDocTypes": ["IRCC_BIOMETRICS_INSTRUCTION"],
+    "forDocTypes": [
+      "IRCC_BIOMETRICS_INSTRUCTION"
+    ],
     "kind": "in_person",
     "sourceId": "src-ircc-biometrics-where",
     "verifiedOn": "2026-09-26",
     "evidenceType": "OFFICIAL_PAGE",
-    "notes": "Bring the biometric instruction letter and a valid passport."
+    "notes": "Book an appointment as soon as you get the letter. Bring the biometric instruction letter and a valid passport (IRCC: how to give your biometrics)."
+  },
+  {
+    "id": "chan-cra-file-objection",
+    "agencyId": "CRA",
+    "name": "CRA: file an objection (My Account → Register my formal dispute, or form T400A)",
+    "url": "https://www.canada.ca/en/revenue-agency/services/about-canada-revenue-agency-cra/complaints-disputes/file-objection-cppei-appeal-minister.html",
+    "forDocTypes": [
+      "CRA_NOTICE_OF_ASSESSMENT",
+      "CRA_NOTICE_OF_REASSESSMENT"
+    ],
+    "kind": "portal",
+    "sourceId": "src-cra-p148",
+    "verifiedOn": "2026-09-26",
+    "evidenceType": "OFFICIAL_PAGE",
+    "notes": "P148: file through My Account (Register my formal dispute), by mail or fax with form T400A, or with a signed letter."
   }
 ]

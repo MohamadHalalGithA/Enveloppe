@@ -23,6 +23,8 @@ export const ProcessDefinitionZ = z.object({
       }),
     )
     .min(2),
+  /** Document types that open a new case in this process. */
+  startsWith: z.array(DocTypeZ),
   /** docType → stage it places the case in (forward-only). */
   triggers: z.partialRecord(DocTypeZ, z.string()),
   /** stage → stage after the user saves submission proof. */

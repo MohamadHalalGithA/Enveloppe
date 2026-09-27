@@ -101,6 +101,20 @@ describe("guardExtraction", () => {
     expect(out.phones[0].needsConfirmation).toBe(true);
   });
 
+  it("never lets the model call a photo fully legible when it reports image problems or uncertain fields", () => {
+    const blurry = A();
+    blurry.quality = { legibility: "good", issues: ["blur", "handwriting"] };
+    expect(guard(blurry).quality.legibility).toBe("partial");
+
+    const unsure = A();
+    unsure.issueDate.needsConfirmation = true;
+    expect(guard(unsure).quality.legibility).toBe("partial");
+
+    const annotated = A();
+    annotated.quality = { legibility: "good", issues: ["handwriting"] };
+    expect(guard(annotated).quality.legibility).toBe("good");
+  });
+
   it("normalizes uncertain field paths", () => {
     const x = A();
     x.uncertainFields = ["issueDate.value", "issueDate"];

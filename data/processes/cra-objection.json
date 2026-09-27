@@ -1,0 +1,29 @@
+{
+  "id": "CRA_OBJECTION",
+  "agencyId": "CRA",
+  "title": "CRA reassessment and objection",
+  "sourceId": "src-cra-p148",
+  "verifiedOn": "2026-09-26",
+  "stages": [
+    { "id": "REASSESSED", "label": "CRA assessed or reassessed your return" },
+    { "id": "OBJECTION_WINDOW_OPEN", "label": "You can object if you disagree", "userAction": "file_objection" },
+    { "id": "OBJECTION_FILED", "label": "You file an objection" },
+    {
+      "id": "APPEALS_REVIEW",
+      "label": "CRA reviews your objection",
+      "expectNext": "CRA gives you a case number, reviews your objection and may contact you. CRA doesn't guarantee a timeline."
+    },
+    {
+      "id": "DECISION",
+      "label": "Decision",
+      "terminal": true,
+      "expectNext": "CRA sends a notice of reassessment or confirms the original assessment."
+    }
+  ],
+  "startsWith": ["CRA_NOTICE_OF_ASSESSMENT", "CRA_NOTICE_OF_REASSESSMENT"],
+  "triggers": {
+    "CRA_NOTICE_OF_ASSESSMENT": "OBJECTION_WINDOW_OPEN",
+    "CRA_NOTICE_OF_REASSESSMENT": "OBJECTION_WINDOW_OPEN"
+  },
+  "afterSubmit": { "OBJECTION_WINDOW_OPEN": "APPEALS_REVIEW" }
+}

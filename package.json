@@ -20,6 +20,8 @@
     "test:live": "vitest run --mode live"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^4.30.0",
+    "@electric-sql/pglite": "^0.5.8",
     "@google/genai": "^2.24.0",
     "drizzle-orm": "^0.45.3",
     "jsqr": "^1.4.0",

@@ -98,7 +98,7 @@
       { "id": "UNDER_REVIEW", "label": "CRA reviews them", "state": "todo", "expectNext": "A letter with the result, or a request for more information. CRA doesn't guarantee a timeline." },
       { "id": "OUTCOME", "label": "Outcome received", "state": "todo" }
     ],
-    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview.html"
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/validating-your-eligibility-benefits-credits.html"
   },
   "responsePack": {
     "summary": "Send proof that you and your children live in Canada by October 14, 2026.",

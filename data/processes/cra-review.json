@@ -1,0 +1,30 @@
+{
+  "id": "CRA_REVIEW",
+  "agencyId": "CRA",
+  "title": "CRA benefits review",
+  "sourceId": "src-cra-validating-benefits",
+  "verifiedOn": "2026-09-26",
+  "stages": [
+    { "id": "REVIEW_STARTED", "label": "CRA started a review" },
+    { "id": "DOCUMENTS_REQUESTED", "label": "Documents requested", "userAction": "submit_documents" },
+    { "id": "DOCUMENTS_SUBMITTED", "label": "You send the documents" },
+    {
+      "id": "UNDER_REVIEW",
+      "label": "CRA reviews them",
+      "expectNext": "CRA says you should hear back no later than 45 days after it receives your documents."
+    },
+    {
+      "id": "OUTCOME",
+      "label": "Outcome received",
+      "terminal": true,
+      "expectNext": "Your benefits may be adjusted. You may be entitled to more, or asked to repay an amount."
+    }
+  ],
+  "startsWith": ["CRA_REVIEW_DOCUMENT_REQUEST"],
+  "triggers": {
+    "CRA_REVIEW_DOCUMENT_REQUEST": "DOCUMENTS_REQUESTED",
+    "CRA_BALANCE_DUE": "OUTCOME",
+    "CRA_NOTICE_OF_REASSESSMENT": "OUTCOME"
+  },
+  "afterSubmit": { "DOCUMENTS_REQUESTED": "UNDER_REVIEW" }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "IRCC_BIOMETRICS",
+  "agencyId": "IRCC",
+  "title": "IRCC application: biometrics",
+  "sourceId": "src-ircc-biometrics-where",
+  "verifiedOn": "2026-09-26",
+  "stages": [
+    { "id": "APPLICATION_SUBMITTED", "label": "You applied" },
+    { "id": "BIOMETRICS_REQUESTED", "label": "Biometrics requested", "userAction": "give_biometrics" },
+    { "id": "BIOMETRICS_GIVEN", "label": "You give your fingerprints and photo" },
+    {
+      "id": "FURTHER_PROCESSING",
+      "label": "IRCC continues processing",
+      "expectNext": "IRCC continues processing your application. It may ask for more information. IRCC doesn't guarantee a timeline."
+    },
+    { "id": "DECISION", "label": "Decision", "terminal": true }
+  ],
+  "startsWith": ["IRCC_BIOMETRICS_INSTRUCTION"],
+  "triggers": { "IRCC_BIOMETRICS_INSTRUCTION": "BIOMETRICS_REQUESTED" },
+  "afterSubmit": { "BIOMETRICS_REQUESTED": "FURTHER_PROCESSING" }
+}

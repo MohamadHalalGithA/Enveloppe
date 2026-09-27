@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
 import {
   bigserial,
+  boolean,
   char,
   check,
   customType,
@@ -66,24 +67,41 @@ export const letters = pgTable(
     userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
     caseId: uuid("case_id").references(() => cases.id, { onDelete: "set null" }),
     caseRole: text("case_role"),
+    /** The user's answer to the case prompt: LINKED | NEW_CASE | KEPT_SEPARATE (null = not answered yet). */
+    caseDecision: text("case_decision"),
     status: text("status").notNull(),
     imageSha256: char("image_sha256", { length: 64 }).notNull(),
-    /** Validated + redacted Extraction (lib/contracts/extraction.ts). */
+    docType: text("doc_type"),
+    issueDate: date("issue_date"),
+    title: text("title"),
+    /** HMAC of the letter's reference number (never the number itself) + last 4 for display. */
+    referenceHmac: text("reference_hmac"),
+    referenceLast4: char("reference_last4", { length: 4 }),
+    referenceUncertain: boolean("reference_uncertain").notNull().default(false),
+    /** Validated + redacted Extraction (lib/contracts/extraction.ts). Never the raw model output. */
     extraction: jsonb("extraction"),
+    /** Server-decoded QR payloads (lib/qr/decode.ts), kept so deterministic stages can re-run without the image. */
+    qrFindings: jsonb("qr_findings"),
     caseMatch: jsonb("case_match"),
     verdict: text("verdict"),
     deadline: jsonb("deadline"),
     responsePack: jsonb("response_pack"),
-    explanation: jsonb("explanation"),
+    /** whatIsThis, needsConfirmation, placement, newCaseTitle (lib/cases/assemble.ts). */
+    summary: jsonb("summary"),
     modelId: text("model_id"),
     errorCode: text("error_code"),
     createdAt: createdAt(),
+    analyzedAt: timestamp("analyzed_at", { withTimezone: true }),
   },
   (t) => [
     uniqueIndex("letters_user_sha_uq").on(t.userId, t.imageSha256),
     index("letters_user_created_idx").on(t.userId, t.createdAt.desc()),
     index("letters_case_idx").on(t.caseId),
     check("letters_case_role_chk", sql`${t.caseRole} is null or ${t.caseRole} in ('primary','suspected_imitation')`),
+    check(
+      "letters_case_decision_chk",
+      sql`${t.caseDecision} is null or ${t.caseDecision} in ('LINKED','NEW_CASE','KEPT_SEPARATE')`,
+    ),
   ],
 );
 
@@ -142,6 +160,7 @@ export const tasks = pgTable(
     proofNotes: text("proof_notes"),
     proofSubmittedAt: timestamp("proof_submitted_at", { withTimezone: true }),
     completedAt: timestamp("completed_at", { withTimezone: true }),
+    createdAt: createdAt(),
   },
   (t) => [
     index("tasks_user_status_due_idx").on(t.userId, t.status, t.dueDate),

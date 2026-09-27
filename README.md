@@ -13,12 +13,12 @@ cp .env.example .env.local      # fill in later; the mock UI needs nothing
 npm run dev                     # http://localhost:3000/app
 ```
 
-Database (needs Docker Desktop running):
+Database: local dev uses PGlite (real Postgres in-process, stored in `./.data`, no Docker) via
+`DATABASE_URL=pglite:./.data/enveloppe`. Migrations in `db/migrations` apply automatically on first connect.
+To use Docker Postgres instead: `npm run db:up` and `DATABASE_URL=postgres://enveloppe:enveloppe@localhost:5432/enveloppe`.
 
-```bash
-npm run db:up                   # Postgres 16 on 127.0.0.1:5432
-npm run db:push                 # apply lib/db/schema.ts
-```
+Auth0: the application must allow callback `http://localhost:3000/auth/callback`, logout `http://localhost:3000`
+and web origin `http://localhost:3000`. `/app` requires login.
 
 Checks: `npm run check` runs typecheck, lint, tests and build.
 
@@ -40,7 +40,9 @@ npm run test:live                                      # live contract tests (re
 | `lib/gemini/` | Letter reading: Gemini client, prompt, schema, Contract Guard |
 | `data/registry/` + `lib/registry/` | Trust Registry: official phones, domains, payment and scam rules, forms, channels, each citing a checked source |
 | `lib/verification/`, `lib/url/`, `lib/qr/` | Deterministic claim verification, URL analysis, server-side QR decoding |
-| `lib/db/` | Drizzle schema + lazy client |
+| `lib/cases/`, `lib/deadlines/`, `lib/processes/` + `data/processes/` | Case Brain: threading + scam-in-context, deadline rules, process graphs, Response Pack, DB service |
+| `lib/db/` | Drizzle schema, PGlite/Postgres client, user-scoped repository |
+| `lib/auth/`, `proxy.ts` | Auth0 session, `requireUser()`, route protection |
 | `components/`, `app/app/` | Civic Inbox and Analysis Result screens |
 | `tests/` | Vitest |
 

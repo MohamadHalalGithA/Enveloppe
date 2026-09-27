@@ -70,7 +70,7 @@
       "ruleId": "CRA-OBJ-165-1",
       "statutory": true,
       "explanation": "For individuals, you can object until the later of 90 days after the date on the notice, or one year after your filing due date. For 2023, one year after the filing due date was April 30, 2025, so the 90-day limit applies.",
-      "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/p148-resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html",
       "verifiedOn": "2026-09-26",
       "assumptions": ["You weren't self-employed in 2023. (If you were, the result here is the same.)"]
     },
@@ -92,7 +92,7 @@
       { "id": "APPEALS_REVIEW", "label": "CRA Appeals reviews it", "state": "todo", "expectNext": "An acknowledgement letter, then a decision. CRA doesn't guarantee a timeline." },
       { "id": "DECISION", "label": "Decision", "state": "todo" }
     ],
-    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html"
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/p148-resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html"
   },
   "responsePack": {
     "summary": "If you disagree with the reassessment, file an objection by October 8, 2026. If you agree, you don't need to do anything.",
@@ -105,7 +105,7 @@
         "ruleId": "CRA-OBJ-165-1",
         "statutory": true,
         "explanation": "For individuals, you can object until the later of 90 days after the date on the notice, or one year after your filing due date. For 2023, one year after the filing due date was April 30, 2025, so the 90-day limit applies.",
-        "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html",
+        "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/p148-resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html",
         "verifiedOn": "2026-09-26",
         "assumptions": ["You weren't self-employed in 2023. (If you were, the result here is the same.)"]
       },
@@ -118,9 +118,9 @@
     },
     "requestedDocuments": [],
     "officialChannel": {
-      "registryId": "chan-cra-my-account-dispute",
-      "name": "CRA My Account: Register my formal dispute",
-      "url": "https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html",
+      "registryId": "chan-cra-file-objection",
+      "name": "CRA: file an objection (My Account → Register my formal dispute, or form T400A)",
+      "url": "https://www.canada.ca/en/revenue-agency/services/about-canada-revenue-agency-cra/complaints-disputes/file-objection-cppei-appeal-minister.html",
       "kind": "portal",
       "verifiedOn": "2026-09-26"
     },

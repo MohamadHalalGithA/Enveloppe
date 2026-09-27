@@ -223,7 +223,22 @@ export function guardExtraction(input: Extraction, opts: GuardOptions): Extracti
   }
 
   x.uncertainFields = [...uncertain];
+
+  // The model's self-rated legibility can only be lowered: it has rated a blurry photo "good" while
+  // flagging fields it couldn't read. Image problems or uncertain fields mean the letter wasn't fully read.
+  if (x.quality.legibility === "good" && (x.quality.issues.some((i) => DEGRADING_ISSUES.has(i)) || hasReadingUncertainty(x))) {
+    x.quality.legibility = "partial";
+  }
   return x;
+}
+
+const DEGRADING_ISSUES = new Set(["blur", "glare", "cropped", "missing_pages", "low_resolution"]);
+/** Doubts about which kind of letter it is, not about text we failed to read. */
+const CLASSIFICATION_FIELDS = new Set(["documentType", "agency"]);
+
+/** Some printed text couldn't be read with confidence (classification doubts don't count). */
+export function hasReadingUncertainty(x: Extraction): boolean {
+  return x.uncertainFields.some((p) => !CLASSIFICATION_FIELDS.has(p));
 }
 
 function redactDeep(node: unknown): unknown {

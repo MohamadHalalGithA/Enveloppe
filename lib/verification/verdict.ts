@@ -25,7 +25,8 @@ export function computeVerdict(items: VerificationItem[], ctx: VerdictContext): 
   const pending = items.some((i) => i.status === "NEEDS_USER_CONFIRMATION");
   const uncheckedContact = items.some((i) => i.status === "UNVERIFIED" && CONTACT_CLAIMS.has(i.claimType));
   const addressedToSoftware = items.some((i) => i.claimType === "embedded_instruction");
-  if (strongMatches >= 2 && ctx.fullyLegible && !pending && !uncheckedContact && !addressedToSoftware) {
+  const conflictsWithCase = items.some((i) => i.evidenceType === "CASE_FILE" && i.status === "VERIFIED_CONTRADICTION");
+  if (strongMatches >= 2 && ctx.fullyLegible && !pending && !uncheckedContact && !addressedToSoftware && !conflictsWithCase) {
     return "CONSISTENT_WITH_TRUSTED_SOURCES";
   }
   return "PARTIALLY_VERIFIED";

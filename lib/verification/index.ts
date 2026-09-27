@@ -1,5 +1,6 @@
 import type { Extraction, Verdict, VerificationItem } from "@/lib/contracts";
 import type { QrFinding } from "@/lib/qr/decode";
+import { hasReadingUncertainty } from "@/lib/gemini/guard";
 import { getRegistry, type Registry } from "@/lib/registry/load";
 import { agencyEntry } from "@/lib/registry/lookup";
 import { verifyClaims } from "./engine";
@@ -19,7 +20,7 @@ export function verifyExtraction(
     items,
     verdict: computeVerdict(items, {
       agencyTracked: !!agencyEntry(registry, x.agency.value),
-      fullyLegible: x.quality.legibility === "good",
+      fullyLegible: x.quality.legibility === "good" && !hasReadingUncertainty(x),
     }),
   };
 }

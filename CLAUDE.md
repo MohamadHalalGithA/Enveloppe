@@ -94,3 +94,11 @@ boundary · `@google/genai` · ElevenLabs REST · `@auth0/nextjs-auth0` · `jsqr
   browser or WebFetch. `src-ottawa-311` is SEARCH_INDEX-only and still needs a human to open the page.
 - Verification: `lib/verification` (engine + verdict), `lib/url/analyze.ts` (pure, never fetches), `lib/qr/decode.ts`
   (server-side jsQR, never opens links), `lib/phone.ts`. Case-file items (reference/period) are added in the case module.
+- Case Brain: `lib/cases/` (pure `assemble.ts` + `threading.ts` + `response-pack.ts`; DB `service.ts`),
+  `lib/deadlines/` (calendar + rules as code, each citing a registry source), `lib/processes/` + `data/processes/*.json`.
+  References are stored only as HMAC + last 4 (`lib/cases/reference.ts`, `mask.ts`); never store the full number.
+- Database: `lib/db/client.ts` → `DATABASE_URL=pglite:./.data/enveloppe` (dev, in-process Postgres, no Docker) or
+  `postgres://…` (prod). Migrations: edit `lib/db/schema.ts`, then `npx drizzle-kit generate`; applied on first connect.
+  All data access goes through `lib/db/repo.ts`, whose functions take the user id first and scope every query.
+- Auth: `proxy.ts` (Next 16 middleware) mounts `/auth/*`, redirects anonymous `/app/*` to login, 401s anonymous `/api/*`.
+  Handlers still call `requireUser()` (`lib/auth/requireUser.ts`). Scope is `openid profile` (no email, no refresh tokens).
