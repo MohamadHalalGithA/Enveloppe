@@ -1,0 +1,260 @@
+{
+  "id": "8366744f-7743-45b9-abd0-7b2233acc725",
+  "status": "SUCCESS",
+  "createdAt": "2026-09-27T00:23:11.086Z",
+  "cached": true,
+  "image": {
+    "url": "/demo-letters/C_cra_reassessment.png",
+    "width": 1275,
+    "height": 1650
+  },
+  "whatIsThis": {
+    "agencyLabel": "Canada Revenue Agency (CRA)",
+    "docTypeLabel": "Notice of reassessment: 2023 tax year",
+    "explanation": {
+      "en": "This is a notice of reassessment for your 2023 tax year, from the Canada Revenue Agency (CRA). If you disagree with this notice of reassessment, you can file an objection by October 8, 2026. If you agree, you don't need to do anything."
+    }
+  },
+  "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+  "items": [
+    {
+      "id": "e8075f03-b403-4764-b10c-a8c533777e2a",
+      "claimType": "phone",
+      "letterValue": "1-800-959-8281",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "Matches CRA's published number: CRA individual tax enquiries.",
+      "sourceId": "src-cra-contact",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/contact-information.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            642,
+            60,
+            654,
+            204
+          ]
+        ],
+        "page": 1,
+        "quote": "1-800-959-8281",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "c464fd29-d77a-4856-9660-e2ece715e626",
+      "claimType": "url",
+      "letterValue": "canada.ca/my-cra-account",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "DOMAIN_ANALYSIS",
+      "reason": "This link goes to canada.ca, an official Government of Canada domain.",
+      "sourceId": "src-ircc-scams",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/protect-fraud/internet-email-telephone.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            561,
+            60,
+            575,
+            282
+          ]
+        ],
+        "page": 1,
+        "quote": "canada.ca/my-cra-account",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "eac1cd14-ef06-4a84-86c7-0b709d5a85b7",
+      "claimType": "agency",
+      "letterValue": "Canada Revenue Agency",
+      "status": "VERIFIED_MATCH",
+      "strength": "SOFT",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "CRA is an agency we track. Anyone can print an agency name, so this alone proves little.",
+      "sourceId": "src-cra-home",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            42,
+            60,
+            67,
+            434
+          ]
+        ],
+        "page": 1,
+        "quote": "Canada Revenue Agency",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "d18afffc-8181-42a0-9067-ccb710552f18",
+      "claimType": "reference",
+      "letterValue": "…2210",
+      "status": "UNVERIFIED",
+      "strength": "NONE",
+      "evidenceType": "CASE_FILE",
+      "reason": "This is a new reference number. There's no earlier case to compare it with yet.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            160,
+            600,
+            172,
+            842
+          ]
+        ],
+        "page": 1,
+        "quote": "Reference: ••••-••-••••-2210",
+        "lowConfidence": false
+      }
+    }
+  ],
+  "officialContact": {
+    "registryId": "tel-cra-individual",
+    "display": "1-800-959-8281",
+    "label": "CRA individual tax enquiries",
+    "verifiedOn": "2026-09-26"
+  },
+  "deadline": {
+    "asOf": "2026-09-27",
+    "printed": null,
+    "computed": {
+      "date": "2026-10-08",
+      "ruleId": "CRA-OBJ-165-1",
+      "statutory": true,
+      "explanation": "For individuals, you can object until the later of 90 days after the date on the notice (October 8, 2026) or one year after your 2023 filing deadline (April 30, 2025).",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/p148-resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html",
+      "verifiedOn": "2026-09-26",
+      "assumptions": [
+        "You're filing as an individual (not a corporation or trust).",
+        "We assumed the usual April 30, 2024 filing deadline. The result is the same if you or your spouse were self-employed."
+      ]
+    },
+    "effective": "2026-10-08",
+    "mismatch": false,
+    "daysRemaining": 11,
+    "clockStartedOn": "2026-07-10",
+    "status": "SOON",
+    "note": "This deadline didn't start when you uploaded the letter. It started on the date printed on the notice."
+  },
+  "process": {
+    "processId": "CRA_OBJECTION",
+    "title": "CRA reassessment and objection",
+    "currentStageId": "OBJECTION_WINDOW_OPEN",
+    "stages": [
+      {
+        "id": "REASSESSED",
+        "label": "CRA assessed or reassessed your return",
+        "state": "done"
+      },
+      {
+        "id": "OBJECTION_WINDOW_OPEN",
+        "label": "You can object if you disagree",
+        "state": "current"
+      },
+      {
+        "id": "OBJECTION_FILED",
+        "label": "You file an objection",
+        "state": "todo"
+      },
+      {
+        "id": "APPEALS_REVIEW",
+        "label": "CRA reviews your objection",
+        "state": "todo",
+        "expectNext": "CRA gives you a case number, reviews your objection and may contact you. CRA doesn't guarantee a timeline."
+      },
+      {
+        "id": "DECISION",
+        "label": "Decision",
+        "state": "todo",
+        "expectNext": "CRA sends a notice of reassessment or confirms the original assessment."
+      }
+    ],
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/p148-resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html"
+  },
+  "responsePack": {
+    "summary": "If you disagree with this notice of reassessment, you can file an objection by October 8, 2026. If you agree, you don't need to do anything.",
+    "action": {
+      "type": "file_objection",
+      "label": "Decide whether to file an objection"
+    },
+    "deadline": {
+      "asOf": "2026-09-27",
+      "printed": null,
+      "computed": {
+        "date": "2026-10-08",
+        "ruleId": "CRA-OBJ-165-1",
+        "statutory": true,
+        "explanation": "For individuals, you can object until the later of 90 days after the date on the notice (October 8, 2026) or one year after your 2023 filing deadline (April 30, 2025).",
+        "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/p148/p148-resolving-your-dispute-objection-appeal-rights-under-income-tax-act.html",
+        "verifiedOn": "2026-09-26",
+        "assumptions": [
+          "You're filing as an individual (not a corporation or trust).",
+          "We assumed the usual April 30, 2024 filing deadline. The result is the same if you or your spouse were self-employed."
+        ]
+      },
+      "effective": "2026-10-08",
+      "mismatch": false,
+      "daysRemaining": 11,
+      "clockStartedOn": "2026-07-10",
+      "status": "SOON",
+      "note": "This deadline didn't start when you uploaded the letter. It started on the date printed on the notice."
+    },
+    "requestedDocuments": [],
+    "officialChannel": {
+      "registryId": "chan-cra-file-objection",
+      "name": "CRA: file an objection (My Account → Register my formal dispute, or form T400A)",
+      "url": "https://www.canada.ca/en/revenue-agency/services/about-canada-revenue-agency-cra/complaints-disputes/file-objection-cppei-appeal-minister.html",
+      "kind": "portal",
+      "verifiedOn": "2026-09-26"
+    },
+    "officialContact": {
+      "registryId": "tel-cra-individual",
+      "display": "1-800-959-8281",
+      "label": "CRA individual tax enquiries",
+      "verifiedOn": "2026-09-26"
+    },
+    "form": {
+      "registryId": "form-cra-t400a",
+      "code": "T400A",
+      "url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/t400a.html"
+    },
+    "steps": [
+      "Read the notice of reassessment and decide whether you disagree with it.",
+      "If you disagree, register a formal dispute in your CRA account, or send form T400A.",
+      "Consider free help from a community tax clinic before the deadline.",
+      "Save your confirmation or case number here."
+    ],
+    "caution": null,
+    "completion": {
+      "status": "OPEN",
+      "proof": null
+    }
+  },
+  "caseMatch": {
+    "decision": "NEW",
+    "candidates": [],
+    "conflicts": [],
+    "linkedCaseId": "abc76a73-aa0f-42b1-ba37-72a4d9270c2c"
+  },
+  "filedIn": {
+    "caseId": "abc76a73-aa0f-42b1-ba37-72a4d9270c2c",
+    "title": "CRA: 2023 reassessment",
+    "role": "primary"
+  },
+  "needsConfirmation": [],
+  "degraded": []
+}

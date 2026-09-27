@@ -1,0 +1,91 @@
+{
+  "cases": [
+    {
+      "id": "a6755f77-c04f-4e96-a976-ef965c59c200",
+      "agencyId": "IRCC",
+      "processId": "IRCC_BIOMETRICS",
+      "stageId": "BIOMETRICS_REQUESTED",
+      "title": "IRCC: biometrics request",
+      "program": null,
+      "period": null,
+      "referenceLast4": "3456",
+      "status": "ACTION_REQUIRED",
+      "nextDeadline": "2026-10-10",
+      "letterCount": 1,
+      "createdAt": "2026-09-27T00:23:40.899Z",
+      "updatedAt": "2026-09-27T00:23:40.899Z"
+    },
+    {
+      "id": "b466b778-0ff2-462f-82d3-5b7251b2eeac",
+      "agencyId": "CRA",
+      "processId": "CRA_REVIEW",
+      "stageId": "DOCUMENTS_REQUESTED",
+      "title": "CRA: Canada child benefit review",
+      "program": "Canada child benefit",
+      "period": "2025",
+      "referenceLast4": "4471",
+      "status": "ACTION_REQUIRED",
+      "nextDeadline": "2026-10-14",
+      "letterCount": 1,
+      "createdAt": "2026-09-27T00:23:16.547Z",
+      "updatedAt": "2026-09-27T00:23:16.547Z"
+    },
+    {
+      "id": "abc76a73-aa0f-42b1-ba37-72a4d9270c2c",
+      "agencyId": "CRA",
+      "processId": "CRA_OBJECTION",
+      "stageId": "OBJECTION_WINDOW_OPEN",
+      "title": "CRA: 2023 reassessment",
+      "program": "income tax and benefit return",
+      "period": "2023",
+      "referenceLast4": "2210",
+      "status": "ACTION_REQUIRED",
+      "nextDeadline": "2026-10-08",
+      "letterCount": 1,
+      "createdAt": "2026-09-27T00:23:11.142Z",
+      "updatedAt": "2026-09-27T00:23:11.142Z"
+    }
+  ],
+  "letters": [
+    {
+      "id": "a96690ff-9b0b-4bbc-9e56-f4ebbb21b2b4",
+      "caseId": "a6755f77-c04f-4e96-a976-ef965c59c200",
+      "title": "Biometric instruction letter",
+      "status": "SUCCESS",
+      "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+      "createdAt": "2026-09-27T00:23:40.881Z"
+    },
+    {
+      "id": "59a854d5-14f7-4a9a-bd7a-a19aabbfbd78",
+      "caseId": null,
+      "title": "Request for documents: Canada child benefit",
+      "status": "LOW_CONFIDENCE",
+      "verdict": "PARTIALLY_VERIFIED",
+      "createdAt": "2026-09-27T00:23:36.051Z"
+    },
+    {
+      "id": "fd49e1f9-4ba1-47b7-b91e-e7407d99553e",
+      "caseId": null,
+      "title": "Letter: Canada child benefit",
+      "status": "SUCCESS",
+      "verdict": "CONTRADICTIONS_FOUND",
+      "createdAt": "2026-09-27T00:23:22.812Z"
+    },
+    {
+      "id": "fcca90fb-5146-4a6e-8bde-42fa1fc0d0b9",
+      "caseId": "b466b778-0ff2-462f-82d3-5b7251b2eeac",
+      "title": "Request for documents: Canada child benefit",
+      "status": "SUCCESS",
+      "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+      "createdAt": "2026-09-27T00:23:16.534Z"
+    },
+    {
+      "id": "8366744f-7743-45b9-abd0-7b2233acc725",
+      "caseId": "abc76a73-aa0f-42b1-ba37-72a4d9270c2c",
+      "title": "Notice of reassessment: 2023 tax year",
+      "status": "SUCCESS",
+      "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+      "createdAt": "2026-09-27T00:23:11.086Z"
+    }
+  ]
+}

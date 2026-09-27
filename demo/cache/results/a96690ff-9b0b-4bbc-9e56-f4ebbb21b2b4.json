@@ -1,0 +1,282 @@
+{
+  "id": "a96690ff-9b0b-4bbc-9e56-f4ebbb21b2b4",
+  "status": "SUCCESS",
+  "createdAt": "2026-09-27T00:23:40.881Z",
+  "cached": true,
+  "image": {
+    "url": "/demo-letters/D_ircc_biometrics.png",
+    "width": 1275,
+    "height": 1650
+  },
+  "whatIsThis": {
+    "agencyLabel": "Immigration, Refugees and Citizenship Canada (IRCC)",
+    "docTypeLabel": "Biometric instruction letter",
+    "explanation": {
+      "en": "This is a biometric instruction letter, from the Immigration, Refugees and Citizenship Canada (IRCC). Give your fingerprints and photo (biometrics) by October 10, 2026."
+    }
+  },
+  "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+  "items": [
+    {
+      "id": "5745fa1d-37f1-4b12-9e08-9013a17183eb",
+      "claimType": "phone",
+      "letterValue": "1-888-242-2100",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "Matches IRCC's published number: IRCC Client Support Centre.",
+      "sourceId": "src-ircc-contact",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/contact-ircc.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            640,
+            61,
+            654,
+            204
+          ]
+        ],
+        "page": 1,
+        "quote": "1-888-242-2100",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "af904e8b-3ffc-4654-b791-27f5eaf16001",
+      "claimType": "url",
+      "letterValue": "ircc.canada.ca",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "DOMAIN_ANALYSIS",
+      "reason": "This link goes to canada.ca, an official Government of Canada domain.",
+      "sourceId": "src-ircc-scams",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/protect-fraud/internet-email-telephone.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            560,
+            59,
+            573,
+            181
+          ]
+        ],
+        "page": 1,
+        "quote": "ircc.canada.ca",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "a1d2f154-14c7-4a26-a39f-1e534a84b7b6",
+      "claimType": "agency",
+      "letterValue": "Immigration, Refugees and Citizenship Canada",
+      "status": "VERIFIED_MATCH",
+      "strength": "SOFT",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "IRCC is an agency we track. Anyone can print an agency name, so this alone proves little.",
+      "sourceId": "src-ircc-home",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            41,
+            59,
+            64,
+            692
+          ]
+        ],
+        "page": 1,
+        "quote": "Immigration, Refugees and Citizenship Canada",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "ec2bc49d-f58a-45b7-b245-55ce4b6323b0",
+      "claimType": "reference",
+      "letterValue": "…3456",
+      "status": "UNVERIFIED",
+      "strength": "NONE",
+      "evidenceType": "CASE_FILE",
+      "reason": "This is a new reference number. There's no earlier case to compare it with yet.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            159,
+            599,
+            175,
+            860
+          ]
+        ],
+        "page": 1,
+        "quote": "Application number: ••••••-3456",
+        "lowConfidence": false
+      }
+    }
+  ],
+  "officialContact": {
+    "registryId": "tel-ircc-client-support",
+    "display": "1-888-242-2100",
+    "label": "IRCC Client Support Centre",
+    "verifiedOn": "2026-09-26"
+  },
+  "deadline": {
+    "asOf": "2026-09-27",
+    "printed": {
+      "date": "2026-10-10",
+      "sourceText": "within 30 days of the date of this letter",
+      "box": [
+        300,
+        477,
+        314,
+        772
+      ]
+    },
+    "computed": {
+      "date": "2026-10-10",
+      "ruleId": "IRCC-BIO-30",
+      "statutory": false,
+      "explanation": "IRCC says you have 30 days from the time you get your biometric instruction letter to give your biometrics.",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/biometrics/where-to-give.html",
+      "verifiedOn": "2026-09-26",
+      "assumptions": [
+        "Counted from the date printed on the letter, the earliest the 30 days could start. If you got the letter later, you may have a few more days."
+      ]
+    },
+    "effective": "2026-10-10",
+    "mismatch": false,
+    "daysRemaining": 13,
+    "clockStartedOn": "2026-09-10",
+    "status": "SOON",
+    "note": "This deadline didn't start when you uploaded the letter. It started on the date printed on the notice. October 10, 2026 is a Saturday. Act before the weekend to be safe."
+  },
+  "process": {
+    "processId": "IRCC_BIOMETRICS",
+    "title": "IRCC application: biometrics",
+    "currentStageId": "BIOMETRICS_REQUESTED",
+    "stages": [
+      {
+        "id": "APPLICATION_SUBMITTED",
+        "label": "You applied",
+        "state": "done"
+      },
+      {
+        "id": "BIOMETRICS_REQUESTED",
+        "label": "Biometrics requested",
+        "state": "current"
+      },
+      {
+        "id": "BIOMETRICS_GIVEN",
+        "label": "You give your fingerprints and photo",
+        "state": "todo"
+      },
+      {
+        "id": "FURTHER_PROCESSING",
+        "label": "IRCC continues processing",
+        "state": "todo",
+        "expectNext": "IRCC continues processing your application. It may ask for more information. IRCC doesn't guarantee a timeline."
+      },
+      {
+        "id": "DECISION",
+        "label": "Decision",
+        "state": "todo"
+      }
+    ],
+    "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/biometrics/where-to-give.html"
+  },
+  "responsePack": {
+    "summary": "Give your fingerprints and photo (biometrics) by October 10, 2026.",
+    "action": {
+      "type": "give_biometrics",
+      "label": "Book your biometrics appointment"
+    },
+    "deadline": {
+      "asOf": "2026-09-27",
+      "printed": {
+        "date": "2026-10-10",
+        "sourceText": "within 30 days of the date of this letter",
+        "box": [
+          300,
+          477,
+          314,
+          772
+        ]
+      },
+      "computed": {
+        "date": "2026-10-10",
+        "ruleId": "IRCC-BIO-30",
+        "statutory": false,
+        "explanation": "IRCC says you have 30 days from the time you get your biometric instruction letter to give your biometrics.",
+        "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/biometrics/where-to-give.html",
+        "verifiedOn": "2026-09-26",
+        "assumptions": [
+          "Counted from the date printed on the letter, the earliest the 30 days could start. If you got the letter later, you may have a few more days."
+        ]
+      },
+      "effective": "2026-10-10",
+      "mismatch": false,
+      "daysRemaining": 13,
+      "clockStartedOn": "2026-09-10",
+      "status": "SOON",
+      "note": "This deadline didn't start when you uploaded the letter. It started on the date printed on the notice. October 10, 2026 is a Saturday. Act before the weekend to be safe."
+    },
+    "requestedDocuments": [
+      {
+        "label": "passport",
+        "sourceText": "Bring this letter and your passport to a biometrics collection service point.",
+        "checked": false
+      },
+      {
+        "label": "this letter",
+        "sourceText": "Bring this letter and your passport to a biometrics collection service point.",
+        "checked": false
+      }
+    ],
+    "officialChannel": {
+      "registryId": "chan-ircc-biometrics",
+      "name": "Find a biometrics collection point and book an appointment",
+      "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/biometrics/where-to-give.html",
+      "kind": "in_person",
+      "verifiedOn": "2026-09-26"
+    },
+    "officialContact": {
+      "registryId": "tel-ircc-client-support",
+      "display": "1-888-242-2100",
+      "label": "IRCC Client Support Centre",
+      "verifiedOn": "2026-09-26"
+    },
+    "form": null,
+    "steps": [
+      "Find a collection point and book an appointment (link above) as soon as you can.",
+      "Bring your biometric instruction letter and your valid passport.",
+      "If you can't make it in time, tell IRCC through its web form before the letter expires.",
+      "Save your appointment confirmation here."
+    ],
+    "caution": null,
+    "completion": {
+      "status": "OPEN",
+      "proof": null
+    }
+  },
+  "caseMatch": {
+    "decision": "NEW",
+    "candidates": [],
+    "conflicts": [],
+    "linkedCaseId": "a6755f77-c04f-4e96-a976-ef965c59c200"
+  },
+  "filedIn": {
+    "caseId": "a6755f77-c04f-4e96-a976-ef965c59c200",
+    "title": "IRCC: biometrics request",
+    "role": "primary"
+  },
+  "needsConfirmation": [],
+  "degraded": []
+}

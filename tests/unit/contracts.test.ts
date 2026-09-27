@@ -67,7 +67,7 @@ describe("product invariants", () => {
     expect(b.caseMatch.decision).toBe("ASK_CONFLICT");
     expect(b.caseMatch.conflicts.map((c) => c.kind)).toContain("REFERENCE_MISMATCH");
     // The official channel is never the number printed in the letter.
-    expect(b.officialContact.display).not.toBe("1-888-555-0147");
+    expect(b.officialContact?.display).not.toBe("1-888-555-0147");
   });
 
   it("the reassessment deadline is rule-computed, not printed", () => {

@@ -38,11 +38,14 @@ export const LetterResultZ = z.object({
   }),
   verdict: VerdictZ,
   items: z.array(VerificationItemZ),
-  officialContact: OfficialContactZ,
+  /** Null only when the sender isn't an agency the Trust Registry covers. */
+  officialContact: OfficialContactZ.nullable(),
   deadline: DeadlineResultZ,
   process: ProcessViewZ.nullable(),
   responsePack: ResponsePackZ.nullable(),
   caseMatch: CaseMatchZ,
+  /** The case this letter is filed in, once linked or created (null while unfiled). */
+  filedIn: z.object({ caseId: z.uuid(), title: z.string(), role: z.enum(["primary", "suspected_imitation"]) }).nullable().default(null),
   needsConfirmation: z.array(
     z.object({ path: z.string(), label: z.string(), value: z.string().nullable() }),
   ),

@@ -201,7 +201,7 @@ describe("UI fixtures cite only real registry entries", () => {
         }
         if (i.officialAlternative) expect(ids.has(i.officialAlternative.registryId), i.id).toBe(true);
       }
-      expect(ids.has(r.officialContact.registryId), r.id).toBe(true);
+      if (r.officialContact) expect(ids.has(r.officialContact.registryId), r.id).toBe(true);
       const sourceUrls = new Set([...reg.sources.values()].map((s) => s.url));
       if (r.responsePack?.officialChannel) expect(ids.has(r.responsePack.officialChannel.registryId), r.id).toBe(true);
       if (r.responsePack?.form) expect(ids.has(r.responsePack.form.registryId), r.id).toBe(true);

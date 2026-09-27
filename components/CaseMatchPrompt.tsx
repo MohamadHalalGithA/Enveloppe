@@ -1,24 +1,31 @@
-import Link from "next/link";
-import type { CaseMatch } from "@/lib/contracts";
+import type { LetterResult } from "@/lib/contracts";
 
-export function CaseMatchPrompt({ match }: { match: CaseMatch }) {
+export function CaseMatchPrompt({ match, filedIn }: { match: LetterResult["caseMatch"]; filedIn: LetterResult["filedIn"] }) {
   const top = match.candidates[0];
-  if (match.decision === "AUTO_LINK" && match.linkedCaseId) {
-    return (
+
+  if (filedIn) {
+    return filedIn.role === "suspected_imitation" ? (
+      <section className="rounded-xl border-2 border-red-700 bg-red-50 p-4 text-red-950">
+        <p>
+          Kept with your case <strong>&ldquo;{filedIn.title}&rdquo;</strong> as a <strong>suspected imitation</strong>. It
+          doesn&apos;t change the case&apos;s steps or deadlines.
+        </p>
+      </section>
+    ) : (
       <section className="rounded-xl border border-slate-300 p-4">
         <p>
-          Added to your case{" "}
-          <Link href="/app" className="font-semibold underline">
-            {top?.title ?? "case"}
-          </Link>{" "}
-          because {top?.reasons[0]?.toLowerCase() ?? "the details match"}.
+          Filed in your case <strong>&ldquo;{filedIn.title}&rdquo;</strong>
+          {match.decision === "AUTO_LINK" && top ? ` because ${top.reasons[0]?.toLowerCase() ?? "the details match"}` : ""}.
         </p>
-        <button type="button" disabled className="mt-2 text-sky-800 underline disabled:opacity-60">
-          Undo
-        </button>
+        {match.decision === "AUTO_LINK" && (
+          <button type="button" disabled className="mt-2 text-sky-800 underline disabled:opacity-60">
+            Undo
+          </button>
+        )}
       </section>
     );
   }
+
   if (match.decision === "ASK_CONFLICT" && top) {
     return (
       <section className="rounded-xl border-2 border-red-700 bg-red-50 p-4 text-red-950">
@@ -40,7 +47,7 @@ export function CaseMatchPrompt({ match }: { match: CaseMatch }) {
       </section>
     );
   }
-  if (match.decision === "ASK" && top) {
+  if ((match.decision === "ASK" || match.decision === "AUTO_LINK") && top) {
     return (
       <section className="rounded-xl border border-slate-300 p-4">
         <p className="font-semibold">This may belong to your case &ldquo;{top.title}&rdquo;. Is it the same case?</p>

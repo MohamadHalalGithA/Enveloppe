@@ -8,9 +8,15 @@ export default function Home() {
         Photograph a government letter. Enveloppe checks it against trusted government information and your
         existing cases, tells you what needs to happen next, and tracks it until it&apos;s done.
       </p>
-      <Link href="/app" className="self-start rounded-lg bg-sky-800 px-5 py-3 text-lg font-semibold text-white">
-        Open my Civic Inbox
-      </Link>
+      <div className="flex flex-wrap gap-3">
+        <Link href="/demo" className="rounded-lg bg-sky-800 px-5 py-3 text-lg font-semibold text-white">
+          See the demo (no sign-in)
+        </Link>
+        {/* Plain link on purpose: /app redirects to Auth0 sign-in, which needs a full page navigation. */}
+        <a href="/app" className="rounded-lg border-2 border-sky-800 px-5 py-3 text-lg font-semibold text-sky-900">
+          Sign in to my Civic Inbox
+        </a>
+      </div>
     </main>
   );
 }

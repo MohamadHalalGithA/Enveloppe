@@ -1,0 +1,206 @@
+{
+  "extraction": {
+    "schemaVersion": "1",
+    "isGovernmentCorrespondence": "yes",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "quality": {
+      "legibility": "partial",
+      "issues": [
+        "low_resolution",
+        "handwriting"
+      ]
+    },
+    "agency": {
+      "value": "CRA",
+      "sourceText": "Canada Revenue Agency",
+      "box": [
+        40,
+        121,
+        83,
+        472
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false,
+      "claimedName": "Canada Revenue Agency"
+    },
+    "documentType": {
+      "value": "CRA_REVIEW_DOCUMENT_REQUEST",
+      "sourceText": "Canada child benefit - We need more information",
+      "box": [
+        230,
+        109,
+        274,
+        627
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false,
+      "rawTitle": "Canada child benefit - We need more information"
+    },
+    "issueDate": {
+      "value": "2026-09-14",
+      "sourceText": "September 14, 2026",
+      "box": [
+        139,
+        664,
+        167,
+        827
+      ],
+      "page": 1,
+      "confidence": "medium",
+      "needsConfirmation": true
+    },
+    "printedDeadlines": [
+      {
+        "value": "2026-10-14",
+        "sourceText": "Please send the documents by October 14, 2026.",
+        "box": [
+          467,
+          90,
+          506,
+          499
+        ],
+        "page": 1,
+        "confidence": "medium",
+        "needsConfirmation": true,
+        "kind": "respond_by",
+        "relativeDays": null
+      }
+    ],
+    "identifiers": [
+      {
+        "value": "2026 CCB-5621-4471",
+        "sourceText": "Reference number: 2026 CCB-5621-4471",
+        "box": [
+          176,
+          617,
+          208,
+          917
+        ],
+        "page": 1,
+        "confidence": "medium",
+        "needsConfirmation": true,
+        "kind": "reference_number"
+      }
+    ],
+    "taxYear": {
+      "value": 2025,
+      "sourceText": "Benefit year: 2025",
+      "box": [
+        279,
+        104,
+        303,
+        250
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false
+    },
+    "program": {
+      "value": "Canada child benefit (CCB)",
+      "sourceText": "Canada child benefit (CCB)",
+      "box": [
+        321,
+        266,
+        348,
+        478
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false
+    },
+    "phones": [
+      {
+        "value": "1-800-387-1193",
+        "sourceText": "1-800-387-1193",
+        "box": [
+          609,
+          81,
+          635,
+          217
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "context": "If you have questions, call us at"
+      }
+    ],
+    "urls": [
+      {
+        "value": "canada.ca/cra-submit-documents",
+        "sourceText": "canada.ca/cra-submit-documents",
+        "box": [
+          536,
+          85,
+          561,
+          348
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "context": "Send your documents online. Enter your reference number when asked:"
+      }
+    ],
+    "emails": [],
+    "qrCodes": [],
+    "paymentRequests": [],
+    "requiredActions": [
+      {
+        "value": "Send copies of requested documents to confirm eligibility",
+        "sourceText": "To confirm that you and your children live in Canada, please send us copies of the following documents",
+        "box": [
+          335,
+          100,
+          380,
+          715
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "actionType": "submit_documents"
+      }
+    ],
+    "requestedDocuments": [
+      {
+        "value": "copy of your lease or rental agreement",
+        "sourceText": "a copy of your lease or rental agreement",
+        "box": [
+          377,
+          125,
+          403,
+          418
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false
+      },
+      {
+        "value": "letter from your child's school or daycare",
+        "sourceText": "a letter from your child's school or daycare",
+        "box": [
+          404,
+          122,
+          433,
+          429
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false
+      }
+    ],
+    "formNumbers": [],
+    "riskSignals": [],
+    "embeddedInstructions": [],
+    "uncertainFields": [
+      "issueDate",
+      "printedDeadlines[0]",
+      "identifiers[0]"
+    ]
+  },
+  "modelId": "gemini-3.8-flash",
+  "cachedAt": "2026-09-27T00:23:35.623Z"
+}

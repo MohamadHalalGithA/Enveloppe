@@ -1,0 +1,36 @@
+{
+  "builtAt": "2026-09-27T00:23:40.960Z",
+  "today": "2026-09-27",
+  "letters": [
+    {
+      "id": "C",
+      "letterId": "8366744f-7743-45b9-abd0-7b2233acc725",
+      "model": "gemini-3.8-flash",
+      "readAt": "2026-09-27T00:23:10.124Z"
+    },
+    {
+      "id": "A",
+      "letterId": "fcca90fb-5146-4a6e-8bde-42fa1fc0d0b9",
+      "model": "gemini-3.8-flash",
+      "readAt": "2026-09-27T00:23:15.599Z"
+    },
+    {
+      "id": "B",
+      "letterId": "fd49e1f9-4ba1-47b7-b91e-e7407d99553e",
+      "model": "gemini-3.8-flash",
+      "readAt": "2026-09-27T00:23:22.782Z"
+    },
+    {
+      "id": "E",
+      "letterId": "59a854d5-14f7-4a9a-bd7a-a19aabbfbd78",
+      "model": "gemini-3.8-flash",
+      "readAt": "2026-09-27T00:23:35.623Z"
+    },
+    {
+      "id": "D",
+      "letterId": "a96690ff-9b0b-4bbc-9e56-f4ebbb21b2b4",
+      "model": "gemini-3.8-flash",
+      "readAt": "2026-09-27T00:23:40.068Z"
+    }
+  ]
+}

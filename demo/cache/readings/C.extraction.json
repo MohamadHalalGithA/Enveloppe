@@ -1,0 +1,156 @@
+{
+  "extraction": {
+    "schemaVersion": "1",
+    "isGovernmentCorrespondence": "yes",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "quality": {
+      "legibility": "good",
+      "issues": []
+    },
+    "agency": {
+      "value": "CRA",
+      "sourceText": "Canada Revenue Agency",
+      "box": [
+        42,
+        60,
+        67,
+        434
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false,
+      "claimedName": "Canada Revenue Agency"
+    },
+    "documentType": {
+      "value": "CRA_NOTICE_OF_REASSESSMENT",
+      "sourceText": "Notice of reassessment",
+      "box": [
+        241,
+        60,
+        256,
+        325
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false,
+      "rawTitle": "Notice of reassessment"
+    },
+    "issueDate": {
+      "value": "2026-07-10",
+      "sourceText": "July 10, 2026",
+      "box": [
+        121,
+        700,
+        136,
+        812
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false
+    },
+    "printedDeadlines": [],
+    "identifiers": [
+      {
+        "value": "2023-T1-8841-2210",
+        "sourceText": "Reference: 2023-T1-8841-2210",
+        "box": [
+          160,
+          600,
+          172,
+          842
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "kind": "reference_number"
+      }
+    ],
+    "taxYear": {
+      "value": 2023,
+      "sourceText": "Tax year: 2023",
+      "box": [
+        291,
+        60,
+        305,
+        183
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false
+    },
+    "program": {
+      "value": "income tax and benefit return",
+      "sourceText": "income tax and benefit return",
+      "box": [
+        341,
+        265,
+        354,
+        493
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false
+    },
+    "phones": [
+      {
+        "value": "1-800-959-8281",
+        "sourceText": "1-800-959-8281",
+        "box": [
+          642,
+          60,
+          654,
+          204
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "context": "Questions? Call us at:"
+      }
+    ],
+    "urls": [
+      {
+        "value": "canada.ca/my-cra-account",
+        "sourceText": "canada.ca/my-cra-account",
+        "box": [
+          561,
+          60,
+          575,
+          282
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "context": "For details or to register a formal dispute, go to:"
+      }
+    ],
+    "emails": [],
+    "qrCodes": [],
+    "paymentRequests": [],
+    "requiredActions": [
+      {
+        "value": "file an objection",
+        "sourceText": "If you disagree with this reassessment, you can file an objection.",
+        "box": [
+          401,
+          60,
+          414,
+          552
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "actionType": "file_objection"
+      }
+    ],
+    "requestedDocuments": [],
+    "formNumbers": [],
+    "riskSignals": [],
+    "embeddedInstructions": [],
+    "uncertainFields": []
+  },
+  "modelId": "gemini-3.8-flash",
+  "cachedAt": "2026-09-27T00:23:10.124Z"
+}

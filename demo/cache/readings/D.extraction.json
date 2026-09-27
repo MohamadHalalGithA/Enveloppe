@@ -1,0 +1,203 @@
+{
+  "extraction": {
+    "schemaVersion": "1",
+    "isGovernmentCorrespondence": "yes",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "quality": {
+      "legibility": "good",
+      "issues": []
+    },
+    "agency": {
+      "value": "IRCC",
+      "sourceText": "Immigration, Refugees and Citizenship Canada",
+      "box": [
+        41,
+        59,
+        64,
+        692
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false,
+      "claimedName": "Immigration, Refugees and Citizenship Canada"
+    },
+    "documentType": {
+      "value": "IRCC_BIOMETRICS_INSTRUCTION",
+      "sourceText": "Biometric Instruction Letter",
+      "box": [
+        239,
+        59,
+        256,
+        368
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false,
+      "rawTitle": "Biometric Instruction Letter"
+    },
+    "issueDate": {
+      "value": "2026-09-10",
+      "sourceText": "September 10, 2026",
+      "box": [
+        120,
+        649,
+        136,
+        819
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false
+    },
+    "printedDeadlines": [
+      {
+        "value": null,
+        "sourceText": "within 30 days of the date of this letter",
+        "box": [
+          300,
+          477,
+          314,
+          772
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "kind": "respond_by",
+        "relativeDays": 30
+      }
+    ],
+    "identifiers": [
+      {
+        "value": "E00012-3456",
+        "sourceText": "Application number: E00012-3456",
+        "box": [
+          159,
+          599,
+          175,
+          860
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "kind": "application_number"
+      }
+    ],
+    "taxYear": {
+      "value": null,
+      "sourceText": null,
+      "box": null,
+      "page": 1,
+      "confidence": "low",
+      "needsConfirmation": false
+    },
+    "program": {
+      "value": null,
+      "sourceText": null,
+      "box": null,
+      "page": 1,
+      "confidence": "low",
+      "needsConfirmation": false
+    },
+    "phones": [
+      {
+        "value": "1-888-242-2100",
+        "sourceText": "1-888-242-2100",
+        "box": [
+          640,
+          61,
+          654,
+          204
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "context": "Client Support Centre"
+      }
+    ],
+    "urls": [
+      {
+        "value": "ircc.canada.ca",
+        "sourceText": "ircc.canada.ca",
+        "box": [
+          560,
+          59,
+          573,
+          181
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "context": "Find a location and book an appointment at"
+      }
+    ],
+    "emails": [],
+    "qrCodes": [],
+    "paymentRequests": [],
+    "requiredActions": [
+      {
+        "value": "give your biometrics (fingerprints and photo)",
+        "sourceText": "You must give your biometrics (fingerprints and photo) within 30 days of the date of this letter.",
+        "box": [
+          300,
+          58,
+          314,
+          772
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "actionType": "give_biometrics"
+      },
+      {
+        "value": "Bring this letter and your passport to a biometrics collection service point",
+        "sourceText": "Bring this letter and your passport to a biometrics collection service point.",
+        "box": [
+          330,
+          58,
+          344,
+          617
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "actionType": "submit_documents"
+      }
+    ],
+    "requestedDocuments": [
+      {
+        "value": "passport",
+        "sourceText": "Bring this letter and your passport to a biometrics collection service point.",
+        "box": [
+          330,
+          252,
+          344,
+          319
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false
+      },
+      {
+        "value": "this letter",
+        "sourceText": "Bring this letter and your passport to a biometrics collection service point.",
+        "box": [
+          330,
+          97,
+          344,
+          175
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false
+      }
+    ],
+    "formNumbers": [],
+    "riskSignals": [],
+    "embeddedInstructions": [],
+    "uncertainFields": []
+  },
+  "modelId": "gemini-3.8-flash",
+  "cachedAt": "2026-09-27T00:23:40.068Z"
+}

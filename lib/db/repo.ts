@@ -291,6 +291,17 @@ export async function markTaskDone(db: Db, userId: string, taskId: string, proof
   return row ?? null;
 }
 
+/** The most recent task created from this letter, if any. */
+export async function taskForLetter(db: Db, userId: string, letterId: string): Promise<TaskRow | null> {
+  const [row] = await db
+    .select()
+    .from(tasks)
+    .where(and(eq(tasks.letterId, letterId), eq(tasks.userId, userId)))
+    .orderBy(desc(tasks.createdAt))
+    .limit(1);
+  return row ?? null;
+}
+
 /** A newer letter replaced what these tasks asked for. */
 export async function supersedeOpenTasks(db: Db, userId: string, caseId: string) {
   await db

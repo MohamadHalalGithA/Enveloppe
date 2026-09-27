@@ -1,0 +1,264 @@
+{
+  "id": "fcca90fb-5146-4a6e-8bde-42fa1fc0d0b9",
+  "status": "SUCCESS",
+  "createdAt": "2026-09-27T00:23:16.534Z",
+  "cached": true,
+  "image": {
+    "url": "/demo-letters/A_cra_ccb_review.png",
+    "width": 1275,
+    "height": 1650
+  },
+  "whatIsThis": {
+    "agencyLabel": "Canada Revenue Agency (CRA)",
+    "docTypeLabel": "Request for documents: Canada child benefit",
+    "explanation": {
+      "en": "This is a request for documents about the Canada child benefit, from the Canada Revenue Agency (CRA). Send the documents CRA asked for by October 14, 2026."
+    }
+  },
+  "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
+  "items": [
+    {
+      "id": "a76f8ab6-7ee6-45aa-ab9e-d5a6a5854d2e",
+      "claimType": "phone",
+      "letterValue": "1-800-387-1193",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "Matches CRA's published number: CRA benefits and credits enquiries.",
+      "sourceId": "src-cra-contact",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/contact-information.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            641,
+            60,
+            654,
+            204
+          ]
+        ],
+        "page": 1,
+        "quote": "1-800-387-1193",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "2ce8c805-95b5-481d-b795-f07baf869018",
+      "claimType": "url",
+      "letterValue": "canada.ca/cra-submit-documents",
+      "status": "VERIFIED_MATCH",
+      "strength": "STRONG",
+      "evidenceType": "DOMAIN_ANALYSIS",
+      "reason": "This link goes to canada.ca, an official Government of Canada domain.",
+      "sourceId": "src-ircc-scams",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/protect-fraud/internet-email-telephone.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            561,
+            60,
+            576,
+            338
+          ]
+        ],
+        "page": 1,
+        "quote": "canada.ca/cra-submit-documents",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "7995c89a-f204-4428-bb21-74668ef8fad4",
+      "claimType": "agency",
+      "letterValue": "Canada Revenue Agency",
+      "status": "VERIFIED_MATCH",
+      "strength": "SOFT",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "CRA is an agency we track. Anyone can print an agency name, so this alone proves little.",
+      "sourceId": "src-cra-home",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            42,
+            60,
+            67,
+            434
+          ]
+        ],
+        "page": 1,
+        "quote": "Canada Revenue Agency",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "e29500de-b85a-429d-808c-dc2e9626c2c7",
+      "claimType": "reference",
+      "letterValue": "…4471",
+      "status": "UNVERIFIED",
+      "strength": "NONE",
+      "evidenceType": "CASE_FILE",
+      "reason": "This is a new reference number. There's no earlier case to compare it with yet.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            161,
+            752,
+            172,
+            920
+          ]
+        ],
+        "page": 1,
+        "quote": "••••-•••-••••-4471",
+        "lowConfidence": false
+      }
+    }
+  ],
+  "officialContact": {
+    "registryId": "tel-cra-benefits",
+    "display": "1-800-387-1193",
+    "label": "CRA benefits and credits enquiries",
+    "verifiedOn": "2026-09-26"
+  },
+  "deadline": {
+    "asOf": "2026-09-27",
+    "printed": {
+      "date": "2026-10-14",
+      "sourceText": "October 14, 2026",
+      "box": [
+        491,
+        340,
+        506,
+        495
+      ]
+    },
+    "computed": null,
+    "effective": "2026-10-14",
+    "mismatch": false,
+    "daysRemaining": 17,
+    "clockStartedOn": "2026-09-14",
+    "status": "OK",
+    "note": "This deadline is printed in the letter. We didn't find a legal rule that sets a different date. CRA says that if you don't reply, your benefits may stop and you may have to repay amounts already paid. CRA can give you more time if you call before the deadline."
+  },
+  "process": {
+    "processId": "CRA_REVIEW",
+    "title": "CRA benefits review",
+    "currentStageId": "DOCUMENTS_REQUESTED",
+    "stages": [
+      {
+        "id": "REVIEW_STARTED",
+        "label": "CRA started a review",
+        "state": "done"
+      },
+      {
+        "id": "DOCUMENTS_REQUESTED",
+        "label": "Documents requested",
+        "state": "current"
+      },
+      {
+        "id": "DOCUMENTS_SUBMITTED",
+        "label": "You send the documents",
+        "state": "todo"
+      },
+      {
+        "id": "UNDER_REVIEW",
+        "label": "CRA reviews them",
+        "state": "todo",
+        "expectNext": "CRA says you should hear back no later than 45 days after it receives your documents."
+      },
+      {
+        "id": "OUTCOME",
+        "label": "Outcome received",
+        "state": "todo",
+        "expectNext": "Your benefits may be adjusted. You may be entitled to more, or asked to repay an amount."
+      }
+    ],
+    "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/validating-your-eligibility-benefits-credits.html"
+  },
+  "responsePack": {
+    "summary": "Send the documents CRA asked for by October 14, 2026.",
+    "action": {
+      "type": "submit_documents",
+      "label": "Send the requested documents"
+    },
+    "deadline": {
+      "asOf": "2026-09-27",
+      "printed": {
+        "date": "2026-10-14",
+        "sourceText": "October 14, 2026",
+        "box": [
+          491,
+          340,
+          506,
+          495
+        ]
+      },
+      "computed": null,
+      "effective": "2026-10-14",
+      "mismatch": false,
+      "daysRemaining": 17,
+      "clockStartedOn": "2026-09-14",
+      "status": "OK",
+      "note": "This deadline is printed in the letter. We didn't find a legal rule that sets a different date. CRA says that if you don't reply, your benefits may stop and you may have to repay amounts already paid. CRA can give you more time if you call before the deadline."
+    },
+    "requestedDocuments": [
+      {
+        "label": "a copy of your lease or rental agreement",
+        "sourceText": "a copy of your lease or rental agreement",
+        "checked": false
+      },
+      {
+        "label": "a letter from your child's school or daycare",
+        "sourceText": "a letter from your child's school or daycare",
+        "checked": false
+      }
+    ],
+    "officialChannel": {
+      "registryId": "chan-cra-submit-docs",
+      "name": "CRA Submit documents online",
+      "url": "https://www.canada.ca/en/revenue-agency/services/e-services/submit-documents-online.html",
+      "kind": "portal",
+      "verifiedOn": "2026-09-26"
+    },
+    "officialContact": {
+      "registryId": "tel-cra-benefits",
+      "display": "1-800-387-1193",
+      "label": "CRA benefits and credits enquiries",
+      "verifiedOn": "2026-09-26"
+    },
+    "form": null,
+    "steps": [
+      "Gather the documents in the checklist.",
+      "Open CRA Submit documents online (link above). Don't use links sent by email or text.",
+      "Enter the case or reference number printed on your letter when asked.",
+      "Upload the documents and submit.",
+      "Save your confirmation number here so Enveloppe can track your case."
+    ],
+    "caution": null,
+    "completion": {
+      "status": "OPEN",
+      "proof": null
+    }
+  },
+  "caseMatch": {
+    "decision": "NEW",
+    "candidates": [],
+    "conflicts": [],
+    "linkedCaseId": "b466b778-0ff2-462f-82d3-5b7251b2eeac"
+  },
+  "filedIn": {
+    "caseId": "b466b778-0ff2-462f-82d3-5b7251b2eeac",
+    "title": "CRA: Canada child benefit review",
+    "role": "primary"
+  },
+  "needsConfirmation": [],
+  "degraded": []
+}

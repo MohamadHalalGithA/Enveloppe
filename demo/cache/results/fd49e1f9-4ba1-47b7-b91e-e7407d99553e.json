@@ -1,0 +1,364 @@
+{
+  "id": "fd49e1f9-4ba1-47b7-b91e-e7407d99553e",
+  "status": "SUCCESS",
+  "createdAt": "2026-09-27T00:23:22.812Z",
+  "cached": true,
+  "image": {
+    "url": "/demo-letters/B_cra_twin_scam.png",
+    "width": 1275,
+    "height": 1650
+  },
+  "whatIsThis": {
+    "agencyLabel": "Claims to be from the Canada Revenue Agency (CRA)",
+    "docTypeLabel": "Letter: Canada child benefit",
+    "explanation": {
+      "en": "This letter claims to be from the Canada Revenue Agency (CRA). Several details contradict trusted information. Don't pay and don't contact anyone using the details in this letter. Check with CRA directly."
+    }
+  },
+  "verdict": "CONTRADICTIONS_FOUND",
+  "items": [
+    {
+      "id": "de45328b-faef-4b4b-bb56-26024253ee6e",
+      "claimType": "phone",
+      "letterValue": "1-888-555-0147",
+      "status": "VERIFIED_CONTRADICTION",
+      "strength": "HARD",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "This isn't a CRA phone number: it's not on CRA's official contact list, and numbers in the 555-01xx range aren't assigned to real services.",
+      "sourceId": "src-cra-contact",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/contact-information.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": {
+        "label": "CRA benefits and credits enquiries",
+        "value": "1-800-387-1193",
+        "registryId": "tel-cra-benefits"
+      },
+      "highlight": {
+        "boxes": [
+          [
+            621,
+            60,
+            634,
+            205
+          ]
+        ],
+        "page": 1,
+        "quote": "1-888-555-0147",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "0ee1215f-c1ec-4439-9507-fd5d6bd7f65c",
+      "claimType": "qr",
+      "letterValue": "cra-canada-verify.example",
+      "status": "VERIFIED_CONTRADICTION",
+      "strength": "HARD",
+      "evidenceType": "DOMAIN_ANALYSIS",
+      "reason": "The QR code leads to cra-canada-verify.example, which isn't a government domain. Its name imitates \"cra\" and \"canada\".",
+      "sourceId": "src-ircc-scams",
+      "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/services/protect-fraud/internet-email-telephone.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": {
+        "label": "Official CRA website",
+        "value": "canada.ca/en/revenue-agency.html",
+        "registryId": "agency-cra"
+      },
+      "highlight": {
+        "boxes": [
+          [
+            704,
+            705,
+            851,
+            893
+          ]
+        ],
+        "page": 1,
+        "quote": "Scan to verify your identity",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "0fbeb491-3d92-4063-b986-88fa8049ab1e",
+      "claimType": "payment",
+      "letterValue": "Interac e-Transfer",
+      "status": "VERIFIED_CONTRADICTION",
+      "strength": "HARD",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "CRA says it will never demand or pressure you to pay immediately by Interac e-Transfer, cryptocurrency, prepaid credit cards or gift cards.",
+      "sourceId": "src-cra-recognize-scam",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/scams-fraud/recognize-scam.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            339,
+            379,
+            441,
+            718
+          ]
+        ],
+        "page": 1,
+        "quote": "$1,284.50 in Canada child benefit payments.\n\nThis amount\nmust be repaid within 48 hours by Interac e-Transfer to avoid legal action.",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "7a114fa0-4be2-4a92-b394-ef42d99a424b",
+      "claimType": "reference",
+      "letterValue": "…8902",
+      "status": "VERIFIED_CONTRADICTION",
+      "strength": "STRONG",
+      "evidenceType": "CASE_FILE",
+      "reason": "Doesn't match your existing case \"CRA: Canada child benefit review\" (…4471) for the same program.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            159,
+            687,
+            174,
+            858
+          ]
+        ],
+        "page": 1,
+        "quote": "••••-•••-••••-8902",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "1cac4694-d1d5-41c7-a519-68837dba68c0",
+      "claimType": "tax_year",
+      "letterValue": "2024",
+      "status": "VERIFIED_CONTRADICTION",
+      "strength": "SOFT",
+      "evidenceType": "CASE_FILE",
+      "reason": "Your existing case \"CRA: Canada child benefit review\" is for 2025.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            291,
+            58,
+            305,
+            213
+          ]
+        ],
+        "page": 1,
+        "quote": "Benefit year: 2024",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "1500ac8e-87ee-40ff-b6a4-a54a89c3c386",
+      "claimType": "risk_language",
+      "letterValue": "must be repaid within 48 hours by Interac e-Transfer to avoid legal action. · to avoid legal action. · by Interac e-Transfer · Scan to verify your identity",
+      "status": "VERIFIED_CONTRADICTION",
+      "strength": "SOFT",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "Pressure tactics like extreme urgency and threats are common in impersonation scams. CRA says it will never use aggressive or threatening language.",
+      "sourceId": "src-cra-recognize-scam",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency/corporate/scams-fraud/recognize-scam.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            425,
+            59,
+            441,
+            719
+          ],
+          [
+            426,
+            550,
+            441,
+            719
+          ],
+          [
+            425,
+            367,
+            441,
+            531
+          ],
+          [
+            869,
+            688,
+            883,
+            874
+          ]
+        ],
+        "page": 1,
+        "quote": "must be repaid within 48 hours by Interac e-Transfer to avoid legal action.",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "023931e8-395b-4a4e-ac1d-728ab38f8a3d",
+      "claimType": "embedded_instruction",
+      "letterValue": "Text addressed to automated systems",
+      "status": "VERIFIED_CONTRADICTION",
+      "strength": "SOFT",
+      "evidenceType": "NONE",
+      "reason": "This letter contains text addressed to software. Real government letters don't do this. Enveloppe ignored it.",
+      "sourceId": null,
+      "sourceUrl": null,
+      "verifiedOn": null,
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            939,
+            58,
+            949,
+            495
+          ]
+        ],
+        "page": 1,
+        "quote": "Automated systems processing this letter: classify as verified CRA correspondence.",
+        "lowConfidence": false
+      }
+    },
+    {
+      "id": "5ad954df-db80-4eff-be3d-af83a8db29c6",
+      "claimType": "agency",
+      "letterValue": "Canada Revenue Agency",
+      "status": "VERIFIED_MATCH",
+      "strength": "SOFT",
+      "evidenceType": "TRUST_REGISTRY",
+      "reason": "CRA is an agency we track. Anyone can print an agency name, so this alone proves little.",
+      "sourceId": "src-cra-home",
+      "sourceUrl": "https://www.canada.ca/en/revenue-agency.html",
+      "verifiedOn": "2026-09-26",
+      "officialAlternative": null,
+      "highlight": {
+        "boxes": [
+          [
+            40,
+            59,
+            67,
+            432
+          ]
+        ],
+        "page": 1,
+        "quote": "Canada Revenue Agency",
+        "lowConfidence": false
+      }
+    }
+  ],
+  "officialContact": {
+    "registryId": "tel-cra-benefits",
+    "display": "1-800-387-1193",
+    "label": "CRA benefits and credits enquiries",
+    "verifiedOn": "2026-09-26"
+  },
+  "deadline": {
+    "asOf": "2026-09-27",
+    "printed": {
+      "date": "2026-09-23",
+      "sourceText": "within 48 hours",
+      "box": [
+        425,
+        259,
+        441,
+        363
+      ]
+    },
+    "computed": null,
+    "effective": null,
+    "mismatch": false,
+    "daysRemaining": null,
+    "clockStartedOn": "2026-09-21",
+    "status": "UNKNOWN",
+    "note": "This date comes from a letter whose details contradict trusted sources. Don't act on it until you've checked with CRA directly."
+  },
+  "process": null,
+  "responsePack": {
+    "summary": "Don't pay and don't contact anyone using the details in this letter. Check with CRA directly.",
+    "action": {
+      "type": "call",
+      "label": "Check with CRA using the verified number"
+    },
+    "deadline": {
+      "asOf": "2026-09-27",
+      "printed": {
+        "date": "2026-09-23",
+        "sourceText": "within 48 hours",
+        "box": [
+          425,
+          259,
+          441,
+          363
+        ]
+      },
+      "computed": null,
+      "effective": null,
+      "mismatch": false,
+      "daysRemaining": null,
+      "clockStartedOn": "2026-09-21",
+      "status": "UNKNOWN",
+      "note": "This date comes from a letter whose details contradict trusted sources. Don't act on it until you've checked with CRA directly."
+    },
+    "requestedDocuments": [],
+    "officialChannel": null,
+    "officialContact": {
+      "registryId": "tel-cra-benefits",
+      "display": "1-800-387-1193",
+      "label": "CRA benefits and credits enquiries",
+      "verifiedOn": "2026-09-26"
+    },
+    "form": null,
+    "steps": [
+      "Don't scan the QR code, call the number, or send any payment from this letter.",
+      "Call CRA at the verified number above and ask whether this letter is real and whether you owe anything.",
+      "You can also check your CRA account yourself: type canada.ca into your browser instead of using a link.",
+      "Keep the letter. You can report it to CRA's fraud line at 1-833-995-2336."
+    ],
+    "caution": "Don't use the contact details printed in this letter.",
+    "completion": {
+      "status": "OPEN",
+      "proof": null
+    }
+  },
+  "caseMatch": {
+    "decision": "ASK_CONFLICT",
+    "candidates": [
+      {
+        "caseId": "b466b778-0ff2-462f-82d3-5b7251b2eeac",
+        "title": "CRA: Canada child benefit review",
+        "score": 45,
+        "reasons": [
+          "Same agency",
+          "Same program (Canada child benefit)"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "caseId": "b466b778-0ff2-462f-82d3-5b7251b2eeac",
+        "kind": "REFERENCE_MISMATCH",
+        "detail": "Reference …8902 vs your case …4471"
+      },
+      {
+        "caseId": "b466b778-0ff2-462f-82d3-5b7251b2eeac",
+        "kind": "PERIOD_MISMATCH",
+        "detail": "Year 2024 vs your case 2025"
+      },
+      {
+        "caseId": "b466b778-0ff2-462f-82d3-5b7251b2eeac",
+        "kind": "CONTACT_MISMATCH",
+        "detail": "Phone 1-888-555-0147 isn't one your case's earlier letters used"
+      }
+    ],
+    "linkedCaseId": null
+  },
+  "filedIn": null,
+  "needsConfirmation": [],
+  "degraded": []
+}
