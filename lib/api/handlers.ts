@@ -20,7 +20,7 @@ import {
 import type { Db } from "@/lib/db/types";
 import { NotFoundError, PipelineError } from "@/lib/errors";
 import type { ExtractResult } from "@/lib/gemini/extract";
-import { analyzeLetter, confirmLetterFields, ConfirmFieldsZ, isAnalyzed, letterResultFor } from "@/lib/pipeline/analyze";
+import { analyzeLetter, confirmLetterFields, ConfirmFieldsZ, isAnalyzed, letterResultFor, type PipelineDeps } from "@/lib/pipeline/analyze";
 import { MAX_UPLOAD_BYTES, sanitizeUpload } from "@/lib/upload/sanitize";
 import { SPEECH_LANGUAGE_CODES } from "@/lib/voice/languages";
 import { getSpeechAudio, speakLetter, type SpeechDeps } from "@/lib/voice/service";
@@ -50,6 +50,8 @@ export interface ApiDeps {
   retentionDays: number;
   /** Translation + text-to-speech for "Listen in my language". */
   speech: () => SpeechDeps;
+  /** Demo only: saved readings of the synthetic sample files (off in normal use). */
+  cachedReadings?: Pick<PipelineDeps, "cachedReading" | "cachedMode">;
 }
 
 const MULTIPART_OVERHEAD = 64 * 1024;
@@ -100,6 +102,7 @@ export function analyze(req: Request, id: string, deps: ApiDeps) {
       today: deps.today,
       refKey: deps.refKey(),
       now: deps.now,
+      ...deps.cachedReadings,
     });
     return json(result);
   });

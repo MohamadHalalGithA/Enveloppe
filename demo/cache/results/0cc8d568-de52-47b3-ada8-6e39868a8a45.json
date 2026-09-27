@@ -1,7 +1,7 @@
 {
-  "id": "994c2b28-e20b-48bc-acd2-aa42850fa2cd",
+  "id": "0cc8d568-de52-47b3-ada8-6e39868a8a45",
   "status": "SUCCESS",
-  "createdAt": "2026-09-27T01:07:00.769Z",
+  "createdAt": "2026-09-27T01:16:50.466Z",
   "cached": true,
   "image": {
     "url": "/demo-letters/B_cra_twin_scam.png",
@@ -18,7 +18,7 @@
   "verdict": "CONTRADICTIONS_FOUND",
   "items": [
     {
-      "id": "bc96427a-aefb-423b-908d-98c7f8ac8f84",
+      "id": "e23dfd56-6fa3-4c01-8207-f6d779ef2bcc",
       "claimType": "phone",
       "letterValue": "1-888-555-0147",
       "status": "VERIFIED_CONTRADICTION",
@@ -48,7 +48,7 @@
       }
     },
     {
-      "id": "9e94398b-a040-46d0-94a6-2aa713d1f7bf",
+      "id": "965a6bbc-dddf-43a1-987e-a881f2971535",
       "claimType": "qr",
       "letterValue": "cra-canada-verify.example",
       "status": "VERIFIED_CONTRADICTION",
@@ -78,7 +78,7 @@
       }
     },
     {
-      "id": "6985ce35-0b68-4116-b5cb-febe36deb59a",
+      "id": "7a56dfc8-2d6c-429f-9190-65019eff89c0",
       "claimType": "payment",
       "letterValue": "Interac e-Transfer",
       "status": "VERIFIED_CONTRADICTION",
@@ -104,7 +104,7 @@
       }
     },
     {
-      "id": "8d9b3852-a1c0-4b96-977f-9de8dad0c7cf",
+      "id": "482b3ad7-e9df-4caa-a1fa-58aff83c5a89",
       "claimType": "reference",
       "letterValue": "…8902",
       "status": "VERIFIED_CONTRADICTION",
@@ -130,7 +130,7 @@
       }
     },
     {
-      "id": "7bef9f51-80e4-427b-afe4-fc3f86e89b09",
+      "id": "d850ca29-0e5a-4e1c-b5a7-03256ada07f5",
       "claimType": "tax_year",
       "letterValue": "2024",
       "status": "VERIFIED_CONTRADICTION",
@@ -156,7 +156,7 @@
       }
     },
     {
-      "id": "7b4b3f16-d107-4897-9f4f-b84482adc857",
+      "id": "8c5977e8-b563-4f49-a885-fb87d1bd8454",
       "claimType": "risk_language",
       "letterValue": "must be repaid within 48 hours by Interac e-Transfer to avoid legal action. · to avoid legal action. · by Interac e-Transfer · Scan to verify your identity",
       "status": "VERIFIED_CONTRADICTION",
@@ -200,7 +200,7 @@
       }
     },
     {
-      "id": "2e1701c2-3cb4-489b-b558-e6c7340adbf6",
+      "id": "4c4bd657-166d-4e15-a9ee-00608ea09304",
       "claimType": "embedded_instruction",
       "letterValue": "Text addressed to automated systems",
       "status": "VERIFIED_CONTRADICTION",
@@ -226,7 +226,7 @@
       }
     },
     {
-      "id": "7c7f5523-595b-45ea-bcbf-029f50edf572",
+      "id": "8b4ca9f3-d2e2-4665-b73a-47bff0eef572",
       "claimType": "agency",
       "letterValue": "Canada Revenue Agency",
       "status": "VERIFIED_MATCH",
@@ -331,7 +331,7 @@
     "decision": "ASK_CONFLICT",
     "candidates": [
       {
-        "caseId": "1d8eb7b7-1d65-4e08-b79e-0078bc0512a8",
+        "caseId": "316548e9-32ad-4ef1-9c26-3753c5421a6f",
         "title": "CRA: Canada child benefit review",
         "score": 45,
         "reasons": [
@@ -342,17 +342,17 @@
     ],
     "conflicts": [
       {
-        "caseId": "1d8eb7b7-1d65-4e08-b79e-0078bc0512a8",
+        "caseId": "316548e9-32ad-4ef1-9c26-3753c5421a6f",
         "kind": "REFERENCE_MISMATCH",
         "detail": "Reference …8902 vs your case …4471"
       },
       {
-        "caseId": "1d8eb7b7-1d65-4e08-b79e-0078bc0512a8",
+        "caseId": "316548e9-32ad-4ef1-9c26-3753c5421a6f",
         "kind": "PERIOD_MISMATCH",
         "detail": "Year 2024 vs your case 2025"
       },
       {
-        "caseId": "1d8eb7b7-1d65-4e08-b79e-0078bc0512a8",
+        "caseId": "316548e9-32ad-4ef1-9c26-3753c5421a6f",
         "kind": "CONTACT_MISMATCH",
         "detail": "Phone 1-888-555-0147 isn't one your case's earlier letters used"
       }

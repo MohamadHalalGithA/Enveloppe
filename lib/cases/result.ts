@@ -10,6 +10,7 @@ import type { Db } from "@/lib/db/types";
 import { ConflictError, NotFoundError } from "@/lib/errors";
 import { processView } from "@/lib/processes/engine";
 import { getRegistry, type Registry } from "@/lib/registry/load";
+import { CACHED_MODEL_ID } from "@/lib/pipeline/cached-reading";
 import type { CaseFileDraft } from "./assemble";
 
 type Summary = Pick<CaseFileDraft, "whatIsThis" | "needsConfirmation" | "placement" | "newCaseTitle"> & {
@@ -70,7 +71,8 @@ export async function loadLetterResult(
     id: row.id,
     status: row.status,
     createdAt: row.createdAt.toISOString(),
-    cached: opts.cached ?? false,
+    // A saved demo reading is always badged as such.
+    cached: opts.cached ?? row.modelId === CACHED_MODEL_ID,
     image: opts.image ?? null,
     whatIsThis: summary.whatIsThis,
     verdict: row.verdict,

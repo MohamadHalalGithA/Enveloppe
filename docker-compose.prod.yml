@@ -1,0 +1,57 @@
+# Production on one VM (Vultr, Toronto): app + Postgres + Caddy (automatic HTTPS).
+#   docker compose --env-file .env.production -f docker-compose.prod.yml up -d --build
+# Postgres has no published port: only the app can reach it on the internal network.
+
+services:
+  app:
+    build: { context: ., target: runtime }
+    env_file: .env.production
+    environment:
+      DATABASE_URL: postgres://enveloppe:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/enveloppe
+    depends_on:
+      db: { condition: service_healthy }
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: enveloppe
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: enveloppe
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U enveloppe"]
+      interval: 5s
+      retries: 20
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [app]
+    restart: unless-stopped
+
+  # Maintenance scripts, run on demand:
+  #   docker compose --env-file .env.production -f docker-compose.prod.yml run --rm tools npm run demo:reset -- --sub "auth0|…"
+  tools:
+    build: { context: ., target: tools }
+    env_file: .env.production
+    environment:
+      DATABASE_URL: postgres://enveloppe:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/enveloppe
+    depends_on:
+      db: { condition: service_healthy }
+    profiles: ["tools"]
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

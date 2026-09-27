@@ -18,7 +18,10 @@
     "demo:letters": "tsx demo/letters/render.ts",
     "extract": "tsx --conditions=react-server scripts/extract-letter.ts",
     "test:live": "vitest run --mode live",
-    "demo:build": "tsx --conditions=react-server scripts/build-demo.ts"
+    "demo:build": "tsx --conditions=react-server scripts/build-demo.ts",
+    "test:e2e": "next build && playwright test",
+    "demo:reset": "tsx --conditions=react-server scripts/demo-reset.ts",
+    "demo:rehearse": "tsx --conditions=react-server scripts/demo-rehearse.ts"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.30.0",
@@ -38,6 +41,7 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",

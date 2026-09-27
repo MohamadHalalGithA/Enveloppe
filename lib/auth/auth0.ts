@@ -9,6 +9,9 @@ export const auth0 = new Auth0Client({
   // SDK default adds `email` and `offline_access` (refresh tokens). We need neither:
   // identity is the `sub`, and there's no API to call on the user's behalf.
   authorizationParameters: { scope: "openid profile" },
+  // The SDK can hand access tokens to browser JavaScript via /auth/access-token. We never need that,
+  // and tokens must never reach the browser, so the route is off.
+  enableAccessTokenEndpoint: false,
   session: {
     rolling: true,
     inactivityDuration: 60 * 60 * 2, // 2 hours idle

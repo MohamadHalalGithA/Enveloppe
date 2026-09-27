@@ -1,7 +1,7 @@
 {
   "cases": [
     {
-      "id": "70765ccb-9d87-43fa-824b-0b16864cb7d4",
+      "id": "f85ff2e0-3d1f-42be-a2ce-15b13565648e",
       "agencyId": "IRCC",
       "processId": "IRCC_BIOMETRICS",
       "stageId": "BIOMETRICS_REQUESTED",
@@ -12,11 +12,11 @@
       "status": "ACTION_REQUIRED",
       "nextDeadline": "2026-10-10",
       "letterCount": 1,
-      "createdAt": "2026-09-27T01:07:02.136Z",
-      "updatedAt": "2026-09-27T01:07:02.136Z"
+      "createdAt": "2026-09-27T01:16:51.958Z",
+      "updatedAt": "2026-09-27T01:16:51.958Z"
     },
     {
-      "id": "1d8eb7b7-1d65-4e08-b79e-0078bc0512a8",
+      "id": "316548e9-32ad-4ef1-9c26-3753c5421a6f",
       "agencyId": "CRA",
       "processId": "CRA_REVIEW",
       "stageId": "DOCUMENTS_REQUESTED",
@@ -27,11 +27,11 @@
       "status": "ACTION_REQUIRED",
       "nextDeadline": "2026-10-14",
       "letterCount": 1,
-      "createdAt": "2026-09-27T01:07:00.641Z",
-      "updatedAt": "2026-09-27T01:07:00.641Z"
+      "createdAt": "2026-09-27T01:16:50.316Z",
+      "updatedAt": "2026-09-27T01:16:50.316Z"
     },
     {
-      "id": "6ee4dca0-d9a8-458a-9c84-4479f9be0b8b",
+      "id": "3ac5f8d3-2855-4a67-947c-c56cf324905e",
       "agencyId": "CRA",
       "processId": "CRA_OBJECTION",
       "stageId": "OBJECTION_WINDOW_OPEN",
@@ -42,50 +42,50 @@
       "status": "ACTION_REQUIRED",
       "nextDeadline": "2026-10-08",
       "letterCount": 1,
-      "createdAt": "2026-09-27T01:06:59.740Z",
-      "updatedAt": "2026-09-27T01:06:59.740Z"
+      "createdAt": "2026-09-27T01:16:49.363Z",
+      "updatedAt": "2026-09-27T01:16:49.363Z"
     }
   ],
   "letters": [
     {
-      "id": "762f2602-ce7e-4661-b991-ade4b801beb5",
-      "caseId": "70765ccb-9d87-43fa-824b-0b16864cb7d4",
+      "id": "2b385252-32ce-487c-ba22-a2445563ce45",
+      "caseId": "f85ff2e0-3d1f-42be-a2ce-15b13565648e",
       "title": "Biometric instruction letter",
       "status": "SUCCESS",
       "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
-      "createdAt": "2026-09-27T01:07:01.406Z"
+      "createdAt": "2026-09-27T01:16:51.127Z"
     },
     {
-      "id": "73db0d88-3d32-4252-9541-cad6ed509a0d",
+      "id": "3a1c8c04-2965-4a0b-98d4-d465b07149fe",
       "caseId": null,
       "title": "Request for documents: Canada child benefit",
       "status": "LOW_CONFIDENCE",
       "verdict": "PARTIALLY_VERIFIED",
-      "createdAt": "2026-09-27T01:07:00.891Z"
+      "createdAt": "2026-09-27T01:16:50.595Z"
     },
     {
-      "id": "994c2b28-e20b-48bc-acd2-aa42850fa2cd",
+      "id": "0cc8d568-de52-47b3-ada8-6e39868a8a45",
       "caseId": null,
       "title": "Letter: Canada child benefit",
       "status": "SUCCESS",
       "verdict": "CONTRADICTIONS_FOUND",
-      "createdAt": "2026-09-27T01:07:00.769Z"
+      "createdAt": "2026-09-27T01:16:50.466Z"
     },
     {
-      "id": "211cd382-f190-4432-b4e2-6af3ffdac943",
-      "caseId": "1d8eb7b7-1d65-4e08-b79e-0078bc0512a8",
+      "id": "6e06b433-5e26-4e47-ad5b-c99eb9c80c33",
+      "caseId": "316548e9-32ad-4ef1-9c26-3753c5421a6f",
       "title": "Request for documents: Canada child benefit",
       "status": "SUCCESS",
       "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
-      "createdAt": "2026-09-27T01:06:59.861Z"
+      "createdAt": "2026-09-27T01:16:49.493Z"
     },
     {
-      "id": "1b6fb8f5-4846-46a8-bc65-d25697c31c1c",
-      "caseId": "6ee4dca0-d9a8-458a-9c84-4479f9be0b8b",
+      "id": "d3c43b4a-a811-46d0-92f4-6079dad23392",
+      "caseId": "3ac5f8d3-2855-4a67-947c-c56cf324905e",
       "title": "Notice of reassessment: 2023 tax year",
       "status": "SUCCESS",
       "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
-      "createdAt": "2026-09-27T01:06:58.956Z"
+      "createdAt": "2026-09-27T01:16:48.537Z"
     }
   ]
 }

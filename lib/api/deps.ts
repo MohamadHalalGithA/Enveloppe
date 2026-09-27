@@ -3,6 +3,7 @@ import { requireUser } from "@/lib/auth/requireUser";
 import { getDb } from "@/lib/db/client";
 import { PipelineError } from "@/lib/errors";
 import { extractFromImage, geminiTranslate } from "@/lib/gemini/client";
+import { cachedReadingFor, demoReadingMode } from "@/lib/pipeline/cached-reading";
 import { todayInToronto } from "@/lib/time";
 import { elevenLabsTts, VoiceError } from "@/lib/voice/elevenlabs";
 import type { ApiDeps } from "./handlers";
@@ -27,6 +28,10 @@ export function apiDeps(): ApiDeps {
     appOrigin: process.env.APP_BASE_URL ? new URL(process.env.APP_BASE_URL).origin : "invalid://missing-app-base-url",
     limiter,
     retentionDays: 30,
+    cachedReadings: (() => {
+      const mode = demoReadingMode();
+      return mode === "off" ? undefined : { cachedReading: cachedReadingFor, cachedMode: mode };
+    })(),
     speech: () => {
       const { ELEVENLABS_API_KEY: apiKey, ELEVENLABS_VOICE_ID: voiceId, ELEVENLABS_MODEL_ID: modelId } = process.env;
       return {

@@ -121,3 +121,13 @@ boundary · `@google/genai` · ElevenLabs REST · `@auth0/nextjs-auth0` · `jsqr
   through `lib/ui/api-client.ts`, then `router.refresh()`. Shared views (`components/views/*`) take
   `mode: "app" | "demo"` (demo = read-only). Tests: `tests/unit/pages.test.tsx` renders the real pages on PGlite;
   `tests/unit/ui-components.test.tsx` drives the client components in jsdom.
+
+## FEATURE FREEZE (2026-09-27, tag `demo-v1`)
+No new features. Allowed: bug fixes, UX copy, performance, demo reliability, pitch material, fallback testing.
+Any change must keep `npm run check`, `npm run test:e2e` and `npm run demo:rehearse -- --runs 3` green.
+- Ops: `docs/DEPLOY.md` (Vultr + Docker Compose + Caddy, Auth0 production URLs), `docs/SECURITY_REVIEW.md`.
+- Demo: `npm run demo:reset -- --sub "auth0|…"` (CLI only; there is deliberately no reset endpoint),
+  `npm run demo:rehearse -- --runs N [--offline] [--no-voice]`, `npm run demo:build`.
+  `DEMO_MODE=off|fallback|offline`: saved readings match only the exact synthetic sample files and are always badged.
+- E2E: `npm run test:e2e` (Playwright; `E2E_BASE_URL` to test a deployment; `E2E_USER`/`E2E_PASSWORD` enable the
+  signed-in twin-letter flow through Auth0).

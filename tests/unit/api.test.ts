@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import sharp from "sharp";
-import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   CaseDetailZ,
   InboxZ,
@@ -298,6 +298,60 @@ describe("POST/GET /api/letters/:id/speech (Listen in my language)", () => {
     } finally {
       current = amira;
     }
+  });
+});
+
+describe("demo fallback: saved readings of the synthetic sample files", () => {
+  // A separate user: uploads are de-duplicated per user, and other tests already analyzed these files.
+  beforeAll(async () => {
+    current = await resolveUser(db, "auth0|api-fallback");
+  });
+  afterAll(() => {
+    current = amira;
+  });
+
+  it("only matches the exact sample files, and is off by default", async () => {
+    const { createHash } = await import("node:crypto");
+    const { cachedReadingFor, demoReadingMode } = await import("@/lib/pipeline/cached-reading");
+    const sha = createHash("sha256").update(await imageB()).digest("hex");
+    expect((await cachedReadingFor(sha))?.extraction.identifiers[0].value).toContain("8902");
+    expect(await cachedReadingFor("0".repeat(64))).toBeNull();
+    expect(await cachedReadingFor("../../etc/passwd")).toBeNull();
+    expect(demoReadingMode(undefined)).toBe("off");
+    expect(demoReadingMode("false")).toBe("off");
+    expect(demoReadingMode("true")).toBe("fallback");
+    expect(demoReadingMode("offline")).toBe("offline");
+  });
+
+  it("when the reader is down, a sample upload is analyzed from its saved reading, badged as cached", async () => {
+    const { cachedReadingFor } = await import("@/lib/pipeline/cached-reading");
+    const demo = { ...d, cachedReadings: { cachedReading: cachedReadingFor, cachedMode: "fallback" as const } };
+    const id = (await upload(await imageB())).body.letterId;
+    reading = async () => {
+      throw new PipelineError("SERVICE_UNAVAILABLE");
+    };
+    const res = await api.analyze(jsonReq(`/api/letters/${id}/analyze`, {}), id, demo);
+    expect(res.status).toBe(200);
+    const result = LetterResultZ.parse(await res.json());
+    expect(result.cached).toBe(true);
+    expect(result.verdict).toBe("CONTRADICTIONS_FOUND");
+  });
+
+  it("offline mode doesn't call the reader at all; a real photo still needs the reader", async () => {
+    const { cachedReadingFor } = await import("@/lib/pipeline/cached-reading");
+    const offline = { ...d, cachedReadings: { cachedReading: cachedReadingFor, cachedMode: "offline" as const } };
+    const sample = (await upload(await imageA())).body.letterId;
+    extract.mockClear();
+    const result = LetterResultZ.parse(await (await api.analyze(jsonReq(`/api/letters/${sample}/analyze`, {}), sample, offline)).json());
+    expect(result.cached).toBe(true);
+    expect(extract).not.toHaveBeenCalled();
+
+    const photo = await sharp({ create: { width: 300, height: 400, channels: 3, background: "#eee" } }).jpeg().toBuffer();
+    const real = (await upload(photo)).body.letterId;
+    reading = async () => {
+      throw new PipelineError("SERVICE_UNAVAILABLE");
+    };
+    expect((await api.analyze(jsonReq(`/api/letters/${real}/analyze`, {}), real, offline)).status).toBe(503);
   });
 });
 

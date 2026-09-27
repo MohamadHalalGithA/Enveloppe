@@ -125,6 +125,8 @@ async function main() {
 
   const db = await openPglite(); // throwaway in-memory database, same schema and code paths as the app
   const user = await resolveUser(db, "demo|synthetic-user");
+  /** SHA-256 of each exact sample file → its saved reading (the demo fallback, lib/pipeline/cached-reading.ts). */
+  const manifest: Record<string, string> = {};
   const built: { id: string; letterId: string; image: { url: string; width: number; height: number }; model: string | null; cachedAt: string }[] = [];
 
   for (const step of STEPS) {
@@ -135,6 +137,7 @@ async function main() {
     const { extraction, modelId, cachedAt } = await reading(step.id, image);
     // Same path as POST /api/letters + /analyze: sanitize, store, then the pipeline with the saved reading.
     const clean = await sanitizeUpload(image);
+    manifest[clean.sha256] = step.id;
     const { id: letterId } = await createLetter(db, user.id, clean.sha256);
     await storeLetterImage(db, user.id, letterId, clean, new Date(Date.now() + 86_400_000));
     const analyzed = await analyzeLetter(db, user.id, letterId, {
@@ -155,6 +158,7 @@ async function main() {
     if (VOICED.includes(b.id)) speech[b.letterId] = await demoSpeech(b.id, result);
   }
   await writeFile(path.join(CACHE, "speech.json"), JSON.stringify(speech, null, 2) + "\n");
+  await writeFile(path.join(CACHE, "readings", "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
   await writeFile(path.join(CACHE, "inbox.json"), JSON.stringify(await getInbox(db, user.id), null, 2) + "\n");
   await writeFile(
     path.join(CACHE, "meta.json"),

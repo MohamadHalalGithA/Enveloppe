@@ -36,6 +36,10 @@ export interface PipelineDeps {
   refKey: string;
   now?: () => Date;
   registry?: Registry;
+  /** Demo only: a saved reading for this exact uploaded file (see cached-reading.ts). */
+  cachedReading?: (imageSha256: string) => Promise<Pick<ExtractResult, "extraction" | "modelId"> | null>;
+  /** "fallback": use the saved reading only if the reader fails; "offline": prefer it. */
+  cachedMode?: "fallback" | "offline";
 }
 
 /** A PROCESSING claim older than this is treated as crashed and can be retried. */
@@ -75,13 +79,20 @@ export async function analyzeLetter(db: Db, userId: string, letterId: string, de
     throw new ConflictError("ALREADY_PROCESSING", "This letter is already being analyzed");
   }
 
-  let reading: Pick<ExtractResult, "extraction" | "modelId">;
-  try {
-    reading = await deps.extract(image.bytes);
-  } catch (e) {
-    const code = e instanceof PipelineError ? e.code : "SERVICE_UNAVAILABLE";
-    await markLetterFailed(db, userId, letterId, code === "SERVICE_UNAVAILABLE" ? "SERVICE_UNAVAILABLE" : "FAILED", code);
-    throw e instanceof PipelineError ? e : new PipelineError("SERVICE_UNAVAILABLE");
+  let reading: Pick<ExtractResult, "extraction" | "modelId"> | null =
+    deps.cachedReading && deps.cachedMode === "offline" ? await deps.cachedReading(letter.imageSha256) : null;
+  if (!reading) {
+    try {
+      reading = await deps.extract(image.bytes);
+    } catch (e) {
+      // Demo fallback: a saved reading of this exact sample file, clearly badged as cached.
+      reading = deps.cachedReading ? await deps.cachedReading(letter.imageSha256) : null;
+      if (!reading) {
+        const code = e instanceof PipelineError ? e.code : "SERVICE_UNAVAILABLE";
+        await markLetterFailed(db, userId, letterId, code === "SERVICE_UNAVAILABLE" ? "SERVICE_UNAVAILABLE" : "FAILED", code);
+        throw e instanceof PipelineError ? e : new PipelineError("SERVICE_UNAVAILABLE");
+      }
+    }
   }
 
   // QR decoding is valuable but not critical: if it fails, the result is marked partial, not lost.

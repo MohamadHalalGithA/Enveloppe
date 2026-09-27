@@ -30,6 +30,18 @@ npm run extract -- demo/letters/out/A_cra_ccb_review.png   # read one letter liv
 npm run test:live                                      # live contract tests (real API calls)
 ```
 
+## Demo day
+
+```bash
+npm run demo:reset -- --sub "auth0|<demo user id>"   # wipe the demo account, seed the 2023 reassessment case
+npm run demo:rehearse -- --runs 3                    # full twin-letter run through the API, with timings
+# DEMO_MODE=fallback in the env: saved readings if Gemini fails (always badged "Cached reading")
+```
+
+Public demo (no sign-in, synthetic letters, voice for the twin pair): `/demo`.
+Deploy: [`docs/DEPLOY.md`](docs/DEPLOY.md) · Security review: [`docs/SECURITY_REVIEW.md`](docs/SECURITY_REVIEW.md) ·
+Tests: `npm run check` (unit + build) · `npm run test:live` (real Gemini / ElevenLabs) · `npm run test:e2e` (browser)
+
 ## API (all require sign-in; mutations also require our Origin)
 
 | Route | What |

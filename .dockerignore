@@ -1,0 +1,12 @@
+# Never send secrets or local data into the build context.
+.env*
+!.env.example
+!.env.production.example
+.data
+node_modules
+.next
+.git
+test-results
+playwright-report
+coverage
+*.log

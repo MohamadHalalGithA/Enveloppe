@@ -1,7 +1,7 @@
 {
-  "id": "211cd382-f190-4432-b4e2-6af3ffdac943",
+  "id": "6e06b433-5e26-4e47-ad5b-c99eb9c80c33",
   "status": "SUCCESS",
-  "createdAt": "2026-09-27T01:06:59.861Z",
+  "createdAt": "2026-09-27T01:16:49.493Z",
   "cached": true,
   "image": {
     "url": "/demo-letters/A_cra_ccb_review.png",
@@ -18,7 +18,7 @@
   "verdict": "CONSISTENT_WITH_TRUSTED_SOURCES",
   "items": [
     {
-      "id": "a384185e-ed2a-451e-bc8f-1b27989fdc4e",
+      "id": "3fdbd2cd-ebc8-41de-a5a9-70716df5b056",
       "claimType": "phone",
       "letterValue": "1-800-387-1193",
       "status": "VERIFIED_MATCH",
@@ -44,7 +44,7 @@
       }
     },
     {
-      "id": "02282661-7324-44de-a209-90dc9f4f3983",
+      "id": "7fd4b1fe-95ef-4b3c-8a8c-a8dba280c361",
       "claimType": "url",
       "letterValue": "canada.ca/cra-submit-documents",
       "status": "VERIFIED_MATCH",
@@ -70,7 +70,7 @@
       }
     },
     {
-      "id": "a8c0827b-23d9-478c-861d-5b426af98071",
+      "id": "33d1a9a4-615b-4aff-afa7-8eee97b0385a",
       "claimType": "agency",
       "letterValue": "Canada Revenue Agency",
       "status": "VERIFIED_MATCH",
@@ -96,7 +96,7 @@
       }
     },
     {
-      "id": "1b20e465-c8bc-4a95-a17b-b44abf4b2cc8",
+      "id": "60c33b3b-f82b-481c-847c-9570051a9c8a",
       "claimType": "reference",
       "letterValue": "…4471",
       "status": "UNVERIFIED",
@@ -245,7 +245,7 @@
     "caution": null,
     "completion": {
       "status": "OPEN",
-      "taskId": "1f86685d-f81d-4575-99ae-e66fa578118e",
+      "taskId": "03300a8e-cae5-4e47-87a6-715354d7bed5",
       "proof": null
     }
   },
@@ -253,10 +253,10 @@
     "decision": "NEW",
     "candidates": [],
     "conflicts": [],
-    "linkedCaseId": "1d8eb7b7-1d65-4e08-b79e-0078bc0512a8"
+    "linkedCaseId": "316548e9-32ad-4ef1-9c26-3753c5421a6f"
   },
   "filedIn": {
-    "caseId": "1d8eb7b7-1d65-4e08-b79e-0078bc0512a8",
+    "caseId": "316548e9-32ad-4ef1-9c26-3753c5421a6f",
     "title": "CRA: Canada child benefit review",
     "role": "primary"
   },

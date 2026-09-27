@@ -1,0 +1,16 @@
+# HTTPS in front of the app. Caddy obtains and renews the certificate for $DOMAIN automatically.
+{$DOMAIN} {
+	encode zstd gzip
+
+	# Uploads are capped at 8 MB in the app; refuse anything far larger at the edge.
+	request_body {
+		max_size 10MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+
+	reverse_proxy app:3000
+}

@@ -48,3 +48,8 @@ next-env.d.ts
 
 # local PGlite database (dev only)
 /.data/
+!.env.production.example
+
+# playwright
+/test-results/
+/playwright-report/

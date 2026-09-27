@@ -1,4 +1,5 @@
 import "server-only";
+import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import type { Db } from "./types";
 
@@ -40,6 +41,8 @@ async function open(): Promise<Db> {
 
 /** Also used by tests with an in-memory database (dataDir undefined). */
 export async function openPglite(dataDir?: string): Promise<Db> {
+  // PGlite creates its own directory but not missing parents (e.g. ./.data on a fresh clone).
+  if (dataDir) await mkdir(path.dirname(path.resolve(dataDir)), { recursive: true });
   const [{ PGlite }, { drizzle }, { migrate }, schema] = await Promise.all([
     import("@electric-sql/pglite"),
     import("drizzle-orm/pglite"),

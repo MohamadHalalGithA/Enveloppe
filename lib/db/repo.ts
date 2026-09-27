@@ -417,6 +417,13 @@ export async function listTasks(db: Db, userId: string, caseId: string): Promise
   }));
 }
 
+/** Maintenance (demo reset): remove everything one user owns. Never exposed through the API. */
+export async function deleteAllForUser(db: Db, userId: string): Promise<{ letters: number; cases: number }> {
+  const l = await db.delete(letters).where(eq(letters.userId, userId)).returning({ id: letters.id });
+  const c = await db.delete(cases).where(eq(cases.userId, userId)).returning({ id: cases.id });
+  return { letters: l.length, cases: c.length };
+}
+
 /** For tests and maintenance: count rows a user owns (never exposed through the API). */
 export async function countOwned(db: Db, userId: string) {
   const [c] = await db.select({ n: count() }).from(cases).where(eq(cases.userId, userId));
