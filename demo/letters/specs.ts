@@ -157,4 +157,30 @@ export const LETTER_F: LetterSpec = {
   ],
 };
 
-export const LETTERS = [LETTER_A, LETTER_B, LETTER_C, LETTER_D, LETTER_F];
+/**
+ * G: CRA's answer to A's review (same reference number), worded as a reassessment: the app has no separate
+ * "notice of redetermination" type yet (Gemini files that as OTHER, which doesn't move a case). Uploaded after A's documents are submitted, it's filed
+ * in A's case automatically and moves it to "Outcome received". No year on purpose: nothing to calculate.
+ */
+export const LETTER_G: LetterSpec = {
+  id: "G",
+  file: "G_cra_review_outcome.png",
+  lines: [
+    ...CRA_HEADER,
+    ...RECIPIENT,
+    { text: "October 28, 2026", x: 680, y: 120, size: 24, key: "issueDate" },
+    { text: "Reference number: 2026-CCB-5831-4471", x: 600, y: 160, size: 22, key: "reference" },
+    { text: "Notice of reassessment – Canada child benefit", x: 60, y: 240, size: 30, weight: "bold", key: "title" },
+    { text: "Thank you for sending the documents we asked for. We have completed our review and", x: 60, y: 300, size: 22 },
+    { text: "reassessed your Canada child benefit (CCB).", x: 60, y: 322, size: 22 },
+    { text: "Result: you are still eligible. Your CCB payments will continue with no change.", x: 60, y: 370, size: 24, weight: "bold", key: "result" },
+    { text: "You do not need to do anything.", x: 60, y: 410, size: 22 },
+    { text: "To see your benefit details, sign in to My Account:", x: 60, y: 530, size: 22 },
+    { text: "canada.ca/my-cra-account", x: 60, y: 560, size: 24, key: "url" },
+    { text: "If you have questions, call us at:", x: 60, y: 610, size: 22 },
+    { text: "1-800-387-1193", x: 60, y: 640, size: 26, key: "phone" },
+    FOOTER,
+  ],
+};
+
+export const LETTERS = [LETTER_A, LETTER_B, LETTER_C, LETTER_D, LETTER_F, LETTER_G];

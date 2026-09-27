@@ -48,6 +48,9 @@ const STEPS: { id: string; file: string; decide: "new" | null }[] = [
   { id: "D", file: "D_ircc_biometrics.png", decide: "new" },
 ];
 
+/** Saved readings only, not in the public walkthrough: G is CRA's answer to A, for the signed-in live demo. */
+const READING_ONLY: { id: string; file: string }[] = [{ id: "G", file: "G_cra_review_outcome.png" }];
+
 async function reading(id: string, image: Buffer): Promise<{ extraction: Extraction; modelId: string | null; cachedAt: string }> {
   const file = path.join(CACHE, "readings", `${id}.extraction.json`);
   if (!REFRESH) {
@@ -149,6 +152,12 @@ async function main() {
 
     console.log(`  ${step.id}: ${analyzed.verdict} · ${analyzed.caseMatch.decision} · deadline ${analyzed.deadline.effective ?? "—"}`);
     built.push({ id: step.id, letterId, image: { url: `/demo-letters/${step.file}`, width: meta.width!, height: meta.height! }, model: modelId, cachedAt });
+  }
+  for (const extra of READING_ONLY) {
+    const image = await readFile(path.join(LETTERS, extra.file));
+    const { extraction } = await reading(extra.id, image);
+    manifest[(await sanitizeUpload(image)).sha256] = extra.id;
+    console.log(`  ${extra.id}: saved reading only (${extraction.documentType.value ?? "no type"})`);
   }
 
   const speech: Record<string, Record<string, SpeechResult>> = {};

@@ -1,0 +1,151 @@
+{
+  "extraction": {
+    "schemaVersion": "1",
+    "isGovernmentCorrespondence": "yes",
+    "languages": [
+      "en",
+      "fr"
+    ],
+    "quality": {
+      "legibility": "good",
+      "issues": []
+    },
+    "agency": {
+      "value": "CRA",
+      "sourceText": "Canada Revenue Agency",
+      "box": [
+        41,
+        60,
+        65,
+        433
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false,
+      "claimedName": "Canada Revenue Agency"
+    },
+    "documentType": {
+      "value": "CRA_NOTICE_OF_REASSESSMENT",
+      "sourceText": "Notice of reassessment – Canada child benefit",
+      "box": [
+        241,
+        59,
+        259,
+        580
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false,
+      "rawTitle": "Notice of reassessment – Canada child benefit"
+    },
+    "issueDate": {
+      "value": "2026-10-28",
+      "sourceText": "October 28, 2026",
+      "box": [
+        120,
+        680,
+        135,
+        825
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false
+    },
+    "printedDeadlines": [],
+    "identifiers": [
+      {
+        "value": "2026-CCB-5831-4471",
+        "sourceText": "Reference number: 2026-CCB-5831-4471",
+        "box": [
+          159,
+          600,
+          174,
+          921
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "kind": "reference_number"
+      }
+    ],
+    "taxYear": {
+      "value": null,
+      "sourceText": null,
+      "box": null,
+      "page": 1,
+      "confidence": "low",
+      "needsConfirmation": false
+    },
+    "program": {
+      "value": "Canada child benefit",
+      "sourceText": "Canada child benefit",
+      "box": [
+        241,
+        350,
+        256,
+        580
+      ],
+      "page": 1,
+      "confidence": "high",
+      "needsConfirmation": false
+    },
+    "phones": [
+      {
+        "value": "1-800-387-1193",
+        "sourceText": "1-800-387-1193",
+        "box": [
+          640,
+          60,
+          655,
+          203
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "context": "If you have questions, call us at:"
+      }
+    ],
+    "urls": [
+      {
+        "value": "canada.ca/my-cra-account",
+        "sourceText": "canada.ca/my-cra-account",
+        "box": [
+          561,
+          60,
+          576,
+          281
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "context": "To see your benefit details, sign in to My Account:"
+      }
+    ],
+    "emails": [],
+    "qrCodes": [],
+    "paymentRequests": [],
+    "requiredActions": [
+      {
+        "value": "You do not need to do anything.",
+        "sourceText": "You do not need to do anything.",
+        "box": [
+          410,
+          59,
+          425,
+          303
+        ],
+        "page": 1,
+        "confidence": "high",
+        "needsConfirmation": false,
+        "actionType": "none"
+      }
+    ],
+    "requestedDocuments": [],
+    "formNumbers": [],
+    "riskSignals": [],
+    "embeddedInstructions": [],
+    "uncertainFields": []
+  },
+  "modelId": "gemini-3.8-flash",
+  "cachedAt": "2026-09-27T15:27:34.621Z"
+}

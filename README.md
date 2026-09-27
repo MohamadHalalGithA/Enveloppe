@@ -35,6 +35,7 @@ npm run test:live                                      # live contract tests (re
 ```bash
 npm run demo:reset -- --sub "auth0|<demo user id>"   # wipe the demo account, seed the 2023 reassessment case
 npm run demo:rehearse -- --runs 3                    # full twin-letter run through the API, with timings
+# Story: A (track it) → B (scam twin, keep separate) → "I've submitted it" → G (CRA's answer: case → Outcome received)
 # DEMO_MODE=fallback in the env: saved readings if Gemini fails (always badged "Cached reading")
 ```
 

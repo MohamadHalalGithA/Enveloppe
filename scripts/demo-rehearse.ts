@@ -119,7 +119,13 @@ async function rehearse(): Promise<Record<string, number>> {
     await (await api.completeTask(post(`/api/tasks/${task}/complete`, { confirmationNumber: "REHEARSAL-1" }), task, deps)).json(),
   );
   check(after.case.status === "WAITING_FOR_GOVERNMENT", "case moves to waiting after proof");
-  t["cached reading used"] = a.cached || b.cached ? 1 : 0;
+
+  // CRA answers (Sample G, same reference): filed in A's case on its own, which reaches its outcome.
+  const g = await time("G: CRA's answer", async () => analyze(await upload("G_cra_review_outcome.png")));
+  check(g.caseMatch.decision === "AUTO_LINK" && g.filedIn?.caseId === filed.filedIn!.caseId, `G is filed in A's case (got ${g.caseMatch.decision})`);
+  const done = CaseDetailZ.parse(await (await api.caseDetail(new Request(`${ORIGIN}/x`), filed.filedIn!.caseId, deps)).json());
+  check(done.case.stageId === "OUTCOME" && done.case.status === "CLOSED", `A's case reaches its outcome (got ${done.case.stageId}, ${done.case.status})`);
+  t["cached reading used"] = a.cached || b.cached || g.cached ? 1 : 0;
   return t;
 }
 
