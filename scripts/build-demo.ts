@@ -8,18 +8,23 @@
  *
  * Usage: npm run demo:build [-- --refresh]
  */
+import { createHash } from "node:crypto";
 import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
-import { ExtractionZ, type Extraction } from "@/lib/contracts";
+import { ExtractionZ, type Extraction, type LetterResult, type SpeechResult } from "@/lib/contracts";
 import { resolveUser } from "@/lib/auth/resolve";
 import { loadLetterResult } from "@/lib/cases/result";
 import { decideCase, getInbox } from "@/lib/cases/service";
 import { openPglite } from "@/lib/db/client";
 import { createLetter, storeLetterImage } from "@/lib/db/repo";
-import { extractFromImage } from "@/lib/gemini/client";
+import { extractFromImage, geminiTranslate } from "@/lib/gemini/client";
 import { analyzeLetter } from "@/lib/pipeline/analyze";
 import { sanitizeUpload } from "@/lib/upload/sanitize";
+import { elevenLabsTts } from "@/lib/voice/elevenlabs";
+import { speechLanguage } from "@/lib/voice/languages";
+import { buildSpeechScript, fillScript, scrubForSpeech } from "@/lib/voice/script";
+import { translateScript } from "@/lib/voice/translate";
 
 try {
   process.loadEnvFile(".env.local");
@@ -60,6 +65,56 @@ async function reading(id: string, image: Buffer): Promise<{ extraction: Extract
   return entry;
 }
 
+/** The twin-letter pair gets pre-generated voice in the public demo (the demo never calls a service). */
+const VOICED = ["A", "B"];
+const VOICE_LANGS = ["ar", "fr", "en"];
+const AUDIO = path.join(ROOT, "public", "demo-audio");
+
+/**
+ * Same path as POST /api/letters/:id/speech: script from the verified result → Gemini translation →
+ * placeholders filled by code → scrubbed → ElevenLabs. Reused while the script is unchanged.
+ */
+async function demoSpeech(sample: string, letter: LetterResult): Promise<Record<string, SpeechResult>> {
+  const { ELEVENLABS_API_KEY: apiKey, ELEVENLABS_VOICE_ID: voiceId, ELEVENLABS_MODEL_ID: modelId } = process.env;
+  if (!apiKey || !voiceId || !modelId) throw new Error("ElevenLabs settings missing (.env.local)");
+  const tts = elevenLabsTts({ apiKey, voiceId, modelId });
+  const script = buildSpeechScript(letter);
+  await mkdir(AUDIO, { recursive: true });
+  await mkdir(path.join(CACHE, "speech-store"), { recursive: true });
+  const out: Record<string, SpeechResult> = {};
+  for (const code of VOICE_LANGS) {
+    const lang = speechLanguage(code)!;
+    const hash = createHash("sha256").update(JSON.stringify({ script, code, voiceId, modelId })).digest("hex");
+    const storeFile = path.join(CACHE, "speech-store", `${sample}-${code}.json`);
+    const audioFile = path.join(AUDIO, `${sample}-${code}.mp3`);
+    let text: string | null = null;
+    try {
+      const stored = JSON.parse(await readFile(storeFile, "utf8"));
+      await readFile(audioFile);
+      if (stored.hash === hash) text = stored.text;
+    } catch {
+      // not generated yet
+    }
+    if (!text) {
+      console.log(`  voicing ${sample} in ${lang.english}…`);
+      const translated = await translateScript(script.template, code, geminiTranslate);
+      text = scrubForSpeech(fillScript(translated, script.values, code), script.values.PHONE ? [script.values.PHONE] : []);
+      await writeFile(audioFile, await tts(text));
+      await writeFile(storeFile, JSON.stringify({ hash, text }, null, 2) + "\n");
+    }
+    out[code] = {
+      lang: code,
+      languageName: lang.name,
+      dir: lang.dir,
+      text,
+      machineTranslated: code !== "en",
+      audioUrl: `/demo-audio/${sample}-${code}.mp3`,
+      note: null,
+    };
+  }
+  return out;
+}
+
 async function main() {
   const refKey = process.env.REF_HMAC_KEY;
   if (!refKey) throw new Error("REF_HMAC_KEY missing (.env.local)");
@@ -93,10 +148,13 @@ async function main() {
     built.push({ id: step.id, letterId, image: { url: `/demo-letters/${step.file}`, width: meta.width!, height: meta.height! }, model: modelId, cachedAt });
   }
 
+  const speech: Record<string, Record<string, SpeechResult>> = {};
   for (const b of built) {
     const result = await loadLetterResult(db, user.id, b.letterId, { image: b.image, cached: true });
     await writeFile(path.join(CACHE, "results", `${b.letterId}.json`), JSON.stringify(result, null, 2) + "\n");
+    if (VOICED.includes(b.id)) speech[b.letterId] = await demoSpeech(b.id, result);
   }
+  await writeFile(path.join(CACHE, "speech.json"), JSON.stringify(speech, null, 2) + "\n");
   await writeFile(path.join(CACHE, "inbox.json"), JSON.stringify(await getInbox(db, user.id), null, 2) + "\n");
   await writeFile(
     path.join(CACHE, "meta.json"),

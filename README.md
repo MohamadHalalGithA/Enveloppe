@@ -43,6 +43,7 @@ npm run test:live                                      # live contract tests (re
 | `POST /api/letters/:id/unlink` · `DELETE /api/letters/:id` | Undo a link · delete a letter |
 | `GET /api/inbox` · `GET`/`DELETE /api/cases/:id` | Civic Inbox · case detail · delete a case |
 | `POST /api/tasks/:id/complete` | Save proof of submission; the case moves to waiting |
+| `POST /api/letters/:id/speech` · `GET …/speech?lang=` | "Listen in my language": explanation from the verified result, translated, voiced (ElevenLabs), cached · the audio |
 
 ## Layout
 

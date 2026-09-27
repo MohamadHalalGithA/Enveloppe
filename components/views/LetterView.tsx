@@ -8,7 +8,8 @@ import { OfficialContactCard } from "@/components/OfficialContactCard";
 import { ProcessStepper } from "@/components/process/ProcessStepper";
 import { ResponsePackCard } from "@/components/response-pack/ResponsePackCard";
 import { VerdictBanner } from "@/components/VerdictBanner";
-import type { LetterResult } from "@/lib/contracts";
+import { ListenPanel } from "@/components/voice/ListenPanel";
+import type { LetterResult, SpeechResult } from "@/lib/contracts";
 
 const DEGRADED_COPY: Record<LetterResult["degraded"][number], string> = {
   EXPLANATION: "The full explanation wasn't available, so this is a simplified one.",
@@ -19,7 +20,16 @@ const DEGRADED_COPY: Record<LetterResult["degraded"][number], string> = {
 };
 
 /** The Analysis Result screen for one letter. `app` = interactive for the signed-in owner; `demo` = read-only. */
-export function LetterView({ letter, mode = "demo" }: { letter: LetterResult; mode?: "app" | "demo" }) {
+export function LetterView({
+  letter,
+  mode = "demo",
+  speech,
+}: {
+  letter: LetterResult;
+  mode?: "app" | "demo";
+  /** Demo only: pre-generated spoken explanations by language. */
+  speech?: Record<string, SpeechResult>;
+}) {
   const explanation = letter.whatIsThis.explanation.en ?? Object.values(letter.whatIsThis.explanation)[0];
   const lowConfidence = letter.status === "LOW_CONFIDENCE";
 
@@ -55,9 +65,11 @@ export function LetterView({ letter, mode = "demo" }: { letter: LetterResult; mo
           What is this?
         </h2>
         <p className="mt-1 text-lg">{explanation}</p>
-        <button type="button" disabled className="mt-2 rounded-lg border border-slate-400 px-3 py-1.5 disabled:opacity-60">
-          Listen in my language (coming soon)
-        </button>
+        {mode === "app" ? (
+          <ListenPanel letterId={letter.id} />
+        ) : speech ? (
+          <ListenPanel letterId={letter.id} preloaded={speech} />
+        ) : null}
       </section>
 
       <OfficialContactCard contact={letter.officialContact} />

@@ -58,6 +58,16 @@ beforeAll(async () => {
     appOrigin: ORIGIN,
     limiter: new RateLimiter(),
     retentionDays: 30,
+    speech: () => ({
+      translate: async () => {
+        throw new Error("not used in this test");
+      },
+      tts: async () => {
+        throw new Error("not used in this test");
+      },
+      now: () => new Date(),
+      voiceKey: "unused",
+    }),
   };
 }, 60_000);
 

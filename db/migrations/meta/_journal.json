@@ -15,6 +15,13 @@
       "when": 1790469216016,
       "tag": "0001_analysis_claim",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790471013109,
+      "tag": "0002_voice_text",
+      "breakpoints": true
     }
   ]
 }

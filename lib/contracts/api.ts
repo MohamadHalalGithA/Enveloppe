@@ -122,6 +122,20 @@ export const LetterEnvelopeZ = z.object({
 });
 export type LetterEnvelope = z.infer<typeof LetterEnvelopeZ>;
 
+/** POST /api/letters/:id/speech: the spoken explanation in one language, and its audio when available. */
+export const SpeechResultZ = z.object({
+  lang: z.string(),
+  languageName: z.string(),
+  dir: z.enum(["ltr", "rtl"]),
+  /** Built from the verified result; never the letter's own text. */
+  text: z.string(),
+  machineTranslated: z.boolean(),
+  audioUrl: z.string().nullable(),
+  /** Why something is missing (no voice right now, translation fell back to English). */
+  note: z.string().nullable(),
+});
+export type SpeechResult = z.infer<typeof SpeechResultZ>;
+
 /** POST /api/letters response. */
 export const UploadResultZ = z.object({ letterId: z.uuid(), status: LetterStatusZ, existing: z.boolean() });
 export type UploadResult = z.infer<typeof UploadResultZ>;

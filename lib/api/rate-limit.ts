@@ -9,6 +9,7 @@ import { HttpError } from "./http";
 export const LIMITS = {
   upload: { limit: 10, windowMs: 60_000 },
   analyze: { limit: 6, windowMs: 60_000 },
+  voice: { limit: 10, windowMs: 60_000 },
   mutate: { limit: 60, windowMs: 60_000 },
 } as const;
 export type Bucket = keyof typeof LIMITS;

@@ -22,6 +22,8 @@ import { NotFoundError, PipelineError } from "@/lib/errors";
 import type { ExtractResult } from "@/lib/gemini/extract";
 import { analyzeLetter, confirmLetterFields, ConfirmFieldsZ, isAnalyzed, letterResultFor } from "@/lib/pipeline/analyze";
 import { MAX_UPLOAD_BYTES, sanitizeUpload } from "@/lib/upload/sanitize";
+import { SPEECH_LANGUAGE_CODES } from "@/lib/voice/languages";
+import { getSpeechAudio, speakLetter, type SpeechDeps } from "@/lib/voice/service";
 import { assertSameOrigin, HttpError, json, parseId, readJson, withApi } from "./http";
 import type { RateLimiter } from "./rate-limit";
 
@@ -46,11 +48,13 @@ export interface ApiDeps {
   limiter: RateLimiter;
   /** Uploaded images are deleted after this many days. */
   retentionDays: number;
+  /** Translation + text-to-speech for "Listen in my language". */
+  speech: () => SpeechDeps;
 }
 
 const MULTIPART_OVERHEAD = 64 * 1024;
 
-async function mutation(req: Request, deps: ApiDeps, bucket: "upload" | "analyze" | "mutate" = "mutate"): Promise<AppUser> {
+async function mutation(req: Request, deps: ApiDeps, bucket: "upload" | "analyze" | "voice" | "mutate" = "mutate"): Promise<AppUser> {
   const user = await deps.user();
   assertSameOrigin(req, deps.appOrigin);
   deps.limiter.enforce(bucket, user.id);
@@ -217,5 +221,30 @@ export function completeTask(req: Request, id: string, deps: ApiDeps) {
     if (!task) throw new NotFoundError("Task");
     await completeTaskService(db, user.id, taskId, proof); // validates proof strictly (whitelisted fields)
     return json(await getCaseDetail(db, user.id, task.caseId));
+  });
+}
+
+// ---------- voice ----------
+
+const SpeechRequestZ = z.object({ lang: z.enum(SPEECH_LANGUAGE_CODES) }).strict();
+
+export function speak(req: Request, id: string, deps: ApiDeps) {
+  return withApi("POST /api/letters/:id/speech", async () => {
+    const user = await mutation(req, deps, "voice");
+    const { lang } = await readJson(req, SpeechRequestZ);
+    return json(await speakLetter(await deps.db(), user.id, parseId(id), lang, deps.speech()));
+  });
+}
+
+export function speechAudio(req: Request, id: string, deps: ApiDeps) {
+  return withApi("GET /api/letters/:id/speech", async () => {
+    const user = await deps.user();
+    const lang = SpeechRequestZ.shape.lang.safeParse(new URL(req.url).searchParams.get("lang"));
+    if (!lang.success) throw new NotFoundError("Audio");
+    const audio = await getSpeechAudio(await deps.db(), user.id, parseId(id), lang.data);
+    if (!audio) throw new NotFoundError("Audio");
+    return new Response(new Uint8Array(audio), {
+      headers: { "Content-Type": "audio/mpeg", "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff" },
+    });
   });
 }

@@ -195,8 +195,12 @@ export const voiceClips = pgTable(
       .references(() => letters.id, { onDelete: "cascade" }),
     userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
     lang: text("lang").notNull(),
+    /** Hash of the English script + values + voice settings: a changed result means a new clip. */
     textSha256: char("text_sha256", { length: 64 }).notNull(),
-    audio: bytea("audio").notNull(),
+    /** The spoken text (already scrubbed of identifiers). */
+    text: text("text"),
+    /** Null when the voice service failed; the text is still usable and audio is retried next time. */
+    audio: bytea("audio"),
     createdAt: createdAt(),
   },
   (t) => [primaryKey({ columns: [t.letterId, t.lang, t.textSha256] })],

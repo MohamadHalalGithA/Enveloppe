@@ -29,6 +29,12 @@ let reading: () => Promise<{ extraction: Extraction; modelId: string }>;
 let clock = new Date("2026-09-27T15:00:00Z");
 
 const extract = vi.fn(async () => reading());
+const speechDeps = {
+  translate: vi.fn(async ({ text }: { text: string }) => text.replace("This is", "Ceci est")),
+  tts: vi.fn(async () => Buffer.alloc(2048, 7)),
+  now: () => clock,
+  voiceKey: "test-voice",
+};
 const deps = (limiter = new RateLimiter()): ApiDeps => ({
   user: async () => {
     if (!current) throw new AuthError();
@@ -42,6 +48,7 @@ const deps = (limiter = new RateLimiter()): ApiDeps => ({
   appOrigin: ORIGIN,
   limiter,
   retentionDays: 30,
+  speech: () => speechDeps,
 });
 let d: ApiDeps;
 
@@ -258,6 +265,39 @@ describe("the pipeline through the API: the twin-letter demo", () => {
     expect((await api.getImage(get("/x"), letterBId, d)).status).toBe(404);
     expect((await api.removeCase(jsonReq("/x", undefined, "DELETE"), caseId, d)).status).toBe(204);
     expect((await api.getLetter(get("/x"), letterAId, d)).status).toBe(404);
+  });
+});
+
+describe("POST/GET /api/letters/:id/speech (Listen in my language)", () => {
+  it("speaks an analyzed letter, serves the audio to its owner only, and validates the language", async () => {
+    const id = (await upload(await imageA())).body.letterId;
+    reading = async () => ({ extraction: letterA(), modelId: "fake-reader" });
+    await api.analyze(jsonReq(`/api/letters/${id}/analyze`, {}), id, d);
+
+    expect((await api.speak(jsonReq(`/api/letters/${id}/speech`, { lang: "fr" }, "POST", null), id, d)).status).toBe(403);
+    expect((await api.speak(jsonReq(`/api/letters/${id}/speech`, { lang: "klingon" }), id, d)).status).toBe(400);
+    expect((await api.speak(jsonReq(`/api/letters/${id}/speech`, { lang: "fr", voice: "x" }), id, d)).status).toBe(400);
+
+    const res = await api.speak(jsonReq(`/api/letters/${id}/speech`, { lang: "fr" }), id, d);
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body).toMatchObject({ lang: "fr", machineTranslated: true, audioUrl: `/api/letters/${id}/speech?lang=fr` });
+    expect(body.text).toMatch(/^Ceci est a request for documents/); // the fake translator's output
+
+    const audio = await api.speechAudio(get(`/api/letters/${id}/speech?lang=fr`), id, d);
+    expect(audio.status).toBe(200);
+    expect(audio.headers.get("content-type")).toBe("audio/mpeg");
+    expect(audio.headers.get("cache-control")).toBe("private, no-store");
+    expect((await api.speechAudio(get(`/api/letters/${id}/speech?lang=ar`), id, d)).status).toBe(404); // not generated
+    expect((await api.speechAudio(get(`/api/letters/${id}/speech?lang=../x`), id, d)).status).toBe(404);
+
+    current = other;
+    try {
+      expect((await api.speak(jsonReq(`/api/letters/${id}/speech`, { lang: "fr" }), id, d)).status).toBe(404);
+      expect((await api.speechAudio(get(`/api/letters/${id}/speech?lang=fr`), id, d)).status).toBe(404);
+    } finally {
+      current = amira;
+    }
   });
 });
 

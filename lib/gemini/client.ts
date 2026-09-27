@@ -6,6 +6,7 @@ import { extractLetter, type ExtractResult, type GenerateFn } from "./extract";
 import { assertModelImage } from "./image";
 import { EXTRACTION_SYSTEM_PROMPT, EXTRACTION_USER_PROMPT } from "./prompt";
 import { EXTRACTION_RESPONSE_SCHEMA } from "./schema";
+import { TRANSLATE_SYSTEM_PROMPT, type TranslateFn } from "@/lib/voice/translate";
 
 /**
  * The only code that sends a letter image to Gemini. It sends the image and the fixed prompt,
@@ -59,3 +60,22 @@ export async function extractFromImage(image: Buffer): Promise<ExtractResult> {
     today: todayInToronto(),
   });
 }
+
+/** Translation of an already-sanitized spoken script (text only: no image, no letter content). */
+export const geminiTranslate: TranslateFn = async ({ text, languageName, signal }) => {
+  const res = await getClient().models.generateContent({
+    model: configuredModels()[0],
+    contents: [{ role: "user", parts: [{ text: `Target language: ${languageName}\n\nText:\n${text}` }] }],
+    config: {
+      systemInstruction: TRANSLATE_SYSTEM_PROMPT,
+      responseMimeType: "application/json",
+      responseJsonSchema: { type: "object", properties: { text: { type: "string" } }, required: ["text"] },
+      thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
+      abortSignal: signal,
+      httpOptions: { retryOptions: { attempts: 1 } },
+    },
+  });
+  const parsed = JSON.parse(res.text ?? "{}") as { text?: unknown };
+  if (typeof parsed.text !== "string") throw new Error("Malformed translation");
+  return parsed.text;
+};

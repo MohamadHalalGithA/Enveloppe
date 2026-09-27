@@ -6,6 +6,7 @@ import { CaseDecisionButtons } from "@/components/actions/ActionButtons";
 import { ConfirmFieldsForm } from "@/components/actions/ConfirmFieldsForm";
 import { SubmitProofForm } from "@/components/actions/SubmitProofForm";
 import { UploadPanel } from "@/components/upload/UploadPanel";
+import { ListenPanel } from "@/components/voice/ListenPanel";
 import { confirmBody, confirmInputs } from "@/lib/ui/confirm-fields";
 
 const router = { push: vi.fn(), refresh: vi.fn() };
@@ -155,5 +156,40 @@ describe("SubmitProofForm", () => {
     expect(calls).toEqual([
       { url: `/api/tasks/${TASK}/complete`, method: "POST", body: { confirmationNumber: "CRA-77310", notes: null } },
     ]);
+  });
+});
+
+describe("ListenPanel", () => {
+  it("asks the API for the chosen language and shows right-to-left text with the audio", async () => {
+    responses[`/api/letters/${LETTER}/speech`] = {
+      status: 200,
+      body: { lang: "ar", languageName: "العربية", dir: "rtl", text: "هذا طلب", machineTranslated: true, audioUrl: `/api/letters/${LETTER}/speech?lang=ar`, note: null },
+    };
+    const { container } = render(<ListenPanel letterId={LETTER} />);
+    await userEvent.selectOptions(screen.getByLabelText("Listen in my language"), "ar");
+    await userEvent.click(screen.getByRole("button", { name: /Listen/ }));
+    const text = await screen.findByText("هذا طلب");
+    expect(text.getAttribute("dir")).toBe("rtl");
+    expect(text.getAttribute("lang")).toBe("ar");
+    expect(container.querySelector("audio")?.getAttribute("src")).toBe(`/api/letters/${LETTER}/speech?lang=ar`);
+    expect(screen.getByText(/Machine translation/)).toBeTruthy();
+    expect(calls).toEqual([{ url: `/api/letters/${LETTER}/speech`, method: "POST", body: { lang: "ar" } }]);
+  });
+
+  it("plays ready-made clips in the demo without calling the server", async () => {
+    const clip = (lang: string, dir: "ltr" | "rtl") => ({
+      lang,
+      languageName: lang,
+      dir,
+      text: `text-${lang}`,
+      machineTranslated: lang !== "en",
+      audioUrl: `/demo-audio/A-${lang}.mp3`,
+      note: null,
+    });
+    render(<ListenPanel letterId={LETTER} preloaded={{ ar: clip("ar", "rtl"), en: clip("en", "ltr") }} />);
+    expect(screen.getAllByRole("option").map((o) => o.getAttribute("value"))).toEqual(["en", "ar"]);
+    await userEvent.click(screen.getByRole("button", { name: /Listen/ }));
+    expect(await screen.findByText("text-ar")).toBeTruthy();
+    expect(calls).toEqual([]);
   });
 });

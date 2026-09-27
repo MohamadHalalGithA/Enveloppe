@@ -1,0 +1,60 @@
+{
+  "211cd382-f190-4432-b4e2-6af3ffdac943": {
+    "ar": {
+      "lang": "ar",
+      "languageName": "العربية",
+      "dir": "rtl",
+      "text": "هذا طلب للحصول على وثائق من وكالة الإيرادات الكندية (CRA)، بخصوص إعانة الطفل الكندية. تطلب منك وكالة الإيرادات الكندية إرسال بعض الوثائق: نسخة من عقد الإيجار الخاص بك، وخطاب من مدرسة طفلك أو الحضانة. أرسلها عبر خدمة تقديم الوثائق عبر الإنترنت التابعة لـ CRA. الموعد النهائي هو 14 أكتوبر 2026. هذا يعني 17 يوماً من اليوم. إذا كانت لديك أسئلة، اتصل بـ CRA على الرقم 1-800-387-1193.",
+      "machineTranslated": true,
+      "audioUrl": "/demo-audio/A-ar.mp3",
+      "note": null
+    },
+    "fr": {
+      "lang": "fr",
+      "languageName": "Français",
+      "dir": "ltr",
+      "text": "Ceci est une demande de documents de l'Agence du revenu du Canada concernant l'Allocation canadienne pour enfants. L'ARC vous demande d'envoyer certains documents : une copie de votre bail ou contrat de location, et une lettre de l'école ou de la garderie de votre enfant. Envoyez-les en utilisant le service Soumettre des documents en ligne de l'ARC. La date limite est le 14 octobre 2026. Cela correspond à 17 jours à partir d'aujourd'hui. Si vous avez des questions, appelez l'ARC au 1-800-387-1193.",
+      "machineTranslated": true,
+      "audioUrl": "/demo-audio/A-fr.mp3",
+      "note": null
+    },
+    "en": {
+      "lang": "en",
+      "languageName": "English",
+      "dir": "ltr",
+      "text": "This is a request for documents from the Canada Revenue Agency, about the Canada child benefit. CRA is asking you to send some documents: a copy of your lease or rental agreement, and a letter from your child's school or daycare. Send them through CRA Submit documents online. The deadline is October 14, 2026. That is 17 days from today. If you have questions, call CRA at 1-800-387-1193.",
+      "machineTranslated": false,
+      "audioUrl": "/demo-audio/A-en.mp3",
+      "note": null
+    }
+  },
+  "994c2b28-e20b-48bc-acd2-aa42850fa2cd": {
+    "ar": {
+      "lang": "ar",
+      "languageName": "العربية",
+      "dir": "rtl",
+      "text": "تقول هذه الرسالة إنها من وكالة الإيرادات الكندية (CRA). ولكن عدة تفاصيل فيها لا تطابق المعلومات الرسمية. لا تتصل برقم الهاتف، ولا تمسح الرمز، ولا ترسل أي أموال باستخدام أي شيء في هذه الرسالة. إذا كنت قلقاً، اتصل بنفسك بوكالة CRA على الرقم 1-800-387-1193.",
+      "machineTranslated": true,
+      "audioUrl": "/demo-audio/B-ar.mp3",
+      "note": null
+    },
+    "fr": {
+      "lang": "fr",
+      "languageName": "Français",
+      "dir": "ltr",
+      "text": "Cette lettre indique qu'elle vient de l'Agence du revenu du Canada. Mais plusieurs détails ne correspondent pas aux informations officielles. N'appelez pas le numéro de téléphone, ne scannez pas le code et n'envoyez pas d'argent en utilisant les informations de cette lettre. Si vous avez des inquiétudes, appelez vous-même l'ARC au 1-800-387-1193.",
+      "machineTranslated": true,
+      "audioUrl": "/demo-audio/B-fr.mp3",
+      "note": null
+    },
+    "en": {
+      "lang": "en",
+      "languageName": "English",
+      "dir": "ltr",
+      "text": "This letter says it is from the Canada Revenue Agency. But several details in it do not match official information. Do not call the phone number, scan the code, or send money using anything in this letter. If you are worried, call CRA yourself at 1-800-387-1193.",
+      "machineTranslated": false,
+      "audioUrl": "/demo-audio/B-en.mp3",
+      "note": null
+    }
+  }
+}
