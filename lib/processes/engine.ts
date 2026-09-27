@@ -1,6 +1,7 @@
 import {
   ProcessDefinitionZ,
   type CaseStatus,
+  type DeadlineResult,
   type DocType,
   type ProcessDefinition,
   type ProcessId,
@@ -8,6 +9,7 @@ import {
 } from "@/lib/contracts";
 import type { Registry } from "@/lib/registry/load";
 import { sourceOf } from "@/lib/registry/lookup";
+import { formatCivilDate } from "@/lib/ui/format";
 import craObjection from "@/data/processes/cra-objection.json";
 import craReview from "@/data/processes/cra-review.json";
 import irccBiometrics from "@/data/processes/ircc-biometrics.json";
@@ -72,6 +74,20 @@ export function statusForStage(processId: string | null, stageId: string | null)
   if (stage.terminal) return "CLOSED";
   if (stage.userAction) return "ACTION_REQUIRED";
   return "WAITING_FOR_GOVERNMENT";
+}
+
+/**
+ * An old letter: the deadline to act on the step it put you in has passed. Say so on that step instead of
+ * showing it as still open ("You can object if you disagree", years later).
+ */
+export function flagMissedDeadline(
+  view: ProcessView | null,
+  deadline: DeadlineResult | null,
+  actionStageId: string | null | undefined,
+): ProcessView | null {
+  if (!view || deadline?.status !== "PASSED" || !deadline.effective || view.currentStageId !== actionStageId) return view;
+  const alert = `The deadline for this step was ${formatCivilDate(deadline.effective)}. It has passed.`;
+  return { ...view, stages: view.stages.map((s) => (s.id === view.currentStageId ? { ...s, alert } : s)) };
 }
 
 export function processView(reg: Registry, processId: string | null, stageId: string | null): ProcessView | null {

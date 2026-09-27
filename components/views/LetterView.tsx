@@ -10,6 +10,7 @@ import { ResponsePackCard } from "@/components/response-pack/ResponsePackCard";
 import { VerdictBanner } from "@/components/VerdictBanner";
 import { ListenPanel } from "@/components/voice/ListenPanel";
 import type { LetterResult, SpeechResult } from "@/lib/contracts";
+import { oldLetterNotice } from "@/lib/deadlines/age";
 
 const DEGRADED_COPY: Record<LetterResult["degraded"][number], string> = {
   EXPLANATION: "The full explanation wasn't available, so this is a simplified one.",
@@ -32,6 +33,7 @@ export function LetterView({
 }) {
   const explanation = letter.whatIsThis.explanation.en ?? Object.values(letter.whatIsThis.explanation)[0];
   const lowConfidence = letter.status === "LOW_CONFIDENCE";
+  const old = oldLetterNotice(letter.deadline);
 
   return (
     <article className="flex flex-col gap-6">
@@ -42,6 +44,12 @@ export function LetterView({
         </p>
         <h1 className="text-3xl font-bold">{letter.whatIsThis.docTypeLabel}</h1>
         <VerdictBanner verdict={letter.verdict} />
+        {old && (
+          <div role="note" className="rounded-md border-2 border-amber-700 bg-amber-50 p-3 text-amber-950">
+            <p className="text-lg font-bold">{old.title}</p>
+            <p>{old.body}</p>
+          </div>
+        )}
         {lowConfidence && (
           <p role="note" className="rounded-md bg-amber-100 p-2 text-amber-950">
             The photo was hard to read in places. Check the highlighted details, or retake the photo flat and in good light.

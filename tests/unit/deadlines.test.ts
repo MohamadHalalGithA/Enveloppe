@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { addDays, addYears, dayOfWeek, diffDays, holidayName, holidaysFor } from "@/lib/deadlines/calendar";
+import { oldLetterNotice, wholeYears } from "@/lib/deadlines/age";
 import { computeDeadline, distrustDeadline } from "@/lib/deadlines/engine";
 import { getRegistry } from "@/lib/registry/load";
 import { irccBiometricsLetter, letterA, letterB, noticeOfReassessment } from "../helpers/extractions";
@@ -65,10 +66,20 @@ describe("CRA objection rule (P148)", () => {
     expect(d.note).toMatch(/Interpretation Act/);
   });
 
-  it("mentions the one-year extension once the deadline has passed", () => {
+  it("once the objection deadline has passed, gives the last day to ask for an extension (P148: one year)", () => {
     const d = run(noticeOfReassessment({ issueDate: "2026-05-01", taxYear: 2023 }));
     expect(d.status).toBe("PASSED");
-    expect(d.note).toMatch(/extension/);
+    expect(d.effective).toBe("2026-07-30");
+    expect(d.note).toContain("You can still ask CRA for an extension of time to object");
+    expect(d.note).toContain("no later than July 30, 2027");
+  });
+
+  it("an old notice: says the extension window has closed too, instead of offering it", () => {
+    const d = run(noticeOfReassessment({ issueDate: "2016-04-18", taxYear: 2015 }));
+    expect(d.status).toBe("PASSED");
+    expect(d.effective).toBe("2017-04-30");
+    expect(d.note).toContain("and so has the last day to ask CRA for an extension of time to object (April 30, 2018)");
+    expect(d.note).not.toContain("You can still ask");
   });
 
   it("won't calculate from a date it isn't sure it read", () => {
@@ -117,5 +128,44 @@ describe("IRCC biometrics rule", () => {
     expect(d.computed?.assumptions[0]).toMatch(/earliest the 30 days could start/);
     expect(d.effective).toBe("2026-10-10");
     expect(d.note).toMatch(/Saturday/);
+  });
+});
+
+describe("old letters", () => {
+  const oldNotice = () => run(noticeOfReassessment({ issueDate: "2016-04-18", taxYear: 2015 }));
+
+  it("counts whole years between civil dates", () => {
+    expect(wholeYears("2016-04-18", "2026-09-27")).toBe(10);
+    expect(wholeYears("2025-09-28", "2026-09-27")).toBe(0);
+    expect(wholeYears("2025-09-27", "2026-09-27")).toBe(1);
+  });
+
+  it("a 2016 notice: old, and its deadline has passed", () => {
+    expect(oldLetterNotice(oldNotice())).toEqual({
+      title: "This letter is old",
+      body: "It's dated April 18, 2016 (10 years ago), and its deadline, April 30, 2017, has passed. If it only just reached you, that's unusual: check with the agency directly before you act on it.",
+    });
+  });
+
+  it("a recent letter whose deadline has passed", () => {
+    expect(oldLetterNotice(run(noticeOfReassessment({ issueDate: "2026-05-01", taxYear: 2023 })))).toEqual({
+      title: "This letter's deadline has passed",
+      body: "The deadline was July 30, 2026. The steps below say what you can still do.",
+    });
+  });
+
+  it("an old letter with no deadline we can use (here: distrusted) is still called old", () => {
+    const n = oldLetterNotice(distrustDeadline(oldNotice(), "CRA"));
+    expect(n?.title).toBe("This letter is old");
+    expect(n?.body).toMatch(/^It's dated April 18, 2016 \(10 years ago\)\. If it only just reached you/);
+    const lastYear = { ...distrustDeadline(oldNotice(), "CRA"), clockStartedOn: "2025-06-01" };
+    expect(oldLetterNotice(lastYear)?.body).toMatch(/\(over a year ago\)/);
+  });
+
+  it("stays quiet while a deadline is still ahead, however old the letter", () => {
+    expect(oldLetterNotice(run(noticeOfReassessment({ issueDate: "2026-07-10", taxYear: 2023 })))).toBeNull();
+    const d = run(noticeOfReassessment({ issueDate: "2026-07-10", taxYear: 2023 }));
+    expect(oldLetterNotice({ ...d, clockStartedOn: "2024-01-15" })).toBeNull();
+    expect(oldLetterNotice(run(letterA()))).toBeNull();
   });
 });

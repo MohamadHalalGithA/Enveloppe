@@ -37,6 +37,7 @@ export function ProcessStepper({ process }: { process: ProcessView | null }) {
                     )}
                     <span className="sr-only"> ({s.state === "done" ? "done" : s.state === "current" ? "current step" : "not yet"})</span>
                   </p>
+                  {s.alert && <p className="font-semibold text-red-800">{s.alert}</p>}
                   {s.expectNext && <p className="text-sm text-slate-600">What usually happens: {s.expectNext}</p>}
                 </div>
               </li>

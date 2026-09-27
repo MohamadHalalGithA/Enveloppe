@@ -12,7 +12,7 @@ import type {
 } from "@/lib/contracts";
 import { computeDeadline, distrustDeadline } from "@/lib/deadlines/engine";
 import { hasReadingUncertainty } from "@/lib/gemini/guard";
-import { advanceForLetter, placeNewCase, processView } from "@/lib/processes/engine";
+import { advanceForLetter, flagMissedDeadline, placeNewCase, processView } from "@/lib/processes/engine";
 import type { Registry } from "@/lib/registry/load";
 import { agencyEntry } from "@/lib/registry/lookup";
 import { computeVerdict, sortItems } from "@/lib/verification";
@@ -100,7 +100,7 @@ export function assembleCaseFile(input: AssembleInput): CaseFileDraft {
     caseMatch: thread.match,
     deadline,
     placement,
-    process: placement ? processView(reg, placement.processId, placement.stageId) : null,
+    process: placement ? flagMissedDeadline(processView(reg, placement.processId, placement.stageId), deadline, placement.stageId) : null,
     responsePack,
     whatIsThis: {
       agencyLabel: agencyLabel(x, agency, verdict),

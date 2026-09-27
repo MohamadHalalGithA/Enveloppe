@@ -32,7 +32,7 @@ import {
   type LetterRow,
 } from "@/lib/db/repo";
 import type { Db } from "@/lib/db/types";
-import { usable } from "@/lib/deadlines/rules";
+import { objectionExtensionEnd, usable } from "@/lib/deadlines/rules";
 import { ConflictError, NotFoundError } from "@/lib/errors";
 import { advanceForLetter, afterSubmit, placeNewCase, processById, processView, statusForStage } from "@/lib/processes/engine";
 import type { QrFinding } from "@/lib/qr/decode";
@@ -198,17 +198,26 @@ async function maybeCreateTask(
   info: AttachInfo,
 ): Promise<void> {
   const stage = processById(processId)?.stages.find((s) => s.id === stageId);
-  if (!stage?.userAction || !info.pack?.action) return;
+  // "Call and ask" isn't something to submit: saving proof would move the case on as if you had acted.
+  if (!stage?.userAction || !info.pack?.action || info.pack.action.type === "call") return;
   await supersedeOpenTasks(db, userId, caseId);
   await createTask(db, userId, {
     caseId,
     letterId,
     actionType: info.pack.action.type,
     title: info.pack.action.label,
-    dueDate: info.deadline?.effective ?? null,
+    dueDate: taskDueDate(info.deadline),
     status: "OPEN",
     checklist: info.pack.requestedDocuments.map((d) => ({ label: d.label, checked: false })),
   });
+}
+
+/** The deadline; once it has passed, the last day to ask for more time if there is one, else no date. */
+function taskDueDate(d: DeadlineResult | null): CivilDate | null {
+  if (!d?.effective) return null;
+  if (d.status !== "PASSED") return d.effective;
+  const lastDay = objectionExtensionEnd(d);
+  return lastDay && lastDay >= d.asOf ? lastDay : null;
 }
 
 function analyzedParts(letter: LetterRow) {

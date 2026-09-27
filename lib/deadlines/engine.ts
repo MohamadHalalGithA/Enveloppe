@@ -3,7 +3,7 @@ import type { Registry } from "@/lib/registry/load";
 import { sourceOf } from "@/lib/registry/lookup";
 import { formatCivilDate } from "@/lib/ui/format";
 import { addDays, dayOfWeek, diffDays, holidayName, minDate } from "./calendar";
-import { RULES, usable } from "./rules";
+import { objectionExtensionEnd, RULES, usable } from "./rules";
 
 /**
  * Deadline Engine (Blueprint Part 12). Gemini extracted the dates; this code does every calculation.
@@ -70,10 +70,13 @@ export function computeDeadline(
     }
   }
   if (status === "PASSED") {
+    const lastDay = computed ? objectionExtensionEnd({ computed }) : null;
     notes.push(
-      rule?.id === "CRA-OBJ-165-1"
-        ? "This deadline has passed. CRA lets you apply for an extension up to one year after the objection deadline."
-        : "This date has passed. You may still have options: contact the agency using the official number.",
+      !lastDay
+        ? "This date has passed. You may still have options: contact the agency using the official number."
+        : lastDay >= opts.today
+          ? `This deadline has passed. You can still ask CRA for an extension of time to object: apply as soon as possible, and no later than ${formatCivilDate(lastDay)}.`
+          : `This deadline has passed, and so has the last day to ask CRA for an extension of time to object (${formatCivilDate(lastDay)}).`,
     );
   }
   if (!effective && !notes.length) notes.push("We didn't find a deadline in this letter.");

@@ -7,7 +7,7 @@ import { openPglite } from "@/lib/db/client";
 import { createLetter, storeLetterImage } from "@/lib/db/repo";
 import type { Db } from "@/lib/db/types";
 import type { QrFinding } from "@/lib/qr/decode";
-import { letterA, letterB } from "../helpers/extractions";
+import { letterA, letterB, noticeOfReassessment } from "../helpers/extractions";
 
 /**
  * Renders the real /app server pages against a seeded database. Only the signed-in user is substituted
@@ -42,6 +42,7 @@ let letterAId: string;
 let letterBId: string;
 let blurryId: string;
 let uploadedId: string;
+let oldId: string;
 let caseId: string;
 
 beforeAll(async () => {
@@ -62,6 +63,9 @@ beforeAll(async () => {
   blurry.identifiers[0] = { ...blurry.identifiers[0], needsConfirmation: true, confidence: "low" };
   await fileAnalyzedLetter(db, signedIn.id, blurryId, { extraction: blurry, qr: [] }, opts);
   uploadedId = await seed("d");
+  oldId = await seed("e");
+  const old = noticeOfReassessment({ issueDate: "2016-04-18", taxYear: 2015, ref: "2015-T1-3301-7702" });
+  await fileAnalyzedLetter(db, signedIn.id, oldId, { extraction: old, qr: [] }, opts);
 }, 60_000);
 
 describe("/app pages with real data", () => {
@@ -110,6 +114,21 @@ describe("/app pages with real data", () => {
     expect(page).toContain("Lease or rental agreement");
     expect(page).toContain("I&#x27;ve submitted it");
     expect(page).toContain("Case created");
+  });
+
+  it("an old letter says so: banner, the missed step flagged, and no task 'due' years ago once tracked", async () => {
+    const page = await html(LetterPage(params(oldId)));
+    expect(page).toContain("This letter is old");
+    expect(page).toContain("It&#x27;s dated April 18, 2016 (10 years ago), and its deadline, April 30, 2017, has passed.");
+    expect(page).toContain("The deadline for this step was April 30, 2017. It has passed.");
+    expect(page).toContain("Ask CRA what you can still do");
+    expect(page).not.toContain("you can file an objection by");
+
+    const { caseId: oldCase } = await decideCase(db, signedIn.id, oldId, { decision: "new" });
+    const casePage = await html(CasePage(params(oldCase!)));
+    expect(casePage).not.toContain("I&#x27;ve submitted it");
+    expect(casePage).not.toContain("by April 30, 2017");
+    expect(await html(LetterPage(params(oldId)))).toContain("The deadline for this step was April 30, 2017. It has passed.");
   });
 
   it("someone else's (or a made-up) id is simply not found", async () => {

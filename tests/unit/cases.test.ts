@@ -201,3 +201,61 @@ describe("Response Pack invariant", () => {
     }
   });
 });
+
+describe("old letters (deadline passed)", () => {
+  it("a 2016 notice: no objection 'by' a date that's gone, the step is flagged, nothing to submit", () => {
+    const { draft } = assemble(noticeOfReassessment({ issueDate: "2016-04-18", taxYear: 2015 }));
+    expect(draft.verdict).toBe("CONSISTENT_WITH_TRUSTED_SOURCES");
+    expect(draft.deadline.status).toBe("PASSED");
+    const pack = draft.responsePack!;
+    expect(pack.summary).toBe(
+      "The deadline to object to this notice of reassessment was April 30, 2017, and the last day to ask for more time was April 30, 2018. If you still disagree with it, ask CRA what you can do.",
+    );
+    expect(pack.action).toEqual({ type: "call", label: "Ask CRA what you can still do" });
+    expect(pack).toMatchObject({ officialChannel: null, form: null, officialContact: { registryId: "tel-cra-individual" } });
+    expect(draft.whatIsThis.explanation.en).not.toMatch(/you can file an objection/);
+    expect(draft.process?.stages.find((s) => s.state === "current")).toMatchObject({
+      id: "OBJECTION_WINDOW_OPEN",
+      alert: "The deadline for this step was April 30, 2017. It has passed.",
+    });
+  });
+
+  it("an objection deadline missed within the last year: ask for more time, as P148 describes", () => {
+    const { draft } = assemble(noticeOfReassessment({ issueDate: "2026-05-01", taxYear: 2023 }));
+    const pack = draft.responsePack!;
+    expect(pack.summary).toBe(
+      "The deadline to object to this notice of reassessment was July 30, 2026. If you disagree with it, you can still ask CRA for more time to object, until July 30, 2027.",
+    );
+    expect(pack.action).toEqual({ type: "file_objection", label: "Decide whether to ask for more time to object" });
+    expect(pack.steps[1]).toBe(
+      "If you disagree, ask for more time in your CRA account, or write to CRA's Chief of Appeals. Explain why you didn't object on time, and include your objection.",
+    );
+    expect(pack).toMatchObject({ form: { code: "T400A" }, officialChannel: { registryId: "chan-cra-file-objection" } });
+  });
+
+  it("a review letter past its date: call first, then the usual steps", () => {
+    const x = letterA();
+    x.printedDeadlines = x.printedDeadlines.map((d) => ({ ...d, value: "2026-09-01", sourceText: "by September 1, 2026" }));
+    const pack = assemble(x).draft.responsePack!;
+    expect(pack.summary).toBe("CRA asked for documents by September 1, 2026. That date has passed, so call CRA as soon as you can.");
+    expect(pack.steps.slice(0, 2)).toEqual([
+      "Call CRA at the official number above and ask whether you can still send the documents.",
+      "Gather the documents in the checklist.",
+    ]);
+    expect(pack.action?.type).toBe("submit_documents");
+  });
+
+  it("biometrics past the 30 days: contact IRCC, don't book as if nothing happened", () => {
+    const pack = assemble(irccBiometricsLetter("2026-08-01")).draft.responsePack!;
+    expect(pack.summary).toBe("The deadline to give your biometrics was August 31, 2026. That date has passed, so contact IRCC as soon as you can.");
+    expect(pack.steps[0]).toBe("Contact IRCC through its web form and ask what to do now.");
+  });
+
+  it("a letter whose deadline is still ahead is unchanged", () => {
+    const { draft } = assemble(noticeOfReassessment({ issueDate: "2026-07-10", taxYear: 2023 }));
+    expect(draft.responsePack?.summary).toBe(
+      "If you disagree with this notice of reassessment, you can file an objection by October 8, 2026. If you agree, you don't need to do anything.",
+    );
+    expect(draft.process?.stages.some((s) => s.alert)).toBe(false);
+  });
+});

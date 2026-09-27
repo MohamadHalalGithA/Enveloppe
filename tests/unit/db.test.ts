@@ -13,7 +13,7 @@ import { createLetter, getLetterItems, getLetterRow } from "@/lib/db/repo";
 import type { Db } from "@/lib/db/types";
 import { AuthError, ConflictError, NotFoundError } from "@/lib/errors";
 import type { QrFinding } from "@/lib/qr/decode";
-import { letterA, letterB } from "../helpers/extractions";
+import { letterA, letterB, noticeOfReassessment } from "../helpers/extractions";
 
 const refKey = "test-hmac-key-".repeat(4);
 const opts = { today: "2026-09-27", refKey };
@@ -161,5 +161,24 @@ describe("Case File lifecycle: the twin-letter demo", () => {
       expect(inbox.letters.every((l) => l.id !== letterAId && l.id !== letterBId)).toBe(true);
       expect((await getInbox(db, amira.id)).cases.map((c) => c.id)).toEqual([caseId]);
     });
+  });
+});
+
+describe("old letters", () => {
+  it("a missed objection deadline: the task is due on the last day to ask for more time, not the missed date", async () => {
+    const user = await resolveUser(db, "auth0|old-letters");
+    const id = (await createLetter(db, user.id, "f".repeat(64))).id;
+    const x = noticeOfReassessment({ issueDate: "2026-05-01", taxYear: 2023 });
+    await fileAnalyzedLetter(db, user.id, id, { extraction: x, qr: [] }, opts);
+    const caseId = (await decideCase(db, user.id, id, { decision: "new" })).caseId!;
+    const detail = await getCaseDetail(db, user.id, caseId);
+    expect(detail.tasks).toHaveLength(1);
+    expect(detail.tasks[0]).toMatchObject({
+      status: "OPEN",
+      dueDate: "2027-07-30",
+      actionType: "file_objection",
+      title: "Decide whether to ask for more time to object",
+    });
+    expect(detail.case.nextDeadline).toBe("2027-07-30");
   });
 });

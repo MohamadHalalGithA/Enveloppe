@@ -42,6 +42,8 @@ export const ProcessViewZ = z.object({
       label: z.string(),
       state: z.enum(["done", "current", "todo"]),
       expectNext: z.string().optional(),
+      /** Set on the current step when the deadline to act on it has passed (an old letter). */
+      alert: z.string().optional(),
     }),
   ),
   sourceUrl: z.url(),

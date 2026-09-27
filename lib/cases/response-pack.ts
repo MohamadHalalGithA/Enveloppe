@@ -1,13 +1,14 @@
 import type {
   ActionType,
   AgencyEntry,
+  CivilDate,
   DeadlineResult,
   Extraction,
   ResponsePack,
   Verdict,
   VerificationItem,
 } from "@/lib/contracts";
-import { usable } from "@/lib/deadlines/rules";
+import { objectionExtensionEnd, usable } from "@/lib/deadlines/rules";
 import { processById } from "@/lib/processes/engine";
 import type { Registry } from "@/lib/registry/load";
 import { channelFor, contactById, officialContactFor } from "@/lib/registry/lookup";
@@ -95,7 +96,14 @@ export function buildResponsePack(input: PackInput): ResponsePack | null {
           : null;
   const base = { deadline, requestedDocuments: docs, officialChannel, officialContact, form, caution, completion };
   const docLabel = DOC_LABEL[docType ?? "OTHER"].toLowerCase();
+  const pack = packForAction(action, base, agency, docLabel);
+  return deadline.status === "PASSED" && deadline.effective ? afterDeadline(pack, action, agency, docLabel, deadline.effective) : pack;
+}
 
+type PackBase = Omit<ResponsePack, "summary" | "action" | "steps">;
+
+function packForAction(action: ActionType | null, base: PackBase, agency: AgencyEntry, docLabel: string): ResponsePack {
+  const { deadline, officialChannel, form } = base;
   switch (action) {
     case "submit_documents":
       return {
@@ -153,6 +161,76 @@ export function buildResponsePack(input: PackInput): ResponsePack | null {
         summary: `We didn't find anything you need to do. If you're unsure, contact ${agency.shortName} using the official number.`,
         action: null,
         steps: [`Keep the letter with your ${agency.shortName} records.`],
+      };
+  }
+}
+
+/**
+ * An old letter: its deadline has passed. Never tell someone to act "by" a date that's gone; say it passed and
+ * point to what they can still do.
+ */
+function afterDeadline(pack: ResponsePack, action: ActionType | null, agency: AgencyEntry, docLabel: string, passedOn: CivilDate): ResponsePack {
+  const was = formatCivilDate(passedOn);
+  const who = agency.shortName;
+  switch (action) {
+    case "file_objection": {
+      const lastDay = objectionExtensionEnd(pack.deadline);
+      if (lastDay && lastDay >= pack.deadline.asOf) {
+        // P148: ask through My Account, or in writing to the Chief of Appeals, with your reasons and your objection.
+        return {
+          ...pack,
+          summary: `The deadline to object to this ${docLabel} was ${was}. If you disagree with it, you can still ask ${who} for more time to object, until ${formatCivilDate(lastDay)}.`,
+          action: { type: "file_objection", label: "Decide whether to ask for more time to object" },
+          steps: [
+            `Read the ${docLabel} and decide whether you disagree with it.`,
+            `If you disagree, ask for more time in your ${who} account, or write to ${who}'s Chief of Appeals. Explain why you didn't object on time, and include your objection.`,
+            `Apply as soon as you can. The last day is ${formatCivilDate(lastDay)}.`,
+            "Save your confirmation or case number here.",
+          ],
+        };
+      }
+      return {
+        ...pack,
+        summary: `The deadline to object to this ${docLabel} was ${was}${lastDay ? `, and the last day to ask for more time was ${formatCivilDate(lastDay)}` : ""}. If you still disagree with it, ask ${who} what you can do.`,
+        action: { type: "call", label: `Ask ${who} what you can still do` },
+        officialChannel: null,
+        form: null,
+        steps: [
+          `Keep the ${docLabel} with your ${who} records.`,
+          `If you still disagree with it, call ${who} at the official number above and ask what options you have.`,
+        ],
+      };
+    }
+    case "submit_documents":
+      return {
+        ...pack,
+        summary: `${who} asked for documents by ${was}. That date has passed, so call ${who} as soon as you can.`,
+        steps: [`Call ${who} at the official number above and ask whether you can still send the documents.`, ...pack.steps],
+      };
+    case "give_biometrics":
+      return {
+        ...pack,
+        summary: `The deadline to give your biometrics was ${was}. That date has passed, so contact ${who} as soon as you can.`,
+        steps: [
+          `Contact ${who} through its web form and ask what to do now.`,
+          "Keep your biometric instruction letter. You'll need it for an appointment.",
+          "Save your appointment confirmation here.",
+        ],
+      };
+    case "pay":
+      return {
+        ...pack,
+        summary: `This letter asked for a payment by ${was}. That date has passed. Before paying, confirm the amount with ${who}.`,
+        steps: [
+          `Call ${who} at the official number above to confirm what you owe now.`,
+          `Pay using a method ${who} lists on canada.ca, starting from canada.ca yourself.`,
+          "Save your payment confirmation here.",
+        ],
+      };
+    default:
+      return {
+        ...pack,
+        summary: `The date in this letter, ${was}, has passed. If you're unsure whether you still need to do anything, contact ${who} using the official number.`,
       };
   }
 }

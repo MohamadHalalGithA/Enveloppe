@@ -8,7 +8,7 @@ import {
 import { getCaseRow, getLetterItems, getLetterRow, taskForLetter } from "@/lib/db/repo";
 import type { Db } from "@/lib/db/types";
 import { ConflictError, NotFoundError } from "@/lib/errors";
-import { processView } from "@/lib/processes/engine";
+import { flagMissedDeadline, processView } from "@/lib/processes/engine";
 import { getRegistry, type Registry } from "@/lib/registry/load";
 import { CACHED_MODEL_ID } from "@/lib/pipeline/cached-reading";
 import type { CaseFileDraft } from "./assemble";
@@ -66,6 +66,9 @@ export async function loadLetterResult(
     // An open task can be completed from the letter; a superseded one can't.
     pack = { ...pack, completion: { status: "OPEN", taskId: task?.status === "OPEN" ? task.id : null, proof: null } };
   }
+  // A missed deadline marks the step this letter asked you to act in, unless that's been done or overtaken.
+  const deadline = row.deadline as DeadlineResult;
+  const flagged = !task || task.status === "OPEN" ? flagMissedDeadline(process, deadline, summary.placement?.stageId) : process;
 
   return LetterResultZ.parse({
     id: row.id,
@@ -78,8 +81,8 @@ export async function loadLetterResult(
     verdict: row.verdict,
     items,
     officialContact: pack?.officialContact ?? null,
-    deadline: row.deadline as DeadlineResult,
-    process,
+    deadline,
+    process: flagged,
     responsePack: pack,
     caseMatch: row.caseMatch as CaseMatch,
     filedIn: filedCase ? { caseId: filedCase.id, title: filedCase.title, role: row.caseRole ?? "primary" } : null,

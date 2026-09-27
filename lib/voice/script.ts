@@ -51,6 +51,18 @@ export function buildSpeechScript(letter: LetterResult): SpeechScript {
     parts.push(`This is a ${clip(docKind.toLowerCase())} from the ${clip(name)}${about ? `, about the ${clip(about)}` : ""}.`);
   }
 
+  const d = letter.deadline;
+  if (d.status === "PASSED" && d.effective) {
+    // An old letter: don't read out steps as if they were still open.
+    values.DEADLINE = d.effective;
+    parts.push("The deadline for this letter was {{DEADLINE}}. That date has passed.");
+    if (pack?.action?.type === "file_objection") {
+      parts.push("If you disagree with it, you can still ask for more time to object. The steps are on your screen.");
+    }
+    parts.push(phone ? `To ask what you can still do, call ${clip(short)} at {{PHONE}}.` : `To ask what you can still do, contact ${clip(short)}.`);
+    return { template: parts.join(" "), values };
+  }
+
   switch (pack?.action?.type) {
     case "submit_documents": {
       const docs = pack.requestedDocuments.slice(0, 3).map((d) => clip(d.label.toLowerCase()));
@@ -73,15 +85,10 @@ export function buildSpeechScript(letter: LetterResult): SpeechScript {
       parts.push("You do not need to do anything right now.");
   }
 
-  const d = letter.deadline;
   if (d.effective && d.daysRemaining !== null) {
     values.DEADLINE = d.effective;
-    if (d.daysRemaining >= 0) {
-      values.DAYS = d.daysRemaining;
-      parts.push("The deadline is {{DEADLINE}}. That is {{DAYS}} days from today.");
-    } else {
-      parts.push("The deadline was {{DEADLINE}}. That date has passed.");
-    }
+    values.DAYS = d.daysRemaining;
+    parts.push("The deadline is {{DEADLINE}}. That is {{DAYS}} days from today.");
   }
   if (phone) parts.push(`If you have questions, call ${clip(short)} at {{PHONE}}.`);
   return { template: parts.join(" "), values };

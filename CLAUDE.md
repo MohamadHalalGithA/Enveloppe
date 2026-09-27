@@ -97,6 +97,9 @@ boundary · `@google/genai` · ElevenLabs REST · `@auth0/nextjs-auth0` · `jsqr
 - Case Brain: `lib/cases/` (pure `assemble.ts` + `threading.ts` + `response-pack.ts`; DB `service.ts`),
   `lib/deadlines/` (calendar + rules as code, each citing a registry source), `lib/processes/` + `data/processes/*.json`.
   References are stored only as HMAC + last 4 (`lib/cases/reference.ts`, `mask.ts`); never store the full number.
+  Old letters: once a deadline has passed, nothing may say "do X by <past date>". The Response Pack, timeline
+  (`flagMissedDeadline`), voice script and tasks switch to "it passed, here's what you can still do" (CRA objection:
+  one-year extension per P148, `objectionExtensionEnd`); `lib/deadlines/age.ts` drives the "This letter is old" banner.
 - Database: `lib/db/client.ts` → `DATABASE_URL=pglite:./.data/enveloppe` (dev, in-process Postgres, no Docker) or
   `postgres://…` (prod). Migrations: edit `lib/db/schema.ts`, then `npx drizzle-kit generate`; applied on first connect.
   All data access goes through `lib/db/repo.ts`, whose functions take the user id first and scope every query.

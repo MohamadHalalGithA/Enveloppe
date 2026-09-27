@@ -1,4 +1,4 @@
-import type { CivilDate, DeadlineRule, Extraction, Field, RuleOutcome } from "@/lib/contracts";
+import type { CivilDate, DeadlineResult, DeadlineRule, Extraction, Field, RuleOutcome } from "@/lib/contracts";
 import { formatCivilDate } from "@/lib/ui/format";
 import { addDays, addYears, maxDate } from "./calendar";
 
@@ -59,6 +59,14 @@ export const craObjection: RuleSpec = {
     };
   },
 };
+
+/**
+ * Once the objection deadline has passed, P148: "Apply as soon as possible, but no later than one year after
+ * the date you had to file the objection." The last day to ask CRA for more time (null for other rules).
+ */
+export function objectionExtensionEnd(d: Pick<DeadlineResult, "computed">): CivilDate | null {
+  return d.computed?.ruleId === craObjection.id ? addYears(d.computed.date, 1) : null;
+}
 
 /** IRCC-BIO-30: "You have 30 days from the time you get your BIL to give your biometrics." */
 export const irccBiometrics: RuleSpec = {

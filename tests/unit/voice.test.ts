@@ -45,6 +45,20 @@ describe("spoken script (built from the verified result, never the letter)", () 
     for (const f of FORBIDDEN) expect(s.template).not.toContain(f);
   });
 
+  it("an old letter: says the date has passed instead of reading out steps as if they were still open", async () => {
+    const { a } = await demoResults();
+    const passed = { ...a.deadline, effective: "2026-09-01", daysRemaining: -26, status: "PASSED" as const };
+    const s = buildSpeechScript({ ...a, deadline: passed });
+    expect(s.template).toBe(
+      "This is a request for documents from the Canada Revenue Agency, about the Canada child benefit. " +
+        "The deadline for this letter was {{DEADLINE}}. That date has passed. To ask what you can still do, call CRA at {{PHONE}}.",
+    );
+    expect(s.values).toEqual({ PHONE: "1-800-387-1193", DEADLINE: "2026-09-01" });
+
+    const objection = buildSpeechScript({ ...a, deadline: passed, responsePack: { ...a.responsePack!, action: { type: "file_objection", label: "x" } } });
+    expect(objection.template).toContain("If you disagree with it, you can still ask for more time to object.");
+  });
+
   it("fills dates and numbers with the language's own formatting, not a model's", () => {
     const t = "The deadline is {{DEADLINE}}. {{DAYS}} days. Call {{PHONE}}.";
     const v = { DEADLINE: "2026-10-14", DAYS: 17, PHONE: "1-800-387-1193" };
