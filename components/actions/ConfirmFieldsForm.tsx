@@ -62,7 +62,7 @@ export function ConfirmFieldsForm({ letterId, fields }: { letterId: string; fiel
               />
             </label>
           ))}
-          <button type="submit" disabled={busy} className="self-start rounded-lg bg-amber-800 px-4 py-2 font-semibold text-white disabled:opacity-60">
+          <button type="submit" disabled={busy} className="self-start rounded-lg bg-amber-800 px-4 py-2 font-semibold text-white transition-colors enabled:hover:bg-amber-900 disabled:opacity-60">
             {busy ? "Re-checking…" : "Confirm and re-check"}
           </button>
           {error && (

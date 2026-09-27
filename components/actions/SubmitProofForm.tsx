@@ -18,7 +18,7 @@ export function SubmitProofForm({ taskId }: { taskId: string }) {
 
   if (!open) {
     return (
-      <button type="button" onClick={() => setOpen(true)} className="rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white">
+      <button type="button" onClick={() => setOpen(true)} className="rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white transition-colors hover:bg-sky-900">
         I&apos;ve submitted it
       </button>
     );
@@ -64,10 +64,10 @@ export function SubmitProofForm({ taskId }: { taskId: string }) {
         />
       </label>
       <div className="flex gap-2">
-        <button type="submit" disabled={busy} className="rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white disabled:opacity-60">
+        <button type="submit" disabled={busy} className="rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white transition-colors enabled:hover:bg-sky-900 disabled:opacity-60">
           {busy ? "Saving…" : "Save"}
         </button>
-        <button type="button" onClick={() => setOpen(false)} disabled={busy} className="rounded-lg border px-4 py-2">
+        <button type="button" onClick={() => setOpen(false)} disabled={busy} className="rounded-lg border px-4 py-2 transition-colors enabled:hover:bg-slate-100">
           Cancel
         </button>
       </div>

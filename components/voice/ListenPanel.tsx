@@ -61,7 +61,7 @@ export function ListenPanel({
             ))}
           </select>
         </label>
-        <button type="button" onClick={() => void listen()} disabled={busy} className="rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white disabled:opacity-60">
+        <button type="button" onClick={() => void listen()} disabled={busy} className="rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white transition-colors enabled:hover:bg-sky-900 disabled:opacity-60">
           {busy ? "Preparing…" : "▶ Listen"}
         </button>
       </div>

@@ -96,7 +96,7 @@ export function UploadPanel() {
             type="button"
             onClick={() => input.current?.click()}
             disabled={busy}
-            className="self-start rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white disabled:opacity-60"
+            className="self-start rounded-lg bg-sky-800 px-4 py-2 font-semibold text-white transition-colors enabled:hover:bg-sky-900 disabled:opacity-60"
           >
             {preview ? "Choose another photo" : "Choose or take a photo"}
           </button>
@@ -121,7 +121,7 @@ export function UploadPanel() {
             <div role="alert" className="rounded-md border-2 border-red-700 bg-red-50 p-3 text-red-950">
               <p>{error}</p>
               {letterId && (
-                <button type="button" onClick={() => void analyze(letterId)} className="mt-2 font-semibold underline">
+                <button type="button" onClick={() => void analyze(letterId)} className="mt-2 font-semibold underline hover:decoration-2">
                   Try again
                 </button>
               )}

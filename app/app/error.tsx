@@ -9,7 +9,7 @@ export default function AppError({ reset }: { error: Error & { digest?: string }
       <h1 className="text-2xl font-bold">Something went wrong</h1>
       <p>Your letters are safe. Please try again.</p>
       <div className="flex gap-3">
-        <button type="button" onClick={reset} className="rounded-lg bg-red-800 px-4 py-2 font-semibold text-white">
+        <button type="button" onClick={reset} className="rounded-lg bg-red-800 px-4 py-2 font-semibold text-white transition-colors hover:bg-red-900">
           Try again
         </button>
         <Link href="/app" className="self-center underline">

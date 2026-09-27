@@ -56,3 +56,18 @@ test("the legitimate letter shows its deadline, process and official channel", a
   await expect(page.getByRole("link", { name: "CRA Submit documents online" })).toBeVisible();
   expect(problems).toEqual([]);
 });
+
+test("clickable things look clickable; read-only demo buttons don't", async ({ page, isMobile }) => {
+  await page.goto("/");
+  const demo = page.getByRole("link", { name: "See the demo (no sign-in)" });
+  if (!isMobile) {
+    // Tailwind only applies hover styles on devices that can hover.
+    const before = await demo.evaluate((el) => getComputedStyle(el).backgroundColor);
+    await demo.hover();
+    await expect.poll(() => demo.evaluate((el) => getComputedStyle(el).backgroundColor)).not.toBe(before);
+  }
+  await demo.click();
+  await page.getByRole("link", { name: /Matches trusted sources.*Request for documents/ }).first().click();
+  await expect(page.getByRole("button", { name: /Listen/ })).toHaveCSS("cursor", "pointer");
+  await expect(page.getByRole("button", { name: "I've submitted it" })).toHaveCSS("cursor", "not-allowed");
+});

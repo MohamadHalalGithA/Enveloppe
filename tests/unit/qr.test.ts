@@ -9,7 +9,8 @@ import groundTruth from "@/demo/letters/out/ground-truth.json";
 const letter = (f: string) => readFile(`demo/letters/out/${f}`);
 const SCAM_URL = "https://cra-canada-verify.example/ccb?ref=8902";
 
-describe("findQrCodes", () => {
+// Whole-page scans of full-size letters are CPU-heavy: ~2 s alone, over 5 s while the whole suite runs in parallel.
+describe("findQrCodes", { timeout: 30_000 }, () => {
   it("decodes the twin letter's QR code from the located box", async () => {
     const [q] = await findQrCodes(await letter("B_cra_twin_scam.png"), [
       { box: groundTruth.B.qr as Box, page: 1, nearbyText: "Scan to verify your identity" },

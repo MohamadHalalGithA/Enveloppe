@@ -21,7 +21,7 @@ export function VerificationLedger({ items, selectedId, onSelect }: Props) {
         return (
           <li key={item.id}>
             <div
-              className={`rounded-lg border p-3 ${selected ? "border-sky-700 ring-2 ring-sky-600" : "border-slate-300"}`}
+              className={`rounded-lg border p-3 transition-colors has-[button:hover]:bg-slate-50 ${selected ? "border-sky-700 ring-2 ring-sky-600" : "border-slate-300"}`}
             >
               <button
                 type="button"

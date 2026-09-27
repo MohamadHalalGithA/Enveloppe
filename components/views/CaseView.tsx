@@ -95,7 +95,7 @@ export function CaseView({ detail }: { detail: CaseDetail }) {
             const v = VERDICT_COPY[l.verdict];
             return (
               <li key={l.id}>
-                <Link href={`/app/letters/${l.id}`} className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-300 p-3 hover:bg-slate-50">
+                <Link href={`/app/letters/${l.id}`} className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-300 p-3 transition-colors hover:bg-slate-50">
                   <span className={`rounded-full border px-2 py-0.5 text-sm font-semibold ${TONE_CLASSES[v.tone]}`}>
                     <span aria-hidden>{v.icon}</span> {v.title}
                   </span>

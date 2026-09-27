@@ -47,8 +47,8 @@ export function CaseDecisionButtons({ letterId, actions }: { letterId: string; a
             onClick={() => void run(a)}
             className={
               a.primary
-                ? "rounded-lg bg-sky-800 px-3 py-1.5 font-semibold text-white disabled:opacity-60"
-                : "rounded-lg border border-current px-3 py-1.5 font-semibold disabled:opacity-60"
+                ? "rounded-lg bg-sky-800 px-3 py-1.5 font-semibold text-white transition-colors enabled:hover:bg-sky-900 disabled:opacity-60"
+                : "rounded-lg border border-current px-3 py-1.5 font-semibold transition-colors enabled:hover:bg-slate-100 disabled:opacity-60"
             }
           >
             {a.label}
@@ -86,7 +86,7 @@ export function DeleteButton({ url, label, confirmText }: { url: string; label: 
             setBusy(false);
           }
         }}
-        className="rounded-lg border border-red-800 px-3 py-1.5 font-semibold text-red-900 disabled:opacity-60"
+        className="rounded-lg border border-red-800 px-3 py-1.5 font-semibold text-red-900 transition-colors enabled:hover:bg-red-50 disabled:opacity-60"
       >
         {label}
       </button>

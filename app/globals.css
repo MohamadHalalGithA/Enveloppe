@@ -21,3 +21,20 @@ body {
   font-family: var(--font-sans);
   line-height: 1.5;
 }
+
+/* Tailwind v4 leaves buttons with the default cursor: anything clickable shows the pointer, disabled shows it isn't. */
+@layer base {
+  button:not(:disabled),
+  [role="button"],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  label:has(> input[type="checkbox"]) {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+}

@@ -74,7 +74,7 @@ export function InboxView({ inbox, basePath, headerAction }: { inbox: Inbox; bas
               <li key={l.id}>
                 <Link
                   href={`${basePath}/letters/${l.id}`}
-                  className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-300 p-3 hover:bg-slate-50"
+                  className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-300 p-3 transition-colors hover:bg-slate-50"
                 >
                   <span className={`rounded-full border px-2 py-0.5 text-sm font-semibold ${TONE_CLASSES[v.tone]}`}>
                     <span aria-hidden>{v.icon}</span> {v.title}
