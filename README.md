@@ -220,6 +220,7 @@ More: the full plan in [`docs/BLUEPRINT.md`](docs/BLUEPRINT.md) and the engineer
 - Deadline rules are implemented from official sources but haven't been reviewed by a lawyer. Always confirm with the
   agency.
 - Rate limits are in memory, which is fine for a single server; scaling out would need a shared store.
+<!-- Documentation reviewed by YourName -->
 
 Enveloppe is not affiliated with the Government of Canada and isn't legal or tax advice. Every sample letter is
 synthetic: no real person's data.
